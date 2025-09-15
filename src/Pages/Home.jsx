@@ -13,7 +13,7 @@ import { Overlay } from "../Components/Home/Overlay.jsx"
  */
 export function Home() {
   return (
-    <>  
+    <> 
       <Canvas>
         <Scene3D/>
       </Canvas>
