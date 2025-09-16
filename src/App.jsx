@@ -9,6 +9,7 @@ import { About } from './Pages/About.jsx'
 import { Profil } from './Pages/Profil.jsx'
 import { Fav } from './Pages/Fav.jsx'
 import { Cart } from './Pages/Cart.jsx'
+import { Login } from "./Pages/Login.jsx";
 
 /**
  * Routes
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: <Cart/>,
+  },
+  {
+    path: "/login",
+    element: <Login/>
   }
 ]);
 
