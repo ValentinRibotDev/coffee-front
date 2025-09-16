@@ -1,16 +1,41 @@
 import { useGLTF, useTexture } from '@react-three/drei'
+import { useState } from 'react'
+import * as THREE from 'three'
 
 export function CoffeeCup(props) {
 
     //Model Loading
     const { nodes, materials } = useGLTF('./Models/coffee_cup.glb')
 
-    //Texture Loading
-    const caramel = useTexture({
-        metalnessMap: './Textures/Caramel/CupBodyCaramelMetalness.jpg',
-        map: './Textures/Caramel/CupBodyCaramelColor.jpg',
-        roughness: './Textures/Caramel/CupBodyCaramelRoughtness.jpg',
-    })
+    //Texture Loading function
+    const loadTextureSet = (basePath, color) => {
+        const tex = useTexture({
+            map: `/Textures/${basePath}/CupBody${basePath}Color.jpg`,
+            metalnessMap: `/Textures/${basePath}/CupBody${basePath}Metalness.jpg`,
+            roughnessMap: `/Textures/${basePath}/CupBody${basePath}Roughness.jpg`,
+        })
+
+        Object.values(tex).forEach((t) => {
+            if (t instanceof THREE.Texture) t.flipY = false
+        })
+
+        return { textures: tex, color }
+    }
+
+    //Texture Array
+    const variants = [
+        { name: 'Caramel', ...loadTextureSet('Caramel', '#d17d2e') },
+        { name: 'Cerise', ...loadTextureSet('Cerise', '#c50000') },
+        { name: 'Classic', ...loadTextureSet('Classic', '#101010') },
+        { name: 'Glace', ...loadTextureSet('Glace', '#ffffff') },
+        { name: 'Latte', ...loadTextureSet('Latte', '#a88256') },
+        { name: 'Matcha', ...loadTextureSet('Matcha', '#badd3d') },
+        { name: 'Rose', ...loadTextureSet('Rose', '#f172b2') },
+    ]
+
+    //Carrousel
+    const [active, setActive] = useState(6)
+    const current = variants[active]
 
     return (
         <group {...props} dispose={null}>
@@ -18,19 +43,21 @@ export function CoffeeCup(props) {
                 castShadow
                 receiveShadow
                 geometry={nodes.CupBody.geometry}
-                material={nodes.CupBody.material}
                 position={[0, 10.568, -0.011]}
                 rotation={[0, 1.256, 0]}
             >
+                <meshStandardMaterial {...current.textures}/>
+
                 <mesh
                     castShadow
                     receiveShadow
                     geometry={nodes.CupHead.geometry}
-                    material={nodes.CupHead.material}
                     position={[-0.133, 9.82, -0.086]}
                     rotation={[-Math.PI, 0.471, -Math.PI]}
                     scale={[1.064, 1, 1.041]}
-                />
+                >
+                    <meshStandardMaterial color={current.color} roughness={0.15}/>
+                </mesh>
 
                 <mesh
                     castShadow
@@ -38,7 +65,10 @@ export function CoffeeCup(props) {
                     geometry={nodes.CupLid.geometry}
                     material={nodes.CupLid.material}
                     scale={[1, 0.783, 1]}
-                />
+                >
+                    <meshStandardMaterial color={current.color}/>
+                </mesh>
+
             </mesh>
         </group>
     )

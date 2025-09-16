@@ -41,8 +41,8 @@ export function Scene3D () {
     })
 
     const {floorColor, floorMetalness, floorRoughness} = useControls('objects', {
-        floorMetalness: {value: 1, min: 0, max: 1},
-        floorRoughness: {value: 0, min:0, max: 1},
+        floorMetalness: {value: 0, min: 0, max: 1},
+        floorRoughness: {value: 1, min:0, max: 1},
         floorColor: 'grey'
     })
 
@@ -65,18 +65,20 @@ export function Scene3D () {
             />
 
             {/* Ligthning */}
-            <Environment preset={preset} background blur={blur}/>
+            <Environment preset={preset} background blur={blur}>
+
+            </Environment>
 
             {/* Meshes */}
 
                 <Center top>
-                    <CoffeeCup scale={0.2}/>
+                    <CoffeeCup scale={0.2} rotation-y={Math.PI * 0.5}/>
                 </Center>
 
 
             <mesh rotation-x={-Math.PI*0.5} scale={[100,20,20]} position={[0, -0.0005, 0]} receiveShadow>
                 <planeGeometry/>
-                <MeshReflectorMaterial color={floorColor} metalness={floorMetalness} roughness={floorRoughness} resolution={2048} blur={[10,10]}/>
+                <MeshReflectorMaterial color={floorColor} metalness={floorMetalness} roughness={floorRoughness} resolution={2048} blur={[100,100]} mixBlur={1}/>
             </mesh>
 
             {/* Shadows */}
