@@ -14,10 +14,18 @@ import { Overlay } from "../Components/Home/Overlay.jsx"
 export function Home() {
   return (
     <> 
-      <Canvas>
-        <Scene3D/>
-      </Canvas>
-      <Overlay/>
+        <Canvas
+            shadows
+            camera={ {
+                fov: 45,
+                near: 0.1,
+                far: 200
+            } }
+        >
+            <color attach="background" args={['white']} />
+            <Scene3D/>
+        </Canvas>
+        <Overlay/>
     </>
   )
 }
