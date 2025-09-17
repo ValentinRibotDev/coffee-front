@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import { useAuth } from "./AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Register () {
+    const navigate = useNavigate();
     const { setToken } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -10,25 +11,41 @@ export function Register () {
     const [firstName, setFirstName] = useState("");
 
 
-    const handleSubmit = async (e) => {
-    e.preventDefault();
-        const response = await fetch("http://localhost:8080/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include", // important pour recevoir le cookie
-        body: JSON.stringify({ email, password, firstName, name, role:["ROLE_USER"] }),
-        });
-    
-    if (response.ok) {
-      const data = await response.json();
-      alert("Connexion réussie !");
-      if(data.accessToken){
-        setToken(data.accessToken);
-    } // on stocke le JWT seulement en mémoire 
-    } else {
-      alert("Échec de connexion");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  //Création du compte
+  const registerRes = await fetch("http://localhost:8080/api/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ email, password, firstName, name}),
+  });
+
+  if (!registerRes.ok) {
+    alert("Échec de l'inscription");
+    return;
+  }
+
+  // 2️⃣ Connexion automatique après inscription
+  const loginRes = await fetch("http://localhost:8080/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ email, password }),
+  });
+
+  if (loginRes.ok) {
+    const data = await loginRes.json();
+    if (data.accessToken) {
+      setToken(data.accessToken); // stocke le JWT en mémoire
+      alert("Inscription et connexion réussies !");
+      navigate("/home");
     }
-  };
+  } else {
+    alert("Connexion automatique échouée, merci de vous connecter manuellement.");
+  }
+};
 
     return (
     <>

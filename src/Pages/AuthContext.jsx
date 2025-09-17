@@ -7,15 +7,19 @@ export const AuthProvider = ({ children }) => {
 
   // Exemple de fonction pour refresh automatiquement
   const refreshToken = async () => {
-    const res = await fetch("http://localhost:8000/api/refresh", {
-      method: "POST",
-      credentials: "include", // obligatoire pour envoyer le cookie
-    });
+    try {
+      const res = await fetch("http://localhost:8080/api/refresh", {
+        method: "POST",
+        credentials: "include", // envoie le cookie httpOnly
+      });
 
-    if (res.ok) {
-      const data = await res.json();
-      setToken(data.accessToken);
-    } else {
+      if (res.ok) {
+        const data = await res.json();
+        setToken(data.accessToken);
+      } else {
+        setToken(null);
+      }
+    } catch (err) {
       setToken(null);
     }
   };
