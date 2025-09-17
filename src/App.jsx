@@ -1,5 +1,4 @@
-import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router/dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Pages
 import { Home } from './Pages/Home.jsx'
@@ -10,6 +9,8 @@ import { Profil } from './Pages/Profil.jsx'
 import { Fav } from './Pages/Fav.jsx'
 import { Cart } from './Pages/Cart.jsx'
 import { Login } from "./Pages/Login.jsx";
+import { Register } from "./Pages/Register.jsx";
+import { AuthProvider } from "./Pages/AuthContext.jsx";
 
 /**
  * Routes
@@ -46,13 +47,19 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login/>
+  },
+  {
+    path: "/register",
+    element: <Register/>
   }
 ]);
 
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </>
   )
 }
