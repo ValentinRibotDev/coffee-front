@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export function Register () {
     const navigate = useNavigate();
-    const { setToken } = useAuth();
+    const { setToken, refreshToken } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -38,7 +38,8 @@ const handleSubmit = async (e) => {
   if (loginRes.ok) {
     const data = await loginRes.json();
     if (data.accessToken) {
-      setToken(data.accessToken); // stocke le JWT en mémoire
+      setToken(data.accessToken);
+      refreshToken(); // assure que le refresh token est prêt pour le futur
       alert("Inscription et connexion réussies !");
       navigate("/home");
     }
@@ -117,15 +118,6 @@ const handleSubmit = async (e) => {
                         required
                         autoComplete="current-password"
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-rose-200 sm:text-sm/6" value={password} onChange={(e)=> setPassword(e.target.value)}/>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <input
-                        type="hidden"
-                        id="role"
-                        name="role"
-                        value='["ROLE_USER"]'/>
                 </div>
             </div>
             <div className="flex justify-center">

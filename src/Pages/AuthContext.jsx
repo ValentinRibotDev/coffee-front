@@ -24,9 +24,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Refresh le token quand le provider se monte
+  // Refresh le token toutes les 5 minutes
   useEffect(() => {
-    refreshToken();
+    const interval = setInterval(refreshToken, 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
