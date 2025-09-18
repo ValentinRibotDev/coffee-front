@@ -1,8 +1,7 @@
 import { useGLTF, useTexture } from '@react-three/drei'
-import { useState } from 'react'
 import * as THREE from 'three'
 
-export function CoffeeCup(props) {
+export function CoffeeCup({active=0, ...props}) {
 
     //Model Loading
     const { nodes, materials } = useGLTF('./Models/coffee_cup.glb')
@@ -34,7 +33,6 @@ export function CoffeeCup(props) {
     ]
 
     //Carrousel
-    const [active, setActive] = useState(6)
     const current = variants[active]
 
     return (

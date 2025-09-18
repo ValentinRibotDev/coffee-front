@@ -1,7 +1,10 @@
+import { Navigation} from "../Components/NavBar"
+
 export function Products() {
   return (
     <>
-        <p>Produit</p>
+        <Navigation/>
+        <p>products</p>
     </>
   )
 }
