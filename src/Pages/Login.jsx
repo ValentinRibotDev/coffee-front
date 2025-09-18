@@ -8,32 +8,28 @@ export default function Login () {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const loginRes = await fetch("http://localhost:8080/api/login_check", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const loginRes = await fetch("http://localhost:8080/api/login_check", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
+    });
 
-      if (loginRes.ok) {
-        const data = await loginRes.json();
-        if (data.token) {
-          setToken(data.token);
-          alert("Connexion réussie !");
-          navigate("/home");
-        }
-      } else {
-        alert("Email ou mot de passe incorrect");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Une erreur est survenue lors de la connexion");
+    if (loginRes.ok) {
+      alert("Connexion réussie !");
+      navigate("/home");
+    } else {
+      alert("Email ou mot de passe incorrect");
     }
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Une erreur est survenue lors de la connexion");
+  }
+};
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
