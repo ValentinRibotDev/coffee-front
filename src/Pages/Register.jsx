@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
-export function Register () {
+export default function Register () {
     const navigate = useNavigate();
-    const { setToken, refreshToken } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -14,7 +12,7 @@ export function Register () {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  //Création du compte
+  try{
   const registerRes = await fetch("http://localhost:8080/api/users", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -22,32 +20,18 @@ const handleSubmit = async (e) => {
     body: JSON.stringify({ email, password, firstName, name}),
   });
 
-  if (!registerRes.ok) {
-    alert("Échec de l'inscription");
-    return;
-  }
+      if (!registerRes.ok) {
+        alert("Échec de l'inscription");
+        return;
+      }
 
-  // 2️⃣ Connexion automatique après inscription
-  const loginRes = await fetch("http://localhost:8080/api/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({ email, password }),
-  });
-
-  if (loginRes.ok) {
-    const data = await loginRes.json();
-    if (data.accessToken) {
-      setToken(data.accessToken);
-      refreshToken(); // assure que le refresh token est prêt pour le futur
-      alert("Inscription et connexion réussies !");
-      navigate("/home");
+      alert("Inscription réussie !");
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      alert("Une erreur est survenue.");
     }
-  } else {
-    alert("Connexion automatique échouée, merci de vous connecter manuellement.");
-  }
-};
-
+  };
     return (
     <>
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

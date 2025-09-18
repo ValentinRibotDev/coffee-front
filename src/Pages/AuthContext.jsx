@@ -1,37 +1,15 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
 
-  // Exemple de fonction pour refresh automatiquement
-  const refreshToken = async () => {
-    try {
-      const res = await fetch("http://localhost:8080/api/refresh", {
-        method: "POST",
-        credentials: "include", // envoie le cookie httpOnly
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        setToken(data.accessToken);
-      } else {
-        setToken(null);
-      }
-    } catch (err) {
-      setToken(null);
-    }
-  };
-
-  // Refresh le token toutes les 5 minutes
-  useEffect(() => {
-    const interval = setInterval(refreshToken, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
+  // Fonction pour vérifier si l'utilisateur est connecté
+  const isLoggedIn = () => !!token;
 
   return (
-    <AuthContext.Provider value={{ token, setToken, refreshToken }}>
+    <AuthContext.Provider value={{ token, setToken, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
