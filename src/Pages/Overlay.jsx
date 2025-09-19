@@ -9,33 +9,12 @@ export function Overlay({ active, setActive, max }) {
     const handlePrev = () => setActive((prev) => (prev - 1 + max) % max)
     const handleNext = () => setActive((prev) => (prev + 1) % max)
 
-  const [boissons, setBoissons] = useState([]);
+    // FETCH
+    const [boissons, setBoissons] = useState([]);
   
-// FETCH 
-  useEffect(() => {
-    const fetchBoissons = async () => {
-      try {
-        const res = await fetch("http://localhost:8080/api/boissons", {
-          method: "GET",
-          credentials: "include",
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setBoissons(data); // stocke les boissons dans l'état
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchBoissons();
-  }, []);
-
-console.log(boissons)
-
-// FETCH 
-  useEffect(() => {
-    const fetchBoissons = async () => {
-      try {
+    useEffect(() => {
+        const fetchBoissons = async () => {
+        try {
         const res = await fetch("http://localhost:8080/api/boissons", {
           method: "GET",
           credentials: "include",
@@ -56,10 +35,10 @@ console.log(boissons)
     boissons[1] && { name: boissons[1].name, color: '#c50000', description: boissons[1].description },
     ].filter(Boolean); // supprime les "undefined"
 
-  // ← Ici : si htmlDisplay est vide, on retourne un loader
-  if (htmlDisplay.length === 0) {
-    return <div>Loading...</div>;
-  }
+    // ← Ici : si htmlDisplay est vide, on retourne un loader
+    if (htmlDisplay.length === 0) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
