@@ -1,7 +1,7 @@
-import React, { useState, useNavigate } from "react";
+import React, { useState} from "react";
 
 import { useAuth } from "./AuthContext";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function Login () {
   const [email, setEmail] = useState("");
@@ -39,12 +39,12 @@ const handleSubmit = async (e) => {
         <Link to="/">
           <img
             alt="Your Company"
-            src="/img/ordi.webp"
-            className="mx-auto h-10 w-auto"
+            src="./CoffeeTimeLogo.png"
+            className="mx-auto h-10 w-auto mb-10"
           />
         </Link>
-        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Connectez-vous à votre compte
+        <h2 className="text-center text-gray-900">
+          It's time to connect !
         </h2>
       </div>
 
@@ -52,7 +52,7 @@ const handleSubmit = async (e) => {
         <form method="POST" onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-              Adresse e-mail
+              Email adress
             </label>
             <div className="mt-2">
               <input
@@ -69,8 +69,8 @@ const handleSubmit = async (e) => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-              Mot de passe
+            <label htmlFor="password" className="block text-sm/6 font-medium justify-center text-gray-900">
+              Password
             </label>
             <div className="mt-2">
               <input
@@ -88,17 +88,17 @@ const handleSubmit = async (e) => {
 
           <div className="flex justify-center">
             <button type="submit" className="rounded-md border-2 border-amber-50 w-[380px] h-[50px] relative group overflow-hidden transition-transform duration-300 ease-out hover:scale-110 cursor-pointer">
-              <div className="bg-rose-300 text-[var(--color-bordeau)] w-full h-full flex flex-col justify-center">
-                Se connecter
+              <div className="bg-stone-800 text-white w-full h-full flex flex-col justify-center">
+                Login
               </div>
             </button>  
           </div>
         </form>
 
         <p className="mt-10 text-center text-sm/6 text-gray-500">
-          Pas encore membre ?{' '}
-          <Link to="/register" className="font-semibold text-rose-200 hover:text-rose-300">
-            S'inscrire
+          Not already member ?{' '}
+          <Link to="/register">
+            Register
           </Link>
         </p>
       </div>

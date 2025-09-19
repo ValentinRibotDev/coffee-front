@@ -40,18 +40,18 @@ const handleSubmit = async (e) => {
             <Link to="/">
                 <img
                   alt="Your Company"
-                  src="/img/ordi.webp"
-                  className="mx-auto h-10 w-auto"/>
+                  src="./CoffeeTimeLogo.png"
+                  className="mx-auto h-10 w-auto mb-10"/>
             </Link>
-            <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                Créez votre compte
+            <h2 className="text-center text-gray-90">
+                Create your account
             </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form method="POST" onSubmit={handleSubmit} className="space-y-6">
             <div>
                 <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                    Adresse e-mail
+                    Email adress
                 </label>
                 <div className="mt-2">
                     <input
@@ -65,7 +65,7 @@ const handleSubmit = async (e) => {
             </div>
             <div>
                 <label htmlFor="prenom" className="block text-sm/6 font-medium text-gray-900">
-                    Prénom
+                    Firstname
                 </label>
                 <div className="mt-2">
                     <input
@@ -78,7 +78,7 @@ const handleSubmit = async (e) => {
             </div>
             <div>
                 <label htmlFor="nom" className="block text-sm/6 font-medium text-gray-900">
-                    Nom
+                    Lastname
                 </label>
                 <div className="mt-2">
                     <input
@@ -92,7 +92,7 @@ const handleSubmit = async (e) => {
             <div>
                 <div>
                     <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                        Mots de passe
+                        Password
                     </label>
                 </div>
                 <div className="mt-2">
@@ -110,8 +110,8 @@ const handleSubmit = async (e) => {
                 type="submit"
                 className="rounded-md border-2 border-amber-50 w-[380px] h-[50px] relative group overflow-hidden transition-transform duration-300 ease-out hover:scale-110 cursor-pointer"
                 >
-                <div className="bg-rose-300 text-[var(--color-bordeau)] w-full h-full flex flex-col justify-center">
-                    S'enregistrer
+                <div className="bg-stone-800 text-white w-full h-full flex flex-col justify-center">
+                    Submit
                 </div>
                 <div className="transition-transform ease-out bg-gray-400 opacity-40 absolute w-[20px] h-[60px] -top-2 -skew-x-12 -translate-x-8 group-hover:translate-x-100">&nbsp;</div>
                 </button>  
