@@ -26,13 +26,13 @@ export function Navigation({color}) {
                 </div>
 
                 {/* Link */}
-                <div className="w-3/5 flex justify-around items-center">
+                <div className="w-3/5 flex justify-around items-center border-bottom">
                     <a
                         href="/recipe"
                         className="
                             flex justify-center items-center
                             w-1/9 h-1/2 pt-1 
-                            roboto-bold font-medium uppercase !no-underline 
+                            roboto-bold uppercase !no-underline text-sm
                             duration-400 ease-in-out 
                             md:hover:tracking-[0.20em] md:hover:!text-white
                         "
@@ -46,7 +46,7 @@ export function Navigation({color}) {
                         className="
                             flex justify-center items-center
                             w-1/9 h-1/2 pt-1 
-                            roboto-bold font-medium uppercase !no-underline 
+                            roboto-bold uppercase !no-underline text-sm
                             duration-400 ease-in-out 
                             md:hover:tracking-[0.15em] md:hover:!text-white
                         "
@@ -60,7 +60,7 @@ export function Navigation({color}) {
                         className="
                             flex justify-center items-center
                             w-1/9 h-1/2 pt-1 
-                            roboto-bold font-medium uppercase !no-underline 
+                            roboto-bold uppercase !no-underline text-sm
                             duration-400 ease-in-out 
                             md:hover:tracking-[0.20em] md:hover:!text-white
                         "

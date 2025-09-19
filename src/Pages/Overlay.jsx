@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { Navigation } from "../Components/NavBar"
+import { Footer } from "../Components/footer";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 export function Overlay({ active, setActive, max }) {
@@ -89,12 +90,30 @@ console.log(boissons)
                 </div>
 
                 {/* Section Main */}
-                <div className="
-                    hidden col-span-4 row-span-12
-                    xl:block
-                    bg-green-300"
-                    >
-                    Slogan
+                <div className="hidden col-span-4 row-span-12 xl:flex flex-col leading-none items-center">
+
+                    <div className="w-[60%]">
+
+                        <div className="roboto-regular text-3xl">Take your</div>
+
+                        <div
+                            className="roboto-bold text-[10rem] leading-none"
+                            style={{ color: htmlDisplay[active].color }}
+                        >
+                            TIME
+                        </div>
+
+                        <div className="roboto-regular text-3xl leading-none">Enjoy our</div>
+
+                        <div
+                            className="roboto-bold text-[10rem] leading-none"
+                            style={{ color: htmlDisplay[active].color }}
+                        >
+                            COFFEE
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div className="
@@ -106,15 +125,14 @@ console.log(boissons)
                 <div className="
                     grid grid-cols-4 col-span-12 row-span-3 ml-3
                     sm:row-span-4
-                    xl:col-span-4 xl:col-start-9 xl:row-span-6 xl:row-start-6
-                    flex"        
+                    xl:col-span-4 xl:col-start-9 xl:row-span-4 xl:row-start-4"        
                     >
 
                     {/* Previous Next Button */}
                     <div className="
                         col-span-4 pointer-events-auto
                         flex justify-center justify-evenly items-center gap-4
-                        sm:col-span-2 sm:order-2 sm:justify-end sm:mr-6
+                        sm:col-span-2 sm:order-2 sm:justify-start
                         lg:col-span-2 lg:order-6"
                         >
 
@@ -142,7 +160,7 @@ console.log(boissons)
 
                     {/* Drink Name */}
                     <div className="
-                        col-span-4 h-auto
+                        col-span-4
                         flex justify-center 
                         sm:col-span-2 sm:order-1 sm:justify-start
                         lg:col-span-3 
@@ -154,7 +172,7 @@ console.log(boissons)
 
                     {/* Drink Description */}
                     <div
-                    className="hidden col-span-4 order-4 roboto-regular sm:block lg:order-3"
+                    className="hidden col-span-4 order-4 roboto-regular sm:block lg:order-3 lg:col-span-3"
                     dangerouslySetInnerHTML={{ __html: htmlDisplay[active].description }} // permet de ne pas faire apparaitre le html de la description
                     ></div>
 
@@ -199,13 +217,15 @@ console.log(boissons)
 
                 {/* Margin Bottom */}
                 <div className="
-                    hidden col-span-12
+                    col-span-12 h-[10px]
                     xl:block"
                     >
                 </div>
 
                 {/* Footer */}
-                <div className="col-span-12 pointer-events-auto bg-red-300">footer</div>    
+                <div className="col-span-12 pointer-events-auto bg-red-300">
+                    <Footer/>
+                </div>    
             </div>
         </>
     )
