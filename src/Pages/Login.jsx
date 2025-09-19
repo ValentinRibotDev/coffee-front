@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+
 import { useAuth } from "./AuthContext";
+import { Link } from "react-router";
 
 export default function Login () {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ export default function Login () {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  
 
   try {
     const loginRes = await fetch("http://localhost:8080/api/login_check", {
