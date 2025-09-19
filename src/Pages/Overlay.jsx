@@ -1,5 +1,6 @@
 //Components
 import { Navigation } from "../Components/NavBar"
+import { Footer } from "../Components/footer";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 export function Overlay({ active, setActive, max }) {
@@ -9,30 +10,6 @@ export function Overlay({ active, setActive, max }) {
     const handleNext = () => setActive((prev) => (prev + 1) % max)
 
     // Fetch products
-    // const fetchProducts = async () => {
-    // try {
-    //     const res = await fetch("http://localhost:8080/api/products", {
-    //     method: "GET",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     credentials: "include",
-    //     });
-
-    //     if (!res.ok) {
-    //     throw new Error(`Erreur serveur: ${res.status}`);
-    //     }
-
-    //     const data = await res.json();
-    //     console.log("Données reçues :", data);
-
-    //     // Exemple : setProducts(data);
-    // } catch (err) {
-    //     console.error("Erreur lors de la récupération :", err);
-    // }
-    // };
-
-    // fetchProducts()
 
     //Array
     const htmlDisplay = [
@@ -50,7 +27,8 @@ export function Overlay({ active, setActive, max }) {
         { 
         name: "Temps'tation", 
         color: '#c50000', 
-        description: 'Succombez à la tentation : un café corsé aux notes fruitées de cerise, où l’intensité du café rencontre la douceur sucrée pour un plaisir à la fois raffiné et frénétique.'
+        description: 'Succombez à la tentation : un café corsé aux notes fruitées de cerise, où l’intensité du café rencontre la douceur sucrée pour un plaisir à la fois raffiné et frénétique.',
+        awards:''
         },
         { 
         name: "Réconfor'Temps", 
@@ -60,12 +38,14 @@ export function Overlay({ active, setActive, max }) {
         { 
         name: "Transpor'Temps", 
         color: '#788f26', 
-        description: 'Inspirée du Japon, cette boisson à base de matcha — un thé vert finement moulu — réinventé avec une touche de lait à l’occidentale. Une alliance unique qui offre un voyage de saveurs inédit et raffiné.'
+        description: 'Inspirée du Japon, cette boisson à base de matcha — un thé vert finement moulu — réinventé avec une touche de lait à l’occidentale. Une alliance unique qui offre un voyage de saveurs inédit et raffiné.',
+        awards:''
         },
         { 
         name: "Ina'Temps'du", 
         color: '#f172b2', 
-        description: 'Un café inédit, sublimé par le biscuit rose de Reims, emblème gourmand de la ville. Une création délicate aux saveurs exceptionnelles, qui promet une expérience unique.'
+        description: 'Un café inédit, sublimé par le biscuit rose de Reims, emblème gourmand de la ville. Une création délicate aux saveurs exceptionnelles, qui promet une expérience unique.',
+        awards:''
         },
         { 
         name: "Palpi'Temps", 
@@ -100,12 +80,30 @@ export function Overlay({ active, setActive, max }) {
                 </div>
 
                 {/* Section Main */}
-                <div className="
-                    hidden col-span-4 row-span-12
-                    xl:block
-                    bg-green-300"
-                    >
-                    Slogan
+                <div className="hidden col-span-4 row-span-12 xl:flex flex-col leading-none items-center">
+
+                    <div className="w-[60%]">
+
+                        <div className="roboto-regular text-3xl">Take your</div>
+
+                        <div
+                            className="roboto-bold text-[10rem] leading-none"
+                            style={{ color: htmlDisplay[active].color }}
+                        >
+                            TIME
+                        </div>
+
+                        <div className="roboto-regular text-3xl leading-none">Enjoy our</div>
+
+                        <div
+                            className="roboto-bold text-[10rem] leading-none"
+                            style={{ color: htmlDisplay[active].color }}
+                        >
+                            COFFEE
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div className="
@@ -117,15 +115,14 @@ export function Overlay({ active, setActive, max }) {
                 <div className="
                     grid grid-cols-4 col-span-12 row-span-3 ml-3
                     sm:row-span-4
-                    xl:col-span-4 xl:col-start-9 xl:row-span-6 xl:row-start-6
-                    flex"        
+                    xl:col-span-4 xl:col-start-9 xl:row-span-4 xl:row-start-4"        
                     >
 
                     {/* Previous Next Button */}
                     <div className="
                         col-span-4 pointer-events-auto
                         flex justify-center justify-evenly items-center gap-4
-                        sm:col-span-2 sm:order-2 sm:justify-end sm:mr-6
+                        sm:col-span-2 sm:order-2 sm:justify-start
                         lg:col-span-2 lg:order-6"
                         >
 
@@ -153,7 +150,7 @@ export function Overlay({ active, setActive, max }) {
 
                     {/* Drink Name */}
                     <div className="
-                        col-span-4 h-auto
+                        col-span-4
                         flex justify-center 
                         sm:col-span-2 sm:order-1 sm:justify-start
                         lg:col-span-3 
@@ -175,7 +172,7 @@ export function Overlay({ active, setActive, max }) {
                         hidden col-span-4 order-4
                         roboto-regular
                         sm:block
-                        lg:order-3"
+                        lg:order-3 lg:col-span-3"
                         >
                         {htmlDisplay[active].description}
                     </div>
@@ -221,13 +218,15 @@ export function Overlay({ active, setActive, max }) {
 
                 {/* Margin Bottom */}
                 <div className="
-                    hidden col-span-12
+                    col-span-12 h-[10px]
                     xl:block"
                     >
                 </div>
 
                 {/* Footer */}
-                <div className="col-span-12 pointer-events-auto bg-red-300">footer</div>    
+                <div className="col-span-12 pointer-events-auto bg-red-300">
+                    <Footer/>
+                </div>    
             </div>
         </>
     )
