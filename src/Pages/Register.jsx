@@ -41,7 +41,7 @@ const handleSubmit = async (e) => {
                 <img
                   alt="Your Company"
                   src="./CoffeeTimeLogo.png"
-                  className="mx-auto h-10 w-auto"/>
+                  className="mx-auto h-10 w-auto mb-10"/>
             </Link>
             <h2 className="text-center text-gray-90">
                 Create your account

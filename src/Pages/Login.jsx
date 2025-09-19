@@ -39,7 +39,7 @@ const handleSubmit = async (e) => {
           <img
             alt="Your Company"
             src="./CoffeeTimeLogo.png"
-            className="mx-auto h-10 w-auto"
+            className="mx-auto h-10 w-auto mb-10"
           />
         </Link>
         <h2 className="text-center text-gray-900">
@@ -96,7 +96,7 @@ const handleSubmit = async (e) => {
 
         <p className="mt-10 text-center text-sm/6 text-gray-500">
           Not already member ?{' '}
-          <Link to="/register" className="font-semibold text-rose-200 hover:text-rose-300">
+          <Link to="/register">
             Register
           </Link>
         </p>
