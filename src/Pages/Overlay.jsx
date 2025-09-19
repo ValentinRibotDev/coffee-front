@@ -1,4 +1,6 @@
+import React, { useState,useEffect } from "react";
 import { Navigation } from "../Components/NavBar"
+
 
 
 export function Overlay({ active, setActive, max }) {
@@ -7,6 +9,7 @@ export function Overlay({ active, setActive, max }) {
     const handleNext = () => setActive((prev) => (prev + 1) % max)
 
   const [boissons, setBoissons] = useState([]);
+  
 // FETCH 
   useEffect(() => {
     const fetchBoissons = async () => {
@@ -27,14 +30,9 @@ export function Overlay({ active, setActive, max }) {
   }, []);
 
     const htmlDisplay = [
-        { name: "Envou'temps", color: '#d17d2e', description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.' },
-        { name: "Envou'temps", color: '#c50000', description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.' },
-        { name: "Envou'temps", color: '#101010', description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.' },
-        { name: "Envou'temps", color: '#5da3c4', description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.' },
-        { name: "Envou'temps", color: '#a88256', description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.' },
-        { name: "Envou'temps", color: '#788f26', description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.' },
-        { name: "Envou'temps", color: '#f172b2', description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.' },
-    ]
+    boissons[0] && { name: boissons[0].name, color: '#d17d2e', description: boissons[0].description },
+    boissons[1] && { name: boissons[1].name, color: '#c50000', description: boissons[1].description },
+    ].filter(Boolean); // supprime les "undefined"
 
     return (
         <>
