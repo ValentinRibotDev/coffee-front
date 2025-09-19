@@ -6,6 +6,26 @@ export function Overlay({ active, setActive, max }) {
     const handlePrev = () => setActive((prev) => (prev - 1 + max) % max)
     const handleNext = () => setActive((prev) => (prev + 1) % max)
 
+  const [boissons, setBoissons] = useState([]);
+// FETCH 
+  useEffect(() => {
+    const fetchBoissons = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/api/boissons", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setBoissons(data); // stocke les boissons dans l'état
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchBoissons();
+  }, []);
+
     const htmlDisplay = [
         { name: "Envou'temps", color: '#d17d2e', description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.' },
         { name: "Envou'temps", color: '#c50000', description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.' },
