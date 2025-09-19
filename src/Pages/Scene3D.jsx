@@ -52,7 +52,7 @@ export function Scene3D ({ active }) {
             
             {/* Controls */}
             <OrbitControls
-                target={[0, 2, 0]} 
+                target={[0, 1.8, 0]} 
                 minPolarAngle={Math.PI * 0.35}
                 maxPolarAngle={Math.PI * 0.49}
                 enableDamping={true}

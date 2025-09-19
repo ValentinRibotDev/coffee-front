@@ -1,5 +1,4 @@
-import { HiOutlineUser } from "react-icons/hi2";
-import { HiOutlineShoppingCart } from "react-icons/hi2";
+import { HiOutlineUser, HiOutlineShoppingCart } from "react-icons/hi2";
 
 export function Navigation({color}) {
 
