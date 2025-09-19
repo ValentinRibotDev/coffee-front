@@ -29,8 +29,7 @@ export function Overlay({ active, setActive, max }) {
     fetchBoissons();
   }, []);
 
-  const [boissons, setBoissons] = useState([]);
-  
+
 // FETCH 
   useEffect(() => {
     const fetchBoissons = async () => {
@@ -50,33 +49,6 @@ export function Overlay({ active, setActive, max }) {
     fetchBoissons();
   }, []);
 
-    // Fetch products
-    // const fetchProducts = async () => {
-    // try {
-    //     const res = await fetch("http://localhost:8080/api/products", {
-    //     method: "GET",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     credentials: "include",
-    //     });
-
-    //     if (!res.ok) {
-    //     throw new Error(`Erreur serveur: ${res.status}`);
-    //     }
-
-    //     const data = await res.json();
-    //     console.log("Données reçues :", data);
-
-    //     // Exemple : setProducts(data);
-    // } catch (err) {
-    //     console.error("Erreur lors de la récupération :", err);
-    // }
-    // };
-
-    // fetchProducts()
-
-    //Array
     const htmlDisplay = [
         { 
         name: "Envou'temps",
