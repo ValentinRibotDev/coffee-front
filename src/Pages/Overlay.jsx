@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
 import { Navigation } from "../Components/NavBar"
-import { Footer } from "../Components/footer";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 export function Overlay({ active, setActive, max }) {
@@ -215,7 +214,6 @@ export function Overlay({ active, setActive, max }) {
 
                 {/* Footer */}
                 <div className="col-span-12 h-12 pointer-events-auto">
-                    <Footer/>
                 </div>    
             </div>
         </>
