@@ -9,8 +9,8 @@ import { Leva } from 'leva'
 import './main.css'
 
 createRoot(document.getElementById('root')).render(
-  
     <StrictMode>
+
       <Leva collapsed/>
       <App />
     </StrictMode>
