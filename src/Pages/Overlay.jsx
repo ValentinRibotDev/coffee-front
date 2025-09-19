@@ -29,6 +29,7 @@ export function Overlay({ active, setActive, max }) {
     fetchBoissons();
   }, []);
 
+console.log(boissons)
 
 // FETCH 
   useEffect(() => {
@@ -50,45 +51,14 @@ export function Overlay({ active, setActive, max }) {
   }, []);
 
     const htmlDisplay = [
-        { 
-        name: "Envou'temps",
-        color: '#d17d2e', 
-        description: 'Un café onctueux et délicatement doux, sublimé par de savoureuses notes de caramel. L’allié parfait pour couronner une matinée bien remplie et s’offrir un instant de plaisir irrésistible.'
-        },
-        {
-        name: "Temps'ête", 
-        color: '#5da3c4', 
-        description: 'Un café standard revisité en version glacée : la boisson idéale pour se rafraîchir quand la chaleur monte, tout en savourant son café préféré sous une nouvelle fraîcheur.',
-        awards:''
-        },
-        { 
-        name: "Temps'tation", 
-        color: '#c50000', 
-        description: 'Succombez à la tentation : un café corsé aux notes fruitées de cerise, où l’intensité du café rencontre la douceur sucrée pour un plaisir à la fois raffiné et frénétique.'
-        },
-        { 
-        name: "Réconfor'Temps", 
-        color: '#a88256', 
-        description: 'Un café au lait onctueux et velouté, qui enveloppe chaque gorgée d’une douceur réconfortante. Idéal si l’amertume du café pur ne vous séduit pas, il saura vous charmer par sa tendresse et son équilibre'
-        },
-        { 
-        name: "Transpor'Temps", 
-        color: '#788f26', 
-        description: 'Inspirée du Japon, cette boisson à base de matcha — un thé vert finement moulu — réinventé avec une touche de lait à l’occidentale. Une alliance unique qui offre un voyage de saveurs inédit et raffiné.'
-        },
-        { 
-        name: "Ina'Temps'du", 
-        color: '#f172b2', 
-        description: 'Un café inédit, sublimé par le biscuit rose de Reims, emblème gourmand de la ville. Une création délicate aux saveurs exceptionnelles, qui promet une expérience unique.'
-        },
-        { 
-        name: "Palpi'Temps", 
-        color: '#101010', 
-        description: 'Le classique des classiques, un café simple mais éfficace !'
-        },
-    ]
+    boissons[0] && { name: boissons[0].name, color: '#d17d2e', description: boissons[0].description },
+    boissons[1] && { name: boissons[1].name, color: '#c50000', description: boissons[1].description },
+    ].filter(Boolean); // supprime les "undefined"
 
-    const awards = htmlDisplay[active].award || null;
+  // ← Ici : si htmlDisplay est vide, on retourne un loader
+  if (htmlDisplay.length === 0) {
+    return <div>Loading...</div>;
+  }
 
     return (
         <>
@@ -101,7 +71,7 @@ export function Overlay({ active, setActive, max }) {
 
                 {/* Navbar */}
                 <div className="col-span-12 pointer-events-auto">
-                    <Navigation color={htmlDisplay[active].color}/>
+                    <Navigation color={htmlDisplay[active]?.color|| "#000"}/>
                 </div>
 
 
@@ -177,22 +147,11 @@ export function Overlay({ active, setActive, max }) {
                     </div>
 
 
-                    <div className="
-                        hidden 
-                        lg:block lg:order-2"
-                        >
-                        <img src={awards} />
-                    </div>
-
                     {/* Drink Description */}
-                    <div className="
-                        hidden col-span-4 order-4
-                        roboto-regular
-                        sm:block
-                        lg:order-3"
-                        >
-                        {htmlDisplay[active].description}
-                    </div>
+                    <div
+                    className="hidden col-span-4 order-4 roboto-regular sm:block lg:order-3"
+                    dangerouslySetInnerHTML={{ __html: htmlDisplay[active].description }} // permet de ne pas faire apparaitre le html de la description
+                    ></div>
 
                     {/* Nav Button products/recipe */}
                     <div className="
