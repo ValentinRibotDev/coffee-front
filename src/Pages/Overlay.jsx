@@ -42,7 +42,12 @@ export function Overlay({ active, setActive, max }) {
 
     // ← Ici : si htmlDisplay est vide, on retourne un loader
     if (htmlDisplay.length === 0) {
-        return <div>Loading...</div>;
+        return <div className="
+        absolute top-0 left-1/2 -translate-x-1/2
+        text-center roboto-bold"
+        >
+            Loading...
+        </div>;
     }
 
     return (
@@ -69,14 +74,14 @@ export function Overlay({ active, setActive, max }) {
                 </div>
 
                 {/* Section Main */}
-                <div className="hidden col-span-4 row-span-12 xl:flex flex-col leading-none items-center">
+                <div className="hidden col-span-4 row-span-12 xl:flex flex-col leading-none items-center mr-15">
 
                     <div className="w-[60%]">
 
                         <div className="roboto-regular text-3xl">Take your</div>
 
                         <div
-                            className="roboto-bold text-[10rem] leading-none"
+                            className="roboto-bold text-[8.5rem] leading-none"
                             style={{ color: htmlDisplay[active].color }}
                         >
                             TIME
@@ -85,7 +90,7 @@ export function Overlay({ active, setActive, max }) {
                         <div className="roboto-regular text-3xl leading-none">Enjoy our</div>
 
                         <div
-                            className="roboto-bold text-[10rem] leading-none"
+                            className="roboto-bold text-[8.5rem] leading-none"
                             style={{ color: htmlDisplay[active].color }}
                         >
                             COFFEE
@@ -101,6 +106,7 @@ export function Overlay({ active, setActive, max }) {
                     >
                 </div>
 
+                {/* INFO */}
                 <div className="
                     grid grid-cols-4 col-span-12 row-span-3 ml-3
                     sm:row-span-4
@@ -111,8 +117,9 @@ export function Overlay({ active, setActive, max }) {
                     <div className="
                         col-span-4 pointer-events-auto
                         flex justify-center justify-evenly items-center gap-4
-                        sm:col-span-2 sm:order-2 sm:justify-start
-                        lg:col-span-2 lg:order-6"
+                        sm:col-span-2 sm:order-2 sm:justify-end sm:mr-6
+                        lg:col-span-2 lg:order-6 lg:justify-start lg:mr-0
+                        xl:ml-8 xl:mt-8"
                         >
 
                         <button className="
@@ -151,15 +158,20 @@ export function Overlay({ active, setActive, max }) {
 
                     {/* Drink Description */}
                     <div
-                    className="hidden col-span-4 order-4 roboto-regular sm:block lg:order-3 lg:col-span-3"
-                    dangerouslySetInnerHTML={{ __html: htmlDisplay[active].description }} // permet de ne pas faire apparaitre le html de la description
+                    className="
+                    hidden col-span-4 order-4 
+                    roboto-regular 
+                    sm:block 
+                    lg:order-3 lg:col-span-3"
+                    dangerouslySetInnerHTML={{ __html: htmlDisplay[active].description }}
                     ></div>
 
                     {/* Nav Button products/recipe */}
                     <div className="
                         col-span-4 order-5 gap-4 pointer-events-auto
                         flex justify-center items-center
-                        lg:col-span-2 lg:order-4 lg:justify-start"
+                        lg:col-span-2 lg:order-4 lg:justify-start
+                        xl:mt-8"
                         >
 
                         <div className="
@@ -202,7 +214,7 @@ export function Overlay({ active, setActive, max }) {
                 </div>
 
                 {/* Footer */}
-                <div className="col-span-12 pointer-events-auto bg-red-300">
+                <div className="col-span-12 h-12 pointer-events-auto">
                     <Footer/>
                 </div>    
             </div>
