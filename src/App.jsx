@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 // Pages
 import { Home } from './Pages/Home.jsx'
 import { Recipe } from './Pages/Recipe.jsx'
-import { Products } from './Pages/Products.jsx'
+import Products from './Pages/Products.jsx'
 import { About } from './Pages/About.jsx'
 import { Profil } from './Pages/Profil.jsx'
 import { Cart } from './Pages/Cart.jsx'
