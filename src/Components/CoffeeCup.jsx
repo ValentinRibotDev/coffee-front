@@ -4,7 +4,7 @@ import * as THREE from 'three'
 export function CoffeeCup({active=0, ...props}) {
 
     //Model Loading
-    const { nodes, materials } = useGLTF('./Models/coffee_cup.glb')
+    const { nodes, materials } = useGLTF("/Models/coffee_cup.glb");
 
     //Texture Loading function
     const loadTextureSet = (basePath, color) => {
@@ -72,4 +72,4 @@ export function CoffeeCup({active=0, ...props}) {
     )
 }
 
-useGLTF.preload('./Models/coffee_cup.glb')
+useGLTF.preload('/Models/coffee_cup.glb')

@@ -13,21 +13,22 @@ export function Overlay({ active, setActive, max }) {
   
     useEffect(() => {
         const fetchBoissons = async () => {
-        try {
-        const res = await fetch("http://localhost:8080/api/boissons", {
-          method: "GET",
-          credentials: "include",
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setBoissons(data); // stocke les boissons dans l'état
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchBoissons();
-  }, []);
+            try {              
+                const res = await fetch("http://localhost:8080/api/boissons", {
+                    method: "GET",
+                    credentials: "include",
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    setBoissons(data); // stocke les boissons dans l'état
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchBoissons();
+    }, []);
 
     const htmlDisplay = [
     boissons[0] && { name: boissons[0].name, color: '#d17d2e', description: boissons[0].description },
@@ -45,12 +46,12 @@ export function Overlay({ active, setActive, max }) {
         absolute top-0 left-1/2 -translate-x-1/2
         text-center roboto-bold"
         >
-            Loading...
         </div>;
     }
 
     return (
         <>
+        
             <div className="
                 absolute top-0 left-1/2 -translate-x-1/2
                 max-w-[1920px] w-full h-screen

@@ -1,6 +1,6 @@
 //R3F+Drei
 import { OrbitControls, Environment, Center, AccumulativeShadows, RandomizedLight, MeshReflectorMaterial, Lightformer} from "@react-three/drei"
-import { useState, Suspense, startTransition } from "react"
+import { useState, startTransition, Suspense } from "react"
 
 //Debug UI
 import { useControls } from "leva"
@@ -10,19 +10,13 @@ import { Perf } from "r3f-perf"
 
 //Components
 import { CoffeeCup } from "../Components/CoffeeCup"
+import { DoubleSide } from "three"
 
 export function Scene3D ({ active }) {
 
     //Debug UI setup
     const { perfVisible } = useControls('performance',{
         perfVisible: false
-    })
-
-    const {enableZoom, enablePan, autoRotate, autoRotateSpeed} = useControls('camera', {
-        enableZoom: false,
-        enablePan: false,
-        autoRotate: true,
-        autoRotateSpeed: {value:1, min:0, max:2, step:0.01}
     })
 
     const [preset, setPreset] = useState('sunset')
@@ -36,13 +30,13 @@ export function Scene3D ({ active }) {
 
     //Array
     const envLight = [
-        {name:'caramel', colorHot:'#ffc400', colorCold:'#056886'}, 
-        {name:'cerise', colorHot:'#ffc400', colorCold:'#056886'}, 
-        {name:'classic', colorHot:'#ffc400', colorCold:'#056886'},
-        {name:'glace', colorHot:'#ffc400', colorCold:'#056886'},
-        {name:'latte', colorHot:'#ffc400', colorCold:'#056886'},
-        {name:'matcha', colorHot:'#ffc400', colorCold:'#056886'}, 
-        {name:'rose', colorHot:'#ffc400', colorCold:'#056886'},
+        {name:'caramel', colorHot:'#ffc900', colorCold:'#06709d', hotIntensity:20.0, coldIntensity:15.0}, 
+        {name:'glace', colorHot:'#00e2ff', colorCold:'#000993', hotIntensity:20.0, coldIntensity:10.0}, 
+        {name:'cerise', colorHot:'#c50000', colorCold:'#096901', hotIntensity:30.0, coldIntensity:5.0},
+        {name:'latte', colorHot:'#fffca1', colorCold:'#ab3300', hotIntensity:17.0, coldIntensity:9.5},
+        {name:'matcha', colorHot:'#46ff00', colorCold:'#7c9302', hotIntensity:4.0, coldIntensity:7.0},
+        {name:'rose', colorHot:'#f200ff', colorCold:'#3a0194', hotIntensity:20.0, coldIntensity:10.0}, 
+        {name:'classic', colorHot:'#ffffff', colorCold:'#adadad', hotIntensity:20.0, coldIntensity:5.0},
     ]
 
     return (
@@ -56,10 +50,10 @@ export function Scene3D ({ active }) {
                 minPolarAngle={Math.PI * 0.35}
                 maxPolarAngle={Math.PI * 0.49}
                 enableDamping={true}
-                enableZoom={enableZoom}
-                enablePan={enablePan}
-                autoRotate={autoRotate}
-                autoRotateSpeed={autoRotateSpeed}
+                enableZoom={false}
+                enablePan={false}
+                autoRotate={false}
+                autoRotateSpeed={1.0}
                 makeDefault
             />
 
@@ -69,7 +63,7 @@ export function Scene3D ({ active }) {
                 {/* Hot Light */}
                 <Lightformer
                     form="rect"
-                    intensity={10}
+                    intensity={envLight[active].hotIntensity}
                     color={envLight[active].colorHot}
                     scale={[10,5]}
                     position={[10,5,0]}
@@ -79,7 +73,7 @@ export function Scene3D ({ active }) {
                 {/* Cold Light */}
                 <Lightformer
                     form="rect"
-                    intensity={10}
+                    intensity={envLight[active].coldIntensity}
                     color={envLight[active].colorCold}
                     scale={[10,5]}
                     position={[-10,1,0]}
@@ -94,6 +88,11 @@ export function Scene3D ({ active }) {
                     <CoffeeCup scale={0.2} rotation-y={Math.PI * 0.5} active={active}/>
                 </Center>
             </Suspense>
+
+            <mesh scale={[0.65,5,0]} position={[0, 6, 1.35]} castShadow>
+                <planeGeometry/>
+                <shaderMaterial side={DoubleSide}/>
+            </mesh>
 
             <mesh rotation-x={-Math.PI*0.5} scale={[100,50,20]} position={[0, -0.0005, 0]} receiveShadow>
                 <planeGeometry/>

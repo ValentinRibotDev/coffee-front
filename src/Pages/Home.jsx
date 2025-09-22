@@ -3,7 +3,7 @@ import '../Css/home.css'
 
 // R3F
 import { Canvas } from "@react-three/fiber"
-import { useState } from "react"
+import { useState, Suspense } from "react"
 
 //Components
 import { Scene3D } from "./Scene3D.jsx"
@@ -29,9 +29,13 @@ export function Home() {
                 } }
             >
                 <color attach="background" args={['#c5c5c5']} />
-                <Scene3D active={active}/>
+                <Suspense>
+                    <Scene3D active={active} />
+                </Suspense>
             </Canvas>
+            
             <Overlay active={active} setActive={setActive} max={max} />
+            
         </>
     )
 }
