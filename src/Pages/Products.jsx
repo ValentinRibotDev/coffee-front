@@ -1,5 +1,6 @@
 import { Navigation} from "../Components/NavBar"
 import React, { useState,useEffect } from "react";
+import Flag from "./Flag";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -23,8 +24,6 @@ export default function Products() {
     fetchProducts();
   }, []);
 
-  
-
   return (
 <>
   <Navigation/>
@@ -41,7 +40,7 @@ export default function Products() {
           </p>
           <div className="flex justify-between">
           <p>Intensité : {product.intensity ?? 0}</p> {/* nullish coalescing = si null ou undefined, affiche 0 */}
-          <p>Origine : {product.origin}</p>
+         <p>Origine :&nbsp;<Flag countryCode={product.origin} /></p>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-gray-900">{product.price}€</span>
