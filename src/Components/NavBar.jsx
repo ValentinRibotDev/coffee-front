@@ -1,6 +1,6 @@
 import { HiOutlineUser, HiOutlineShoppingCart } from "react-icons/hi2";
 
-export function Navigation({color}) {
+export function Navigation({color, className}) {
 
     const homeColor = color || "#000000";
 
@@ -11,14 +11,14 @@ export function Navigation({color}) {
                 <div className="flex w-1/5 ml-4 items-center">
                     <a href="/" className="flex items-center w-full h-full !no-underline">
 
-                        <img src="./CoffeeTimeLogo.png" alt="Logo" className="h-10 w-auto" />
+                        <img src="./CoffeeTimeLogo.png" alt="Logo" className={`h-10 w-auto ${className}`} />
                         
-                        <span className="
+                        <span className={`
                             hidden 
                             lg:block 
                             pl-4
-                            roboto-bold font-medium uppercase text-[1.6rem] text-black
-                            "
+                            roboto-bold font-medium uppercase text-[1.6rem] text-black ${className}
+                            `}
                         >
                             Coffee Time
                         </span>
@@ -73,12 +73,12 @@ export function Navigation({color}) {
                 {/* Icon */}
                 <div className="w-1/5 flex justify-center items-center">
                 
-                    <div className="
+                    <div className={`
                         w-full sm:w-[90px] h-[30px] rounded-lg
                         px-3 py-2 space-x-3
                         flex items-center justify-center
-                        bg-black
-                        "
+                        bg-black ${className}
+                        `}
                     >
                     
                         {/* Panier */}

@@ -1,2 +1,57 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap');
 
+.roboto-regular {
+    margin:0;
+    font-family: "Roboto", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+}
+
+.roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 75;
+}
+
+/* Recipe Page */
+.bannerBackground {
+    background:#3e4345;
+}
+
+.recipeBarBackground {
+    background: linear-gradient(to right,#f5ccaa 10%, #f6e7c3 40%, #3e4345);
+    box-shadow: inset 0px 0px 5px black;
+    opacity: 0.6;
+    transition: 0.2s ease-in-out;
+}
+
+.recipeBarBackground:hover {
+    opacity: 1.0;
+}   
+
+/* Recipe button*/
+.recipeButton {
+    background: #bebebe00;
+    border: 1px solid white;
+    transition: 0.3s ease-in-out;
+    text-transform: uppercase;
+    color:white
+}
+
+.recipeButton:hover {
+    background: #f6e7c3;
+    transform: scale(1.1);
+    letter-spacing: 0.1em;
+    color:black;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.6);
+}
+
+.recipeButton:active {
+    background: #cfaa8b;
+    transform: scale(0.9);
+}

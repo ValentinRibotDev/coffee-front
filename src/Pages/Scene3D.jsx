@@ -1,6 +1,6 @@
 //R3F+Drei
 import { OrbitControls, Environment, Center, AccumulativeShadows, RandomizedLight, MeshReflectorMaterial, Lightformer} from "@react-three/drei"
-import { useState, startTransition, Suspense } from "react"
+import { useState, startTransition } from "react"
 
 //Debug UI
 import { useControls } from "leva"
@@ -10,8 +10,9 @@ import { Perf } from "r3f-perf"
 
 //Components
 import { CoffeeCup } from "../Components/CoffeeCup"
-import { DoubleSide } from "three"
 
+
+//Main
 export function Scene3D ({ active }) {
 
     //Debug UI setup
@@ -83,19 +84,12 @@ export function Scene3D ({ active }) {
             </Environment>
 
             {/* Meshes */}
-            <Suspense>
-                <Center top>
-                    <CoffeeCup scale={0.2} rotation-y={Math.PI * 0.5} active={active}/>
-                </Center>
-            </Suspense>
-
-            <mesh scale={[0.65,5,0]} position={[0, 6, 1.35]} castShadow>
-                <planeGeometry/>
-                <shaderMaterial side={DoubleSide}/>
-            </mesh>
+            <Center top>
+                <CoffeeCup scale={0.2} rotation-y={Math.PI * 0.5} active={active}/>
+            </Center>
 
             <mesh rotation-x={-Math.PI*0.5} scale={[100,50,20]} position={[0, -0.0005, 0]} receiveShadow>
-                <planeGeometry/>
+                <planeGeometry args={[1,1,256,256]}/>
                 <MeshReflectorMaterial color='#c5c5c5' metalness={0.2} roughness={1} resolution={2048} blur={[100,100]} mixBlur={1}/>
             </mesh>
 

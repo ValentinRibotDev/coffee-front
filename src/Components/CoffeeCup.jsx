@@ -4,7 +4,7 @@ import * as THREE from 'three'
 export function CoffeeCup({active=0, ...props}) {
 
     //Model Loading
-    const { nodes, materials } = useGLTF("/Models/coffee_cup.glb");
+    const { nodes } = useGLTF("/Models/coffee_cup.glb");
 
     //Texture Loading function
     const loadTextureSet = (basePath, color) => {
