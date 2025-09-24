@@ -23,10 +23,10 @@ export function CoffeeCup({active=0, ...props}) {
 
     //Texture Array
     const variants = [
-        { name: 'Caramel', ...loadTextureSet('Caramel', '#d17d2e') },
+        { name: 'Latte', ...loadTextureSet('Latte', '#a88256') },
         { name: 'Glace', ...loadTextureSet('Glace', '#ffffff') },
         { name: 'Cerise', ...loadTextureSet('Cerise', '#c50000') },
-        { name: 'Latte', ...loadTextureSet('Latte', '#a88256') },
+        { name: 'Caramel', ...loadTextureSet('Caramel', '#d17d2e') },
         { name: 'Matcha', ...loadTextureSet('Matcha', '#badd3d') },
         { name: 'Rose', ...loadTextureSet('Rose', '#f172b2') },
         { name: 'Classic', ...loadTextureSet('Classic', '#101010') }, 
