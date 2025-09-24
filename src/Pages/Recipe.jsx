@@ -9,13 +9,15 @@ export function Recipe() {
     const { boissons } = useOutletContext();
 
     const recipeInfo = boissons.map((boisson,i) => ({
+        key: i,
         name: boisson.name,
         temps: boisson.temps,
         prix: boisson.prix + "€",
         note: boisson.note + '/10',
         couleur: boisson.couleur
+        
     }));
-
+    
     return (
         <>  
             <div className="flex flex-col min-h-screen bannerBackground">
@@ -36,19 +38,21 @@ export function Recipe() {
                     {/* Recettes */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 bannerBackground p-3 auto-rows-[70px]">
                        
-                        {recipeInfo.map((boisson, index) => (
-                            <RecipeBar 
-                                key={index}
-                                className="recipeButton"
-                                TextColor="text-white" 
-                                Name={boisson.name} 
-                                Time={boisson.temps} 
-                                Price={boisson.prix} 
-                                Note={boisson.note}
-                                HoverColor={boisson.couleur}
-                            />
-                        ))}
-
+                        {recipeInfo.map((boisson, i) => {
+                            return (
+                                <RecipeBar 
+                                    key={i}
+                                    index={i}
+                                    className="recipeButton"
+                                    TextColor="text-white" 
+                                    Name={boisson.name} 
+                                    Time={boisson.temps} 
+                                    Price={boisson.prix} 
+                                    Note={boisson.note}
+                                    HoverColor={boisson.couleur}
+                                />
+                            );
+                        })}
                     </div>
 
                 </div>

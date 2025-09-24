@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 
 import { useAuth } from "./AuthContext";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login () {
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ const handleSubmit = async (e) => {
 
     if (loginRes.ok) {
       alert("Connexion réussie !");
-      navigate("/home");
+      navigate("/");
     } else {
       alert("Email ou mot de passe incorrect");
     }

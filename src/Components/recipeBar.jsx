@@ -1,4 +1,6 @@
-export function RecipeBar ({ className, TextColor, Name, Time, Note, Price, HoverColor }) {
+import ModaleRecipe from "./ModaleRecipe.jsx"
+
+export function RecipeBar ({ index, className, TextColor, Name, Time, Note, Price, HoverColor }) {
     return(
         <>
             <div className="col-span-8 flex flex-column items-center">
@@ -43,8 +45,11 @@ export function RecipeBar ({ className, TextColor, Name, Time, Note, Price, Hove
                         Note:&nbsp;{Note}
                     </p>
 
-                    <button className={`${className} w-[120px] h-3/5 rounded roboto-regular`} style={{"--drinkColor": HoverColor }}>See more</button>
-
+                    <ModaleRecipe 
+                    i={index}
+                    Name={Name}
+                    className={`${className} w-[120px] h-3/5 rounded roboto-regular`} 
+                    style={{"--drinkColor": HoverColor }}/>
                 </div>
                 
             </div>
