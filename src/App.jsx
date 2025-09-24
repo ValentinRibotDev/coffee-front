@@ -40,7 +40,7 @@ function App() {
     };
     const fetchProduit = async () => {
       try {              
-        const res = await fetch("http://localhost:8080/api/boissons", {
+        const res = await fetch("http://localhost:8080/api/produits", {
           method: "GET",
           credentials: "include",
         });
@@ -55,7 +55,7 @@ function App() {
     };
     const fetchRecette = async () => {
       try {              
-        const res = await fetch("http://localhost:8080/api/boissons", {
+        const res = await fetch("http://localhost:8080/api/recettes", {
           method: "GET",
           credentials: "include",
         });

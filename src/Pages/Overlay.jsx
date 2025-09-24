@@ -10,11 +10,13 @@ export function Overlay({ active, setActive, max }) {
 
     const { boissons } = useOutletContext();
 
-    const htmlDisplay = [
-        boissons.map((element, index) => {
-            element[index] && { key:[index], name: element[index].name, color: element[index].couleur ,description:element[index].description}                           
-        })
-    ].filter(Boolean); // supprime les "undefined"
+    const htmlDisplay = boissons.map((boisson, i) => ({
+        key: i,
+        name: boisson.name,
+        color: boisson.couleur,
+        description: boisson.description
+    })).filter(Boolean); // supprime les "undefined"
+ 
 
     // ← Ici : si htmlDisplay est vide, on retourne un loader
     if (htmlDisplay.length === 0) {

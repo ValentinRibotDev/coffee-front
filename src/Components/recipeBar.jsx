@@ -24,7 +24,7 @@ export function RecipeBar ({ className, TextColor, Name, Time, Note, Price, Hove
                         hidden 
                         md:flex items-center "
                         >
-                        Temps:{Time}
+                        Temps:&nbsp;{Time}
                     </p>
 
                     <p className="
@@ -32,7 +32,7 @@ export function RecipeBar ({ className, TextColor, Name, Time, Note, Price, Hove
                         hidden 
                         lg:flex items-center "
                         >
-                        Prix:{Price}
+                        Prix:&nbsp;{Price}
                     </p>
 
                     <p className="
@@ -40,7 +40,7 @@ export function RecipeBar ({ className, TextColor, Name, Time, Note, Price, Hove
                         hidden 
                         xl:flex items-center "
                         >
-                        Note:{Note}
+                        Note:&nbsp;{Note}
                     </p>
 
                     <button className={`${className} w-[120px] h-3/5 rounded roboto-regular`} style={{"--drinkColor": HoverColor }}>See more</button>
