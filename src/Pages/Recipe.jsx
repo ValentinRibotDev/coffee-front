@@ -2,18 +2,19 @@
 import { Navigation } from "../Components/NavBar"
 import { RecipeBar } from "../Components/RecipeBar"
 import { BannerRecipe } from "../Components/BannerRecipe"
+import { useOutletContext } from "react-router-dom";
 
 export function Recipe() {
     
-    const recipeInfo = [
-        {nom:"Envou'Temps", temps:"5 min", prix:'10€', note:'4/5', color: '#d17d2e'},
-        {nom:"Envou'Temps", temps:"5 min", prix:'10€', note:'4/5', color: '#5da3c4'},
-        {nom:"Envou'Temps", temps:"5 min", prix:'10€', note:'4/5', color: '#c50000'},
-        {nom:"Envou'Temps", temps:"5 min", prix:'10€', note:'4/5', color: '#a88256'},
-        {nom:"Envou'Temps", temps:"5 min", prix:'10€', note:'4/5', color: '#badd3d'},
-        {nom:"Envou'Temps", temps:"5 min", prix:'20€', note:'4/5', color: '#f172b2'},
-        {nom:"Envou'Temps", temps:"5 min", prix:'10€', note:'4/5', color: '#101010'}
-    ]
+    const { boissons } = useOutletContext();
+
+    const recipeInfo = boissons.map((boisson,i) => ({
+        name: boisson.name,
+        temps: boisson.temps,
+        prix: boisson.prix + "€",
+        note: boisson.note + '/10',
+        couleur: boisson.couleur
+    }));
 
     return (
         <>  
@@ -35,16 +36,16 @@ export function Recipe() {
                     {/* Recettes */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 bannerBackground p-3 auto-rows-[70px]">
                        
-                        {recipeInfo.map((element, index) => (
+                        {recipeInfo.map((boisson, index) => (
                             <RecipeBar 
                                 key={index}
                                 className="recipeButton"
                                 TextColor="text-white" 
-                                Name={element.nom} 
-                                Time={element.temps} 
-                                Price={element.prix} 
-                                Note={element.note}
-                                HoverColor={element.color}
+                                Name={boisson.name} 
+                                Time={boisson.temps} 
+                                Price={boisson.prix} 
+                                Note={boisson.note}
+                                HoverColor={boisson.couleur}
                             />
                         ))}
 

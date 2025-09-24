@@ -6,6 +6,7 @@ import Flag from "./Flag";
 export default function Products() {
 
 const { produit } = useOutletContext();
+console.log("produit:", produit);
 
   return (
 <>
