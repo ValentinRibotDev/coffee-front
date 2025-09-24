@@ -54,3 +54,8 @@
 .recipeButton:active {
     transform: scale(0.8);
 }
+
+/* About Page */
+.aboutSeparator {
+    background: linear-gradient(to right, #f6e7d0, #f5ccaa, #f6e7d0);
+}

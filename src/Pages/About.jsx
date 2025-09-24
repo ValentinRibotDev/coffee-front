@@ -11,7 +11,7 @@ export function About() {
                 </div>
 
                 <div className="flex flex-col items-center">
-                    <div className="overflow-hidden flex justify-center select-none">
+                    <div className="overflow-x-hidden flex justify-center select-none w-full">
                         <BannerAbout/>
                     </div>
                     <div className="text-white p-2 max-w-[1440px]">

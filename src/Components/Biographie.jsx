@@ -1,8 +1,11 @@
 export function Biographie () {
     return (
         <>
-            <div className="flex-col lg:flex bg-red-300">
-                <div className=" w-full lg:w-3/5 mb-4 bg-green-300">
+            <div className="flex flex-col lg:flex-row gap-3 mb-4 ">
+                
+                {/* Texte */}
+                <div className="w-full lg:w-3/5">
+
                     <h1 className="roboto-bold uppercase m-0">
                         Le commencement
                     </h1>
@@ -29,14 +32,53 @@ export function Biographie () {
                         C’est auprès d’eux que nous avons appris que derrière chaque tasse se cache une histoire, 
                         une tradition et une culture.
                     </p>
+
                 </div>
-                <img src="" alt="salut" className="hidden md:block"/>
+
+                <div className="md:flex lg:w-2/5 max-h-[525px] overflow-hidden">
+
+                    <div className="w-full h-[20px] aboutSeparator md:hidden"></div>
+                    
+                    <img 
+                        src="/IMG/testHorizontal.jpg" 
+                        alt="salut" 
+                        className="hidden md:block lg:hidden w-full object-cover"
+                    />
+
+                    <img 
+                        src="/IMG/testVertical.jpg" 
+                        alt="salut" 
+                        className="hidden lg:block object-cover"
+                    />
+
+                </div>
+
             </div>
 
-            <div className="flex justify-end bg-green-300">
-                <img src="" alt="yo" className="hidden"/>
-                <div className="w-full lg:w-3/5 mb-4 text-right bg-blue-300">
-                    <h1 className="roboto-bold uppercase">
+            <div className="flex flex-col-reverse justify-end lg:flex-row gap-3 mb-4 ">
+
+                <div className="md:flex lg:w-2/5 max-h-[525px] overflow-hidden ">
+
+                    <div className=" w-full h-[20px] aboutSeparator md:hidden"></div>
+
+                    <img 
+                        src="/IMG/testHorizontal.jpg" 
+                        alt="salut" 
+                        className="hidden md:block lg:hidden w-full object-cover"
+                    />
+
+                    <img 
+                        src="/IMG/testVertical.jpg" 
+                        alt="salut" 
+                        className="hidden lg:block object-cover"
+                    />
+
+                </div>
+
+                {/* Texte */}
+                <div className="w-full lg:w-3/5 lg:text-right  ">
+                    
+                    <h1 className="roboto-bold uppercase m-0">
                         Notre parcours
                     </h1>
 
@@ -61,17 +103,22 @@ export function Biographie () {
                         capable de plaire aussi bien aux connaisseurs qu’à ceux qui cherchent simplement<br/> 
                         un moment de réconfort.
                     </p>
-                </div>
+
+                </div>          
+
             </div>
 
-            <div className="flex bg-red-300">
-                <div className="w-3/5 mb-4 bg-blue-300">
-                    <h1 className="roboto-bold uppercase">
+            <div className="flex flex-col lg:flex-row gap-3 mb-4 ">
+                
+                {/* Texte */}
+                <div className="w-full lg:w-3/5">
+
+                    <h1 className="roboto-bold uppercase m-0">
                         Et maintenant ?
                     </h1>
-                    
+
                     <p className="roboto-regular">
-                        <strong><b>A</b></strong>ujourd’hui, trois décennies plus tard, 
+                        Aujourd’hui, trois décennies plus tard, 
                         l’aventure qui a commencé autour d’un rêve partagé est devenue une réalité 
                         bien plus grande que ce que nous pouvions imaginer.<br/> 
                         <br/>
@@ -87,9 +134,29 @@ export function Biographie () {
                         deux amis, une idée folle, et l’envie de faire voyager le monde à travers
                         une simple tasse de café.
                     </p>
+
                 </div>
-                <img src="" alt="bleh"/>
+
+                <div className="md:flex lg:w-2/5 max-h-[525px] overflow-hidden">
+
+                    <div className="w-full h-[20px] aboutSeparator md:hidden"></div>
+
+                    <img 
+                        src="/IMG/testHorizontal.jpg" 
+                        alt="salut" 
+                        className="hidden md:block lg:hidden w-full object-cover"
+                    />
+
+                    <img 
+                        src="/IMG/testVertical.jpg" 
+                        alt="salut" 
+                        className="hidden lg:block object-cover"
+                    />
+
+                </div>
+
             </div>
+
         </>
     )
 }
