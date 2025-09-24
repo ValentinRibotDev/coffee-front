@@ -4,7 +4,7 @@ import { RecipeBar } from "../Components/RecipeBar"
 import { BannerRecipe } from "../Components/BannerRecipe"
 
 export function Recipe() {
-
+    
     const recipeInfo = [
         {nom:"Envou'Temps", temps:"5 min", prix:'10€', note:'4/5', color: '#d17d2e'},
         {nom:"Envou'Temps", temps:"5 min", prix:'10€', note:'4/5', color: '#5da3c4'},
@@ -53,7 +53,7 @@ export function Recipe() {
                 </div>
 
                 {/* row 3 = footer */}
-                <div className="bannerBackground"></div>
+                <div className="bannerBackground min-h-[40px]">footer</div>
 
             </div>
         </>                    

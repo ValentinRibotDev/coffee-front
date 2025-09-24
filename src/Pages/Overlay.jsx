@@ -11,13 +11,9 @@ export function Overlay({ active, setActive, max }) {
     const { boissons } = useOutletContext();
 
     const htmlDisplay = [
-    boissons[0] && { name: boissons[0].name, color: '#d17d2e', description: boissons[0].description },
-    boissons[1] && { name: boissons[1].name, color: '#5da3c4', description: boissons[1].description },
-    boissons[2] && { name: boissons[2].name, color: '#c50000', description: boissons[2].description },
-    boissons[3] && { name: boissons[3].name, color: '#a88256', description: boissons[3].description },
-    boissons[4] && { name: boissons[4].name, color: '#badd3d', description: boissons[4].description },
-    boissons[5] && { name: boissons[5].name, color: '#f172b2', description: boissons[5].description },
-    boissons[6] && { name: boissons[6].name, color: '#101010', description: boissons[6].description },
+        boissons.map((element, index) => {
+            element[index] && { key:[index], name: element[index].name, color: element[index].couleur ,description:element[index].description}                           
+        })
     ].filter(Boolean); // supprime les "undefined"
 
     // ← Ici : si htmlDisplay est vide, on retourne un loader

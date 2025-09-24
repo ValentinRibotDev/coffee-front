@@ -32,7 +32,7 @@
 }
 
 .recipeBarBackground:hover {
-    opacity: 0.8;
+    background: #666e70;
 }   
 
 /* Recipe button*/
