@@ -1,35 +1,18 @@
 import { Navigation} from "../Components/NavBar"
+import { useOutletContext } from "react-router-dom";
 import React, { useState,useEffect } from "react";
 import Flag from "./Flag";
 
 export default function Products() {
-  const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("http://localhost:8080/api/produits", {
-          method: "GET",
-          credentials: "include",
-        });
-        if (res.ok) {
-          const data = await res.json();
-          console.log("Réponse API:", data);
-          setProducts(data); // stocke les boissons dans l'état
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchProducts();
-  }, []);
+const { produit } = useOutletContext();
 
   return (
 <>
   <Navigation/>
   <div className="flex gap-4 justify-center mt-20">
-    {products.map((product) => (
-      <div className="w-sm h-auto bg-white border border-gray-200 rounded-lg shadow-sm">
+    {produit.map((product) => (
+      <div key={product.id} className="w-sm h-auto bg-white border border-gray-200 rounded-lg shadow-sm">
         <div className="flex justify-center">
         <img className="p-8 rounded-t-lg h-60 w-50" src={`http://localhost:8080/uploads/image/${product.image}`} alt={product.name} />
         </div>

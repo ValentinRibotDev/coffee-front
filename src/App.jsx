@@ -17,11 +17,12 @@ import Login from "./Pages/Login.jsx";
 function App() {
 
   //FETCH 
-  
-  // Fetch des boissons
   const [boissons, setBoissons] = useState([]);
-
+  const [produit, setProduit] = useState ([]);
+  const [recette, setRecette] = useState ([]);
+  
   useEffect(() => {
+    // Fetch des boissons
     const fetchBoissons = async () => {
       try {              
         const res = await fetch("http://localhost:8080/api/boissons", {
@@ -34,10 +35,42 @@ function App() {
           setBoissons(data);
         }
       } catch (err) {
-      console.error(err);
+      console.error("Erreur fetch des boissons :",err);
       }
     };
+    const fetchProduit = async () => {
+      try {              
+        const res = await fetch("http://localhost:8080/api/boissons", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setProduit(data);
+        }
+      } catch (err) {
+      console.error("Erreur fetch des produits :", err,);
+      }
+    };
+    const fetchRecette = async () => {
+      try {              
+        const res = await fetch("http://localhost:8080/api/boissons", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setRecette(data);
+        }
+      } catch (err) {
+      console.error("Erreur fetch des recettes :", err,);
+      }
+    };  
   fetchBoissons();
+  fetchProduit();
+  fetchRecette();
   }, []);
 
 /**
@@ -46,7 +79,7 @@ function App() {
 const router = createBrowserRouter([
 
   {
-  element: <Layout boissons={boissons} />,  // permet de passer le context a tout les enfants
+  element: <Layout boissons={boissons} produit={produit} recette={recette}/>,  // permet de passer le context a tout les enfants
   children: [
 
     {
