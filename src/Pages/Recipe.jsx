@@ -17,10 +17,10 @@ export function Recipe() {
 
     return (
         <>  
-            <div className="flex flex-col min-h-screen">
+            <div className="flex flex-col min-h-screen bannerBackground">
 
                 {/* row 1 = navbar */}
-                <div className="bannerBackground">
+                <div className="">
                     <Navigation color={'#fff'} className={'invert'} />
                 </div>
 
@@ -28,7 +28,7 @@ export function Recipe() {
                 <div className="flex flex-col">
 
                     {/* Bannière */}
-                    <div className="bannerBackground overflow-hidden flex justify-center select-none">
+                    <div className="overflow-hidden flex justify-center select-none">
                         <BannerRecipe />
                     </div>
 
@@ -53,7 +53,7 @@ export function Recipe() {
                 </div>
 
                 {/* row 3 = footer */}
-                <div className="bannerBackground min-h-[40px]">footer</div>
+                <div className="bg-green-300 min-h-[40px]">footer</div>
 
             </div>
         </>                    

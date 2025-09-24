@@ -1,14 +1,24 @@
 import { Navigation } from "../Components/NavBar"
+import { BannerAbout } from "../Components/BannerAbout"
+import { Biographie } from "../Components/Biographie"
 
 export function About() {
     return (
         <>
-            <div className="grid grid-rows-3 bannerBackground">
+            <div className="flex flex-col bannerBackground">
                 <div className="">
                     <Navigation color={'#fff'} className={'invert'}/>
                 </div>
-                <div className="bg-blue-300">1</div>
-                <div className="bg-green-300">2</div>
+
+                <div className="flex flex-col items-center">
+                    <div className="overflow-hidden flex justify-center select-none">
+                        <BannerAbout/>
+                    </div>
+                    <div className="text-white p-2 max-w-[1440px]">
+                        <Biographie/>
+                    </div>
+                </div>
+                <div className="bg-green-300">footer</div>
             </div>
         </>
     )

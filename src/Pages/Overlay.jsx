@@ -190,7 +190,7 @@ export function Overlay({ active, setActive, max }) {
                 </div>
 
                 {/* Footer */}
-                <div className="col-span-12 h-12 pointer-events-auto">
+                <div className="bg-green-300 col-span-12 h-12 pointer-events-auto">
                 </div>    
             </div>
         </>
