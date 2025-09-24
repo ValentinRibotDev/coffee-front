@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import { Navigation } from "../Components/NavBar"
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
@@ -8,27 +8,7 @@ export function Overlay({ active, setActive, max }) {
     const handlePrev = () => setActive((prev) => (prev - 1 + max) % max)
     const handleNext = () => setActive((prev) => (prev + 1) % max)
 
-    // FETCH
-    const [boissons, setBoissons] = useState([]);
-  
-    useEffect(() => {
-        const fetchBoissons = async () => {
-            try {              
-                const res = await fetch("http://localhost:8080/api/boissons", {
-                    method: "GET",
-                    credentials: "include",
-                });
-
-                if (res.ok) {
-                    const data = await res.json();
-                    setBoissons(data); // stocke les boissons dans l'état
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        };
-        fetchBoissons();
-    }, []);
+    const { boissons } = useOutletContext();
 
     const htmlDisplay = [
     boissons[0] && { name: boissons[0].name, color: '#d17d2e', description: boissons[0].description },
