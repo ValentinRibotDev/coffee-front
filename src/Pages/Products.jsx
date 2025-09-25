@@ -1,7 +1,6 @@
 //React
 import { useOutletContext } from "react-router-dom";
 import React, { useState,useEffect } from "react";
-import { Carousel } from "flowbite-react";
 
 //Component
 import Flag from "../Components/Flag";
@@ -35,14 +34,6 @@ export default function Products() {
                     </div>
 
                     <div className="w-full h-56 sm:h-64 lg:h-80 max-w-[1440px] mb-4 bg-blue-300">
-                        <Carousel slide={false}>
-                            <img src="" alt="0" />
-                            <img src="" alt="1" />
-                            <img src="" alt="2" />
-                            <img src="" alt="3" />
-                            <img src="" alt="4" />
-                            <img src="" alt="5" />
-                        </Carousel>
                     </div>
 
                     <div className="w-full max-w-[1440px] md:flex">
