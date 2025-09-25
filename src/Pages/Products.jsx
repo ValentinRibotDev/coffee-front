@@ -1,13 +1,13 @@
 //React
 import { useOutletContext } from "react-router-dom";
 import React, { useState,useEffect } from "react";
-import { Carousel } from "flowbite-react";
 
 //Component
 import Flag from "../Components/Flag";
 import { Navigation} from "../Components/NavBar"
 import { BannerProduct } from "../Components/BannerProduct"
 import { Footer } from "../Components/Footer";
+import { Carousel } from "../Components/Carousel";
 
 export default function Products() {
 
@@ -34,18 +34,11 @@ export default function Products() {
                         <BannerProduct />
                     </div>
 
-                    <div className="w-full h-56 sm:h-64 lg:h-80 max-w-[1440px] mb-4 bg-blue-300">
-                        <Carousel slide={false}>
-                            <img src="" alt="0" />
-                            <img src="" alt="1" />
-                            <img src="" alt="2" />
-                            <img src="" alt="3" />
-                            <img src="" alt="4" />
-                            <img src="" alt="5" />
-                        </Carousel>
+                    <div className="w-full h-56 sm:h-64 lg:h-80 max-w-[1440px] mb-5 bg-blue-300">
+                        <Carousel />
                     </div>
 
-                    <div className="w-full max-w-[1440px] md:flex">
+                    <div className="w-full max-w-[1440px] md:flex mb-3">
                         <div className="md:w-1/2 bg-green-300">Filtre cat + prix</div>
                         <div className="md:w-1/2 bg-red-300">Filtre recherche</div>
                     </div>
