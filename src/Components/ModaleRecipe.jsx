@@ -2,11 +2,11 @@ import { useEffect,useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 export default function ModaleRecipe({ i, className = "", style = {}, Name }) {
-  const { recette } = useOutletContext();
+  const { recettes } = useOutletContext();
   const modalId = `modal-${i}`;
   const [open, setOpen] = useState(false);
   // On récupère la recette correspondant à l'index de la boisson
-  const currentRecette = recette?.[i] || null;
+  const currentRecettes = recettes?.[i] || null;
   
   return (
 <>
@@ -29,60 +29,60 @@ export default function ModaleRecipe({ i, className = "", style = {}, Name }) {
                         <span className="sr-only">Close modal</span>
                     </button>
                 </div>
-                { currentRecette && (
+                { currentRecettes && (
                 <div className="p-4 md:p-5 space-y-4">
                     <h1 className="text-black underline underline-offset-3">Informations :</h1>
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    {currentRecette.info.replace(/<[^>]+>/g, '') .replace(/&nbsp;/g, ' ')}
+                    {currentRecettes.info.replace(/<[^>]+>/g, '') .replace(/&nbsp;/g, ' ')}
                     </p>
                     <br/>
                     <h1 className="text-black underline underline-offset-3">Étapes :</h1>
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape}
+                    - {currentRecettes.etape}
                     </p>
-                    {currentRecette?.etape1 && (
+                    {currentRecettes?.etape1 && (
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape1}
-                    </p>
-                    )}
-                    {currentRecette?.etape2 && (
-                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape2}
+                    - {currentRecettes.etape1}
                     </p>
                     )}
-                    {currentRecette?.etape3 && (
+                    {currentRecettes?.etape2 && (
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape3}
+                    - {currentRecettes.etape2}
                     </p>
                     )}
-                    {currentRecette?.etape4 && (
+                    {currentRecettes?.etape3 && (
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape4}
+                    - {currentRecettes.etape3}
                     </p>
                     )}
-                    {currentRecette?.etape5 && (
+                    {currentRecettes?.etape4 && (
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape5}
+                    - {currentRecettes.etape4}
                     </p>
                     )}
-                    {currentRecette?.etape6 && (
+                    {currentRecettes?.etape5 && (
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape6}
+                    - {currentRecettes.etape5}
                     </p>
                     )}
-                    {currentRecette?.etape7 && (
+                    {currentRecettes?.etape6 && (
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape7}
+                    - {currentRecettes.etape6}
                     </p>
                     )}
-                    {currentRecette?.etape8 && (
+                    {currentRecettes?.etape7 && (
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape8}
+                    - {currentRecettes.etape7}
                     </p>
                     )}
-                    {currentRecette?.etape9 && (
+                    {currentRecettes?.etape8 && (
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    - {currentRecette.etape9}
+                    - {currentRecettes.etape8}
+                    </p>
+                    )}
+                    {currentRecettes?.etape9 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecettes.etape9}
                     </p>
                     )}
                 </div>

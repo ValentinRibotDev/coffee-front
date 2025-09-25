@@ -13,7 +13,7 @@ export function Recipe() {
     const recipeInfo = boissons.map((boisson,i) => ({
         key: i,
         name: boisson.name,
-        temps: boisson.temps,
+        temps: boisson.temps + "min",
         prix: boisson.prix + "€",
         note: boisson.note + '/10',
         couleur: boisson.couleur

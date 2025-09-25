@@ -72,10 +72,64 @@ function App() {
                 console.error("Erreur fetch des recettes :", err,);
             }
         };
+        
+        const fetchUserById = async () => {
+            try {              
+                const res = await fetch("http://localhost:8080/api/users/{id}", {
+                    method: "GET",
+                    credentials: "include",
+                });
 
+                if (res.ok) {
+                    const data = await res.json();
+                    setBoissons(data);
+                }
+            } 
+            catch (err) {
+                console.error("Erreur fetch des boissons :",err);
+            }
+        };
+
+        const DeleteUserById = async () => {
+            try {              
+                const res = await fetch("http://localhost:8080/api/users/{id}", {
+                    method: "delete",
+                    credentials: "include",
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    setBoissons(data);
+                }
+            } 
+            catch (err) {
+                console.error("Erreur fetch des boissons :",err);
+            }
+        }; 
+        
+        const PatchUserById = async () => {
+            try {              
+                const res = await fetch("http://localhost:8080/api/users/{id}", {
+                    method: "patch",
+                    credentials: "include",
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    setBoissons(data);
+                }
+            } 
+            catch (err) {
+                console.error("Erreur fetch des boissons :",err);
+            }
+        };
+        
         fetchBoissons();
         fetchProduit();
         fetchRecette();
+        fetchUserById();
+        DeleteUserById();
+        PatchUserById();
 
     }, []);
 
