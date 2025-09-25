@@ -19,7 +19,7 @@ export default function ModaleRecipe({ i, className = "", style = {}, Name }) {
         <div className="relative p-4 w-full max-w-2xl max-h-full">
             <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
                 <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200">
-                    <h3 className="text-xl font-semibold text-gray-900">
+                    <h3 className="text-xl font-semibold text-black">
                         {Name}
                     </h3>
                     <button onClick={() => setOpen(false)} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -31,12 +31,60 @@ export default function ModaleRecipe({ i, className = "", style = {}, Name }) {
                 </div>
                 { currentRecette && (
                 <div className="p-4 md:p-5 space-y-4">
+                    <h1 className="text-black underline underline-offset-3">Informations :</h1>
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    {currentRecette.info}
+                    {currentRecette.info.replace(/<[^>]+>/g, '') .replace(/&nbsp;/g, ' ')}
                     </p>
+                    <br/>
+                    <h1 className="text-black underline underline-offset-3">Étapes :</h1>
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    {currentRecette.etape}
+                    - {currentRecette.etape}
                     </p>
+                    {currentRecette?.etape1 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecette.etape1}
+                    </p>
+                    )}
+                    {currentRecette?.etape2 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecette.etape2}
+                    </p>
+                    )}
+                    {currentRecette?.etape3 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecette.etape3}
+                    </p>
+                    )}
+                    {currentRecette?.etape4 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecette.etape4}
+                    </p>
+                    )}
+                    {currentRecette?.etape5 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecette.etape5}
+                    </p>
+                    )}
+                    {currentRecette?.etape6 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecette.etape6}
+                    </p>
+                    )}
+                    {currentRecette?.etape7 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecette.etape7}
+                    </p>
+                    )}
+                    {currentRecette?.etape8 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecette.etape8}
+                    </p>
+                    )}
+                    {currentRecette?.etape9 && (
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    - {currentRecette.etape9}
+                    </p>
+                    )}
                 </div>
                 )}
             </div>
