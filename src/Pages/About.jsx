@@ -1,7 +1,7 @@
 import { Navigation } from "../Components/NavBar"
 import { BannerAbout } from "../Components/BannerAbout"
 import { Biographie } from "../Components/Biographie"
-
+import { Footer } from "../Components/Footer"
 export function About() {
     return (
         <>
@@ -18,7 +18,9 @@ export function About() {
                         <Biographie/>
                     </div>
                 </div>
-                <div className="bg-green-300">footer</div>
+                <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
+                    <Footer className={'invert'}/>
+                </div>
             </div>
         </>
     )

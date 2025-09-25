@@ -2,7 +2,9 @@
 import { Navigation } from "../Components/NavBar"
 import { RecipeBar } from "../Components/RecipeBar"
 import { BannerRecipe } from "../Components/BannerRecipe"
+import { Footer } from "../Components/Footer";
 import { useOutletContext } from "react-router-dom";
+
 
 export function Recipe() {
     
@@ -23,7 +25,7 @@ export function Recipe() {
             <div className="flex flex-col min-h-screen bannerBackground">
 
                 {/* row 1 = navbar */}
-                <div className="">
+                <div>
                     <Navigation color={'#fff'} className={'invert'} />
                 </div>
 
@@ -58,7 +60,9 @@ export function Recipe() {
                 </div>
 
                 {/* row 3 = footer */}
-                <div className="bg-green-300 min-h-[40px]">footer</div>
+                <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
+                    <Footer className={'invert'}/>
+                </div>
 
             </div>
         </>                    
