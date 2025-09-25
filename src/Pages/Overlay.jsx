@@ -1,6 +1,11 @@
 import { useOutletContext } from "react-router-dom";
 import { Navigation } from "../Components/NavBar"
+import { Footer } from "../Components/Footer";
+
+//Icons
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+
+
 
 export function Overlay({ active, setActive, max }) {
 
@@ -95,8 +100,8 @@ export function Overlay({ active, setActive, max }) {
                     <div className="
                         col-span-4 pointer-events-auto
                         flex justify-center justify-evenly items-center gap-4
-                        sm:col-span-2 sm:order-2 sm:justify-end sm:mr-6
-                        lg:col-span-2 lg:order-6 lg:justify-start lg:mr-0
+                        sm:col-span-2 sm:order-2 sm:justify-end sm:mr-6 
+                        lg:col-span-2 lg:order-6 lg:justify-center lg:mr-0
                         xl:ml-8 xl:mt-8"
                         >
 
@@ -125,10 +130,11 @@ export function Overlay({ active, setActive, max }) {
                     {/* Drink Name */}
                     <div className="
                         col-span-4
-                        flex justify-center 
+                        flex justify-center
+                        text-[2rem]
                         sm:col-span-2 sm:order-1 sm:justify-start
-                        lg:col-span-3 
-                        roboto-bold uppercase text-[3rem] m-0 p-0"
+                        lg:col-span-3 lg:text-[3rem]
+                        roboto-bold uppercase  m-0 p-0"
                         >
                         {htmlDisplay[active].name}
                     </div>
@@ -192,8 +198,10 @@ export function Overlay({ active, setActive, max }) {
                 </div>
 
                 {/* Footer */}
-                <div className="bg-green-300 col-span-12 h-12 pointer-events-auto">
-                </div>    
+                <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
+                    <Footer/>
+                </div>
+
             </div>
         </>
     )

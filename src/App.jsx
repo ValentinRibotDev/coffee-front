@@ -16,116 +16,118 @@ import Login from "./Pages/Login.jsx";
 
 function App() {
 
-  //FETCH 
-  const [boissons, setBoissons] = useState([]);
-  const [produit, setProduit] = useState ([]);
-  const [recette, setRecette] = useState ([]);
-  
-  useEffect(() => {
-    // Fetch des boissons
-    const fetchBoissons = async () => {
-      try {              
-        const res = await fetch("http://localhost:8080/api/boissons", {
-          method: "GET",
-          credentials: "include",
-        });
+    //FETCH 
+    const [boissons, setBoissons] = useState([]);
+    const [produits, setProduits] = useState ([]);
+    const [recettes, setRecettes] = useState ([]);
+    
+    useEffect(() => {
+        const fetchBoissons = async () => {
+            try {              
+                const res = await fetch("http://localhost:8080/api/boissons", {
+                    method: "GET",
+                    credentials: "include",
+                });
 
-        if (res.ok) {
-          const data = await res.json();
-          setBoissons(data);
-        }
-      } catch (err) {
-      console.error("Erreur fetch des boissons :",err);
-      }
-    };
-    const fetchProduit = async () => {
-      try {              
-        const res = await fetch("http://localhost:8080/api/produits", {
-          method: "GET",
-          credentials: "include",
-        });
+                if (res.ok) {
+                    const data = await res.json();
+                    setBoissons(data);
+                }
+            } 
+            catch (err) {
+                console.error("Erreur fetch des boissons :",err);
+            }
+        };
 
-        if (res.ok) {
-          const data = await res.json();
-          setProduit(data);
-        }
-      } catch (err) {
-      console.error("Erreur fetch des produits :", err,);
-      }
-    };
-    const fetchRecette = async () => {
-      try {              
-        const res = await fetch("http://localhost:8080/api/recettes", {
-          method: "GET",
-          credentials: "include",
-        });
+        const fetchProduit = async () => {
+            try {              
+                const res = await fetch("http://localhost:8080/api/produits", {
+                    method: "GET",
+                    credentials: "include",
+                });
 
-        if (res.ok) {
-          const data = await res.json();
-          setRecette(data);
-        }
-      } catch (err) {
-      console.error("Erreur fetch des recettes :", err,);
-      }
-    };  
-  fetchBoissons();
-  fetchProduit();
-  fetchRecette();
-  }, []);
+                if (res.ok) {
+                    const data = await res.json();
+                    setProduits(data);
+                }
+            } 
+            catch (err) {
+                console.error("Erreur fetch des produits :", err,);
+            }
+        };
 
-/**
- * Routes
- */
-const router = createBrowserRouter([
+        const fetchRecette = async () => {
+            try {              
+                const res = await fetch("http://localhost:8080/api/recettes", {
+                    method: "GET",
+                    credentials: "include",
+                });
 
-  {
-  element: <Layout boissons={boissons} produit={produit} recette={recette}/>,  // permet de passer le context a tout les enfants
-  children: [
+                if (res.ok) {
+                    const data = await res.json();
+                    setRecettes(data);
+                }
+            } 
+            catch (err) {
+                console.error("Erreur fetch des recettes :", err,);
+            }
+        };
 
-    {
-      path: "/",
-      element: <Home/>,
-    },
-    {
-      path: "/recipe",
-      element: <Recipe/>,
-    },
-    {
-      path: "/products",
-      element: <Products/>,
-    },
-    {
-      path: "/about",
-      element: <About/>,
-    },
-    {
-      path: "/profil",
-      element: <Profil/>,
-    },
-    {
-      path: "/cart",
-      element: <Cart/>,
-    },
-    {
-      path: "/login",
-      element: <Login/>
-    },
-    {
-      path: "/register",
-      element: <Register/>
-    }
-  ]},
-]);
+        fetchBoissons();
+        fetchProduit();
+        fetchRecette();
 
+    }, []);
 
+    /**
+     * Routes
+     */
+    const router = createBrowserRouter([
 
-  return (
-    <>
-      <AuthProvider>
-        <RouterProvider router={router}/>
-      </AuthProvider>
-    </>
-  )
+        {element: <Layout boissons={boissons} produits={produits} recettes={recettes}/>,  // permet de passer le context a tout les enfants
+        children: [
+            {
+            path: "/",
+            element: <Home/>,
+            },
+            {
+            path: "/recipe",
+            element: <Recipe/>,
+            },
+            {
+            path: "/products",
+            element: <Products/>,
+            },
+            {
+            path: "/about",
+            element: <About/>,
+            },
+            {
+            path: "/profil",
+            element: <Profil/>,
+            },
+            {
+            path: "/cart",
+            element: <Cart/>,
+            },
+            {
+            path: "/login",
+            element: <Login/>
+            },
+            {
+            path: "/register",
+            element: <Register/>
+            }
+        ]},
+    ]);
+
+    return (
+        <>
+        <AuthProvider>
+            <RouterProvider router={router}/>
+        </AuthProvider>
+        </>
+    )
 }
 
 export default App
