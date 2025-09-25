@@ -25,7 +25,7 @@ export function Recipe() {
             <div className="flex flex-col min-h-screen bannerBackground">
 
                 {/* row 1 = navbar */}
-                <div className="">
+                <div>
                     <Navigation color={'#fff'} className={'invert'} />
                 </div>
 

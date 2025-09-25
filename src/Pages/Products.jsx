@@ -1,38 +1,66 @@
-import { Navigation} from "../Components/NavBar"
+//React
 import { useOutletContext } from "react-router-dom";
 import React, { useState,useEffect } from "react";
+import { Carousel } from "flowbite-react";
+
+//Component
 import Flag from "../Components/Flag";
+import { Navigation} from "../Components/NavBar"
+import { BannerProduct } from "../Components/BannerProduct"
+import { Footer } from "../Components/Footer";
 
 export default function Products() {
 
-const { produits } = useOutletContext();
+    const { produits } = useOutletContext();
+    // Variable Get
+    // produit.id (key)
+    // produit.image
+    // produit.name
+    // produit.description
+    // produit.intensity
+    // produit.origin
+    // produit.price
 
-  return (
-<>
-  <Navigation/>
-  <div className="flex gap-4 justify-center mt-20">
-    {produits.map((produit) => (
-      <div key={produit.id} className="w-sm h-auto bg-white border border-gray-200 rounded-lg shadow-sm">
-        <div className="flex justify-center">
-        <img className="p-8 rounded-t-lg h-60 w-50" src={`http://localhost:8080/uploads/image/${produit.image}`} alt={produit.name} />
-        </div>
-      <div className="px-5 pb-5">
-          <h5 className="text-xl font-semibold tracking-tight text-gray-900">{produit.name}</h5>
-          <p className="text-sm/5">
-            {produit.description ? produit.description.replace(/<[^>]+>/g, '') .replace(/&nbsp;/g, ' ') : ''} {/* suppression de toutes les balises HTML et de l'espace forcé*/} 
-          </p>
-          <div className="flex justify-between">
-          <p>Intensité : {produit.intensity ?? 0}</p> {/* nullish coalescing = si null ou undefined, affiche 0 */}
-         <p>Origine :&nbsp;<Flag countryCode={produit.origin} /></p>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-3xl font-bold text-gray-900">{produit.price}€</span>
-            <a href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add to cart</a>
-        </div>
-      </div>
-    </div>
-    ))}
-  </div>
-</>
-  )
+    return (
+        <>
+            <div className="flex flex-col min-h-screen bannerBackground">
+
+                <div>
+                    <Navigation color={'#fff'} className={'invert'} />
+                </div>
+
+                <div className="flex flex-col items-center">    
+                    <div className="overflow-x-hidden flex justify-center select-none w-full">
+                        <BannerProduct />
+                    </div>
+
+                    <div className="w-full h-56 sm:h-64 lg:h-80 max-w-[1440px] mb-4 bg-blue-300">
+                        <Carousel slide={false}>
+                            <img src="" alt="0" />
+                            <img src="" alt="1" />
+                            <img src="" alt="2" />
+                            <img src="" alt="3" />
+                            <img src="" alt="4" />
+                            <img src="" alt="5" />
+                        </Carousel>
+                    </div>
+
+                    <div className="w-full max-w-[1440px] md:flex">
+                        <div className="md:w-1/2 bg-green-300">Filtre cat + prix</div>
+                        <div className="md:w-1/2 bg-red-300">Filtre recherche</div>
+                    </div>
+                    <div className="w-full max-w-[1440px] bg-blue-300">Container Card</div>
+                    
+                </div>
+
+                <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
+                        <Footer className={'invert'}/>
+                </div>
+                
+                
+                
+                
+            </div>
+        </>
+    )
 }
