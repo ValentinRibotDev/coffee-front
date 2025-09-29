@@ -1,20 +1,40 @@
 import { useEffect,useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
-export default function ModaleRecipe({ i, className = "", style = {}, Name }) {
+export default function ModaleRecipe({ i, className = "", style = {}, Name, onClose, parentOpen }) {
   const { recettes } = useOutletContext();
+  const [localOpen, setLocalOpen] = useState(false);
   const modalId = `modal-${i}`;
-  const [open, setOpen] = useState(false);
+
+  // Ouverture : si parentOpen existe → priorité au parent, sinon on utilise le local
+  const isOpen = parentOpen !== undefined ? parentOpen : localOpen;
+
   // On récupère la recette correspondant à l'index de la boisson
-  const currentRecettes = recettes?.[i] || null;
+  const currentRecettes = recettes?.[i];
   
+  // Fonction unique pour fermer (parent ou local)
+  const handleClose = () => {
+    if (onClose) {
+      onClose(); // si le parent contrôle → on appelle le parent
+    } else {
+      setLocalOpen(false); // sinon → fermeture locale
+    }
+  };
+
   return (
 <>
-    <button onClick={() => setOpen(true)}  className={` w-[120px] h-3/5 rounded roboto-regular ${className}`} style={style} type="button">
-    See more
-    </button>
+    {parentOpen === undefined && (
+        <button
+          onClick={() => setLocalOpen(true)}
+          className={`w-[120px] h-3/5 rounded roboto-regular ${className}`}
+          style={style}
+          type="button"
+        >
+          See more
+        </button>
+    )}
 
-    {open && (
+    {isOpen && (
     <div id={modalId} className="overflow-y-auto overflow-x-hidden fixed z-50 w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex justify-center items-center bg-black/50">
         <div className="relative p-4 w-full max-w-2xl max-h-full">
             <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
@@ -22,7 +42,7 @@ export default function ModaleRecipe({ i, className = "", style = {}, Name }) {
                     <h3 className="text-xl font-semibold text-black">
                         {Name}
                     </h3>
-                    <button onClick={() => setOpen(false)} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <button onClick={handleClose} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
                         <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>

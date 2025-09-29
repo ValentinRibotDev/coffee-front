@@ -3,12 +3,25 @@ import { Navigation } from "../Components/NavBar"
 import { RecipeBar } from "../Components/RecipeBar"
 import { BannerRecipe } from "../Components/BannerRecipe"
 import { Footer } from "../Components/Footer";
-import { useOutletContext } from "react-router-dom";
-
+import { useOutletContext, useLocation } from "react-router-dom";
+import ModaleRecipe from "../Components/ModaleRecipe";
+import React, { useState, useEffect} from "react";
 
 export function Recipe() {
     
-    const { boissons } = useOutletContext();
+const location = useLocation();
+const { boissons, recettes } = useOutletContext();
+const { currentRecettesIndex } = location.state || {}; 
+
+const currentRecettes = recettes?.[currentRecettesIndex]; 
+const modalId = `modal-${currentRecettesIndex}`;
+const [modalOpen, setModalOpen] = useState(false);
+
+    // Trouve l’index de la recette correspondant à l’id
+useEffect(() => {
+    if (currentRecettesIndex !== undefined) setModalOpen(true);
+}, [currentRecettesIndex]);
+
 
     const recipeInfo = boissons.map((boisson,i) => ({
         key: i,
@@ -19,7 +32,6 @@ export function Recipe() {
         couleur: boisson.couleur
         
     }));
-    
     return (
         <>  
             <div className="flex flex-col min-h-screen bannerBackground">
@@ -63,8 +75,15 @@ export function Recipe() {
                 <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
                     <Footer className={'invert'}/>
                 </div>
-
-            </div>
+                {modalOpen && currentRecettes && (
+                <ModaleRecipe
+                    Name={recipeInfo[currentRecettesIndex]?.name}
+                    i={currentRecettesIndex}
+                    parentOpen={modalOpen}
+                    onClose={() => setModalOpen(false)}
+                />
+                )}   
+        </div>
         </>                    
     )
 }
