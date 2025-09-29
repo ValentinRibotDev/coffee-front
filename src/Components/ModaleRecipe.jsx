@@ -26,7 +26,7 @@ export default function ModaleRecipe({ i, className = "", style = {}, Name, onCl
     {parentOpen === undefined && (
         <button
           onClick={() => setLocalOpen(true)}
-          className={`w-[120px] h-3/5 rounded roboto-regular ${className}`}
+          className={`w-[80px] h-2/5 md:w-[120px] md:h-3/5 rounded roboto-regular ${className}`}
           style={style}
           type="button"
         >
