@@ -22,7 +22,7 @@ export function Recipe() {
     
     return (
         <>  
-            <div className="flex flex-col min-h-screen bannerBackground">
+            <div className="flex flex-col bannerBackground">
 
                 {/* row 1 = navbar */}
                 <div>

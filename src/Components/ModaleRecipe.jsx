@@ -10,7 +10,7 @@ export default function ModaleRecipe({ i, className = "", style = {}, Name }) {
   
   return (
 <>
-    <button onClick={() => setOpen(true)}  className={` w-[120px] h-3/5 rounded roboto-regular ${className}`} style={style} type="button">
+    <button onClick={() => setOpen(true)}  className={` w-[80px] h-2/5 md:w-[120px] md:h-3/5 rounded roboto-regular ${className}`} style={style} type="button">
     See more
     </button>
 

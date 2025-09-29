@@ -6,7 +6,7 @@ export function RecipeBar ({ index, className, TextColor, Name, Time, Note, Pric
             <div className="col-span-8 flex flex-column items-center">
                
                 <div className=
-                    {` w-19/20 h-full 
+                    {` w-full h-full gap-3 
                     flex justify-around items-center 
                     relative overflow-hidden 
                     rounded 
@@ -14,9 +14,10 @@ export function RecipeBar ({ index, className, TextColor, Name, Time, Note, Pric
                     >
 
                     <p className="
-                        w-1/5 h-full m-0
+                        w-1/5 h-full m-0 
                         flex items-center 
-                        roboto-bold uppercase"
+                        roboto-bold uppercase text-[0.85rem]
+                        md:text-[1.3rem]"
                         >
                         {Name}
                     </p>
@@ -24,9 +25,9 @@ export function RecipeBar ({ index, className, TextColor, Name, Time, Note, Pric
                     <p className="
                         w-1/5 h-full m-0
                         hidden 
-                        md:flex items-center "
+                        md:flex items-center"
                         >
-                        Temps:&nbsp;{Time}
+                        Temps:&nbsp;{Time} min
                     </p>
 
                     <p className="
@@ -48,7 +49,7 @@ export function RecipeBar ({ index, className, TextColor, Name, Time, Note, Pric
                     <ModaleRecipe 
                     i={index}
                     Name={Name}
-                    className={`${className} w-[120px] h-3/5 rounded roboto-regular`} 
+                    className={`${className} w-[120px] h-3/5 rounded roboto-regular `} 
                     style={{"--drinkColor": HoverColor }}/>
                 </div>
                 
