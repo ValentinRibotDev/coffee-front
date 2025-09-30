@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { Navigation } from "../Components/NavBar"
 import { Footer } from "../Components/Footer";
 
@@ -13,15 +13,16 @@ export function Overlay({ active, setActive, max }) {
     const handlePrev = () => setActive((prev) => (prev - 1 + max) % max)
     const handleNext = () => setActive((prev) => (prev + 1) % max)
 
-    const { boissons } = useOutletContext();
+    const {boissons} = useOutletContext();
+    const navigate = useNavigate();
+
 
     const htmlDisplay = boissons.map((boisson, i) => ({
         key: i,
         name: boisson.name,
         color: boisson.couleur,
-        description: boisson.description
+        description: boisson.description,
     })).filter(Boolean); // supprime les "undefined"
- 
 
     // ← Ici : si htmlDisplay est vide, on retourne un loader
     if (htmlDisplay.length === 0) {
@@ -181,7 +182,7 @@ export function Overlay({ active, setActive, max }) {
                             cursor-pointer
                             duration-500 ease-in-out
                             hover:bg-stone-300"
-                            >
+                            onClick={() => navigate("/recipe", { state: { currentRecettesIndex: active } })}>
                             See Recipe
                         </div>
 
