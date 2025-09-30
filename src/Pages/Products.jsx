@@ -9,9 +9,13 @@ import { BannerProduct } from "../Components/BannerProduct"
 import { Footer } from "../Components/Footer";
 import { Carousel } from "../Components/Carousel";
 import { LiaSearchSolid } from "react-icons/lia";
+import { CardProduct } from "../Components/CardProduct";
 
 export default function Products() {
 
+    /**
+     * FETCH
+     */
     const { produits } = useOutletContext();
     // Variable Get
     // produit.id (key)
@@ -23,32 +27,60 @@ export default function Products() {
     // produit.price
 
     const test = [
-        {image:'' , name:"L'originel", description:'Les grains de café de nos début, les aromes et la qualité colombienne réuni', intensity:'6', origin:'Colombie', price:'8.99',},
-        {image:'' , name:"L'original", description:'Le visage moderne de nos grains de café, plus corsé, un gout intense en épice', intensity:'8', origin:'Colombie', price:'12.99',},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'',},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'',},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'',},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'',},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'',},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'',},
+        {image:'' , name:"L'originel", description:'Les grains de café de nos début, les aromes et la qualité colombienne réuni', intensity:'6', origin:'Colombie', price:'8.99', catégorie:'Café'},
+        {image:'' , name:"L'original", description:'Le visage moderne de nos grains de café, plus corsé, un gout intense en épice', intensity:'8', origin:'Colombie', price:'12.99', catégorie:'Café'},
+        {image:'' , name:"L'unique", description:'Nos grain de café conçu pour nos café froid, des saveurs inconnu vous attende', intensity:'4', origin:'France', price:'19.99', catégorie:'Café'},
+        {image:'' , name:'La vertu', description:'Notre matcha bio tous droit importé du Japon, pour des saveurs authentiques', intensity:'1', origin:'Japon', price:'15.99', catégorie:'Thé'},
+        {image:'' , name:'', description:'', intensity:'', origin:'', price:'2.99', catégorie:''},
+        {image:'' , name:'', description:'', intensity:'', origin:'', price:'6.99', catégorie:''},
+        {image:'' , name:'', description:'', intensity:'', origin:'', price:'', catégorie:''},
+        {image:'' , name:'', description:'', intensity:'', origin:'', price:'', catégorie:''},
+        {image:'' , name:'', description:'', intensity:'', origin:'', price:'', catégorie:''},
     ]
-    const [rangeValue, setRangeValue] = useState(50);
+
+    /**
+     * USE STATE
+     */
+    const [rangeValue, setRangeValue] = useState(100)
     const [selectValue, setSelectValue] = useState('')
+    const [inputValue, setInputValue] = useState("")
+    const [searchQuery, setSearchQuery] = useState("")
 
-    produits.map((produit)=>{
-        if(produit.price > rangeValue){
-            console.log('prix supérieur, ne pas afficher')
-        } else {
-            console.log('prix dans la marge, afficher')
+    /**
+     * FILTER
+     */
+
+    //InputValue change onClick or press Enter
+    const handleSearch = () => {
+        setSearchQuery(inputValue)
+    }
+
+    //Check all value with data 
+    const filteredProduits = test.filter((produit) => {
+
+        const price = parseFloat(produit.price) || 0;
+
+        // Initialize -> load all
+        if (searchQuery === "" && selectValue === "" && rangeValue >= 100) {
+        return true;
         }
 
-        if(selectValue === '') {
-            console.log('fetch all produit')
-        } else {
-            console.log(`fetch where produit.categories=${selectValue}`)
-        }
-    })
-    
+        // Price
+        const isPriceOk = price >= 0 && price <= rangeValue;
+
+        // Input
+        const textToSearch = (produit.name + " " + produit.description).toLowerCase();
+        const isTextOk =
+        searchQuery === "" || textToSearch.includes(searchQuery.toLowerCase());
+
+        // Select
+        const isCategoryOk =
+        selectValue === "" || produit.catégorie === selectValue;
+
+        return isPriceOk && isTextOk && isCategoryOk;
+
+    });
+
     return (
         <>
             <div className="flex flex-col bannerBackground">
@@ -77,7 +109,7 @@ export default function Products() {
                                 onChange={(e) => setSelectValue(e.target.value)}
                                 >
 
-                                <option value="">Filtre catégorie inactif</option>
+                                <option value="">Filtre par catégorie</option>
                                 <option value="Café">Café</option>
                                 <option value="Thé">Thé</option>
                                 <option value="Latte">Latté</option>
@@ -115,57 +147,58 @@ export default function Products() {
                         </div>
 
                         <div className="md:w-1/2 p-4 h-[50px] rounded-lg flex items-center">
+
                             <div className="relative w-full">
 
-                                <LiaSearchSolid className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-
+                                <button 
+                                    type="button"
+                                    className="
+                                        absolute right-3 top-1/2 -translate-y-1/2 
+                                        flex justify-center items-center
+                                        text-white 
+                                        searchButton"
+                                    onClick={handleSearch}
+                                >
+                                    <LiaSearchSolid className="h-5 w-5"/>    
+                                </button>
+                                
                                 <input
                                     type="text"
                                     placeholder="Rechercher..."
                                     className="
-                                    w-full pl-10 p-2 
-                                    rounded-lg border border-gray-300 
-                                    bg-white 
-                                    text-gray-700 placeholder-gray-400 
-                                    focus:outline-none"
+                                        searchBar
+                                        w-full pl-10 p-2 
+                                        rounded-lg border border-gray-300 
+                                        bg-white 
+                                        text-gray-700 placeholder-gray-400 
+                                        focus:outline-none"
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                        handleSearch();
+                                        }
+                                    }}
                                 />
-
                             </div>
                         </div>
+
                     </div>
                     
                     {/* CARD CONTAINER */}
-                    <div className="w-full max-w-[1440px] flex flex-wrap justify-center xl:justify-between gap-3">
+                    <div className="w-full max-w-[1440px] flex flex-wrap justify-center gap-3">
 
                         {/* CARD */}
-                        {test.map((produit) => (
-                            <div className="w-[320px] max-h-[500px] border">
-
-                                <img src={produit.image} alt="img" className="w-full h-[320px] p-2"/>
-
-                                <div className="w-full h-[180px] p-2 cardBackground text-black">
-
-                                    <div className="flex justify-between items-center h-1/4">
-                                        <p className="roboto-bold text-2xl m-0">{produit.name}</p>
-                                        <p className="roboto-bold text-2xl m-0">{produit.price}€</p>  
-                                    </div>
-                                    
-
-                                    <p className="roboto-regular test-xs h-1/4 ">{produit.description}</p>
-
-                                    <div className="flex justify-between items-center h-1/4">
-                                        <p className="roboto-regular m-0">Origine: {produit.origin}</p>
-                                        <p className="roboto-regular m-0">Intensité: {produit.intensity}/10</p>    
-                                    </div>
-
-                                    <div className="flex justify-between items-center h-1/4">
-                                        <button className="w-[100px] h-3/4 border-[2px] rounded">Favoris</button>
-                                        <button className="w-[100px] h-3/4 border-[2px] rounded">Add to cart</button>                                   
-                                    </div>
-
-                                </div>
-                                
-                            </div>    
+                        {filteredProduits.map((produit, index) => (
+                            <CardProduct
+                                key={index}
+                                image={produit.image}
+                                name={produit.name}
+                                price={produit.price}
+                                description={produit.description}
+                                origin={produit.origin}
+                                intensity={produit.intensity}
+                            />
                         ))}
                         
                     </div>

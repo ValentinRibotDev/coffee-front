@@ -64,3 +64,47 @@
 .cardBackground {
     background: linear-gradient(to right, #f6e7d0, #f5ccaa);
 }
+
+.searchBar {
+    background: linear-gradient(to left, #666e70 ,white 10%);
+}
+
+.searchButton {
+    width:42px;
+    height:42px;
+    transition: 0.3s ease-in-out;
+}
+
+.searchButton:hover {
+    transform: scale(1.2);
+}
+
+.searchButton:active {
+    transform: scale(0.8);
+}
+
+.buttonFav {
+    transform: scale(1.2);
+    transition: 0.2s ease-in-out;
+}
+
+.buttonFav:hover {
+    transform: scale(1.5);
+}
+
+.buttonFav:active {
+    transform: scale(0.5);
+}
+
+.buttonAddCart {
+    color: black;
+    text-transform: uppercase;
+    background: linear-gradient(to left, #a58972, transparent);
+    transition: 0.5s ease-in-out;
+}
+
+.buttonAddCart:hover {
+    color: #f5ccaa;
+    width: 270px;
+    letter-spacing: 0.1em;
+}
