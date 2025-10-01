@@ -17,27 +17,17 @@ export default function Products() {
      * FETCH
      */
     const { produits } = useOutletContext();
-    // Variable Get
-    // produit.id (key)
-    // produit.image
-    // produit.name
-    // produit.description
-    // produit.intensity
-    // produit.origin
-    // produit.price
 
-    const test = [
-        {image:'' , name:"L'originel", description:'Les grains de café de nos début, les aromes et la qualité colombienne réuni', intensity:'6', origin:'Colombie', price:'8.99', catégorie:'Café'},
-        {image:'' , name:"L'original", description:'Le visage moderne de nos grains de café, plus corsé, un gout intense en épice', intensity:'8', origin:'Colombie', price:'12.99', catégorie:'Café'},
-        {image:'' , name:"L'unique", description:'Nos grain de café conçu pour nos café froid, des saveurs inconnu vous attende', intensity:'4', origin:'France', price:'19.99', catégorie:'Café'},
-        {image:'' , name:'La vertu', description:'Notre matcha bio tous droit importé du Japon, pour des saveurs authentiques', intensity:'1', origin:'Japon', price:'15.99', catégorie:'Thé'},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'2.99', catégorie:''},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'6.99', catégorie:''},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'', catégorie:''},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'', catégorie:''},
-        {image:'' , name:'', description:'', intensity:'', origin:'', price:'', catégorie:''},
-    ]
-
+    const products = produits.map((produit, i) => ({
+    id: produit.id,
+    image: produit.image,
+    name: produit.name, 
+    description: produit.description, 
+    categorie: produit.categorie,
+    intensity: produit.intensity, 
+    origin: produit.origin, 
+    price: produit.price, 
+}));
     /**
      * USE STATE
      */
@@ -45,7 +35,7 @@ export default function Products() {
     const [selectValue, setSelectValue] = useState('')
     const [inputValue, setInputValue] = useState("")
     const [searchQuery, setSearchQuery] = useState("")
-
+    const categories = Array.from(new Set(products.map(p => p.categorie))); // permet de ne pas avoir de doublon dans le map de product.categorie
     /**
      * FILTER
      */
@@ -56,7 +46,7 @@ export default function Products() {
     }
 
     //Check all value with data 
-    const filteredProduits = test.filter((produit) => {
+    const filteredProduits = products.filter((produit) => {
 
         const price = parseFloat(produit.price) || 0;
 
@@ -75,10 +65,9 @@ export default function Products() {
 
         // Select
         const isCategoryOk =
-        selectValue === "" || produit.catégorie === selectValue;
+        selectValue === "" || produit.categorie === selectValue;
 
         return isPriceOk && isTextOk && isCategoryOk;
-
     });
 
     return (
@@ -100,7 +89,7 @@ export default function Products() {
   
                     <div className="w-full max-w-[1440px] flex flex-col md:flex-row mb-3">
                 
-                        <div className="w-[90%] ml-4 md:w-1/2 flex flex-col items-center sm:flex-row p-1 md:h-[50px] md:ml-5 rounded-lg  items-center gap-6">
+                        <div className="w-[90%] ml-4 md:w-1/2 flex flex-col items-center sm:flex-row p-1 md:h-[50px] md:ml-5 rounded-lg  gap-6">
                     
                             <select
                                 defaultValue=""
@@ -108,12 +97,12 @@ export default function Products() {
                                 value={selectValue}
                                 onChange={(e) => setSelectValue(e.target.value)}
                                 >
-
-                                <option value="">Filtre par catégorie</option>
-                                <option value="Café">Café</option>
-                                <option value="Thé">Thé</option>
-                                <option value="Latte">Latté</option>
-
+                            <option value="">Filtre par catégorie</option>
+                            {categories.map((categorie, i) => (
+                            <option key={i} value={categorie}>
+                                {categorie}
+                            </option>
+                            ))}
                             </select>
 
                     
@@ -195,14 +184,13 @@ export default function Products() {
                                 image={produit.image}
                                 name={produit.name}
                                 price={produit.price}
-                                description={produit.description}
+                                description={produit.description.replace(/<[^>]+>/g, '') .replace(/&nbsp;/g, ' ')}
                                 origin={produit.origin}
                                 intensity={produit.intensity}
                             />
                         ))}
                         
                     </div>
-                    
                 </div>
 
                 <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
