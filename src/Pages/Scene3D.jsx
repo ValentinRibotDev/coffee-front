@@ -31,13 +31,13 @@ export function Scene3D ({ active }) {
 
     //Array
     const envLight = [
-        {name:'caramel', colorHot:'#ffc900', colorCold:'#06709d', hotIntensity:20.0, coldIntensity:15.0}, 
-        {name:'glace', colorHot:'#00e2ff', colorCold:'#000993', hotIntensity:20.0, coldIntensity:10.0}, 
+        {name:'latte', colorHot:'#fffca1', colorCold:'#ab3300', hotIntensity:17.0, coldIntensity:9.5},  
         {name:'cerise', colorHot:'#c50000', colorCold:'#096901', hotIntensity:30.0, coldIntensity:5.0},
-        {name:'latte', colorHot:'#fffca1', colorCold:'#ab3300', hotIntensity:17.0, coldIntensity:9.5},
         {name:'matcha', colorHot:'#46ff00', colorCold:'#7c9302', hotIntensity:4.0, coldIntensity:7.0},
         {name:'rose', colorHot:'#f200ff', colorCold:'#3a0194', hotIntensity:20.0, coldIntensity:10.0}, 
         {name:'classic', colorHot:'#ffffff', colorCold:'#adadad', hotIntensity:20.0, coldIntensity:5.0},
+        {name:'caramel', colorHot:'#ffc900', colorCold:'#06709d', hotIntensity:20.0, coldIntensity:15.0},
+        {name:'glace', colorHot:'#00e2ff', colorCold:'#000993', hotIntensity:20.0, coldIntensity:10.0},
     ]
 
     return (

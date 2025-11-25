@@ -21,8 +21,6 @@ function App() {
     const [produits, setProduits] = useState ([]);
     const [recettes, setRecettes] = useState ([]);
    
-
-
     useEffect(() => {
         const fetchBoissons = async () => {
             try {              
@@ -75,12 +73,9 @@ function App() {
             }
         };
         
-
-        
         fetchBoissons();
         fetchProduit();
         fetchRecette();
-
 
     }, []);
 
