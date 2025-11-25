@@ -2,7 +2,8 @@ import { useState } from "react"
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 
 export function CardProduct ({image, name, price, description, origin, intensity}) {
-const [isFavorite, setIsFavorite] = useState(false)
+    
+    const [isFavorite, setIsFavorite] = useState(false)
 
     return(
         <>

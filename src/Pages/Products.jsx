@@ -155,7 +155,6 @@ export default function Products() {
                                     className="
                                         absolute right-3 top-1/2 -translate-y-1/2 
                                         flex justify-center items-center
-                                        text-white 
                                         searchButton"
                                     onClick={handleSearch}
                                 >
@@ -166,7 +165,6 @@ export default function Products() {
                                     type="text"
                                     placeholder="Rechercher..."
                                     className="
-                                        searchBar
                                         w-full pl-10 p-2 
                                         rounded-lg border border-gray-300 
                                         bg-white 

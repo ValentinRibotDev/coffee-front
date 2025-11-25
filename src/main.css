@@ -65,10 +65,6 @@
     background: linear-gradient(to right, #f6e7d0, #f5ccaa);
 }
 
-.searchBar {
-    background: linear-gradient(to left, #666e70 ,white 10%);
-}
-
 .searchButton {
     width:42px;
     height:42px;
@@ -107,4 +103,15 @@
     color: #f5ccaa;
     width: 270px;
     letter-spacing: 0.1em;
+}
+
+/* Profil Page */
+.profilPictureBackground {
+    color: #3e4345;
+    background: #f5ccaa;
+    border: 2px solid #f6e7d0;
+}
+
+.profilText {
+    color:#f6e7d0
 }
