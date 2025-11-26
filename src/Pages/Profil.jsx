@@ -7,15 +7,15 @@ export function Profil() {
     return (
         <>
             <div className="flex flex-col bannerBackground">
-
                 <div>
                     <Navigation color='#fff' className={'invert'}/>
                 </div>
-
                 <div>
                     <InfoProfil/>
                 </div>
+                        
             </div>
+            
         </>
     )
 }

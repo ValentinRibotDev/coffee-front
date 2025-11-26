@@ -74,23 +74,19 @@ export function Navigation({color, className}) {
                 <div className="w-1/5 flex justify-center items-center">
                 
                     <div className={`
-                        w-[60px] h-[30px] rounded-lg
                         px-3 py-2 space-x-1
                         flex items-center justify-center
-                        bg-black ${className}
+                         ${className}
                         `}
                     >
                     
                         {/* Panier */}
-                        <a href="/cart" className="text-white text-xl flex items-center justify-center ">
+                        <a href="/cart" className="bg-black w-[30px] h-[30px] rounded-full text-white text-xl flex items-center justify-center ">
                             <HiOutlineShoppingCart />
                         </a>
 
-                        {/* Séparateur */}
-                        <span className="text-white">|</span>
-
                         {/* User */}
-                        <a href="/profil" className="text-white text-xl flex items-center justify-center">
+                        <a href="/profil" className="bg-black w-[30px] h-[30px] rounded-full text-white text-xl flex items-center justify-center">
                             <HiOutlineUser />
                         </a>
 

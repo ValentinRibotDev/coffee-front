@@ -108,12 +108,11 @@ const handleSubmit = async (e) => {
             <div className="flex justify-center">
                 <button
                 type="submit"
-                className="rounded-md border-2 border-amber-50 w-[380px] h-[50px] relative group overflow-hidden transition-transform duration-300 ease-out hover:scale-110 cursor-pointer"
+                className="rounded-md border-2 border-amber-50 w-[380px] h-[50px] relative group overflow-hidden transition-transform duration-300 ease-out hover:scale-98 cursor-pointer"
                 >
-                <div className="bg-stone-800 text-white w-full h-full flex flex-col justify-center">
-                    Submit
-                </div>
-                <div className="transition-transform ease-out bg-gray-400 opacity-40 absolute w-[20px] h-[60px] -top-2 -skew-x-12 -translate-x-8 group-hover:translate-x-100">&nbsp;</div>
+                    <div className="cardBackground rounded text-white w-full h-full flex flex-col uppercase justify-center">
+                        Submit
+                    </div>       
                 </button>  
             </div>
           </form>

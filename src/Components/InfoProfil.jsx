@@ -26,7 +26,7 @@ export function InfoProfil () {
                     </div>
                 </div>
 
-                <div className="ml-5 lg:ml-0">
+                <div className="ml-5 lg:ml-3">
                     {/* NAME */}
                     <div className="flex flex-row items-center">
                         <p className="m-0 text-xs roboto-bold profilText uppercase">
@@ -37,7 +37,7 @@ export function InfoProfil () {
                         </div>     
                     </div>
 
-                    <div className="md:flex md:flex-row md:gap-x-5 lg:flex-col lg">
+                    <div className="">
                         {/* EMAIL */}
                         <div className="flex flex-row items-center">
                             <p className="m-0 roboto-bold text-xs profilText uppercase">Email:</p>
