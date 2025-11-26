@@ -1,37 +1,53 @@
-import React, { useState} from "react";
-
+import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login () {
+export default function Login() {
   const [email, setEmail] = useState("");
   const { setToken } = useAuth();
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const loginRes = await fetch("http://localhost:8080/api/login_check", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      // 1) POST credentials to login_check so backend can set HttpOnly cookies (refresh token)
+      const loginRes = await fetch("http://localhost:8080/api/login_check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // important to accept/set cookies
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (loginRes.ok) {
-      alert("Connexion réussie !");
-      navigate("/");
-    } else {
-      alert("Email ou mot de passe incorrect");
+      if (!loginRes.ok) {
+        const errBody = await loginRes.json().catch(() => null);
+        alert(errBody?.message || "Email ou mot de passe incorrect");
+        return;
+      }
+
+      // 2) Immediately request access token using refresh token cookie (HttpOnly)
+      const refreshRes = await fetch("http://localhost:8080/api/token/refresh", {
+        method: "POST",
+        credentials: "include", // send refresh cookie
+      });
+
+      const refreshData = await refreshRes.json().catch(() => null);
+
+      if (refreshRes.ok && refreshData?.token) {
+        // do NOT store token in localStorage if you prefer cookie-only flow,
+        // but keep it in memory via auth context for the current session
+        setToken(refreshData.token);
+        navigate("/");
+      } else {
+        console.error("Refresh failed", refreshData);
+        alert("Impossible d'obtenir le token d'accès.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Une erreur est survenue lors de la connexion");
     }
-  } catch (err) {
-    console.error(err);
-    alert("Une erreur est survenue lors de la connexion");
-  }
-};
+  };
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -43,15 +59,16 @@ const handleSubmit = async (e) => {
             className="mx-auto h-10 w-auto mb-10"
           />
         </Link>
-        <h2 className="text-center text-gray-900">
-          It's time to connect !
-        </h2>
+        <h2 className="text-center text-gray-900">It's time to connect !</h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form method="POST" onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+            <label
+              htmlFor="email"
+              className="block text-sm/6 font-medium text-gray-900"
+            >
               Email adress
             </label>
             <div className="mt-2">
@@ -63,13 +80,16 @@ const handleSubmit = async (e) => {
                 autoComplete="email"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-rose-200 sm:text-sm/6"
                 value={email}
-                onChange={(e)=> setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm/6 font-medium justify-center text-gray-900">
+            <label
+              htmlFor="password"
+              className="block text-sm/6 font-medium justify-center text-gray-900"
+            >
               Password
             </label>
             <div className="mt-2">
@@ -81,27 +101,35 @@ const handleSubmit = async (e) => {
                 autoComplete="current-password"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-rose-200 sm:text-sm/6"
                 value={password}
-                onChange={(e)=> setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
 
           <div className="flex justify-center">
-            <button type="submit" className="rounded-md border-2 border-amber-50 w-[380px] h-[50px] relative group overflow-hidden transition-transform duration-300 ease-out hover:scale-110 cursor-pointer">
+            <button
+              type="submit"
+              className="rounded-md border-2 border-amber-50 w-[380px] h-[50px] relative group overflow-hidden transition-transform duration-300 ease-out hover:scale-110 cursor-pointer"
+            >
               <div className="bg-stone-800 text-white w-full h-full flex flex-col justify-center">
                 Login
               </div>
-            </button>  
+            </button>
           </div>
         </form>
 
         <p className="mt-10 text-center text-sm/6 text-gray-500">
-          Not already member ?{' '}
+          Not already member ?{" "}
           <Link to="/register">
             Register
           </Link>
         </p>
+        <p className="mt-2 text-sm">
+          <a href="http://localhost:8080/reset-password" className="text-blue-600 hover:underline">
+                Mot de passe oublié ?
+          </a>
+        </p>
       </div>
     </div>
-  )
+  );
 }
