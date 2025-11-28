@@ -21,6 +21,32 @@ export function Cart() {
     //     }
     // };
 
+    const updateQuantity = async (id, newQuantity) => {
+        try {
+            const res = await fetch(`http://localhost:8080/api/cart/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ quantity: newQuantity }),
+            });
+
+            if (!res.ok) {
+                console.error("Erreur API UPDATE");
+                return;
+            }
+
+            // Mise à jour dans le state local
+            setCart((prev) =>
+                prev.map((item) =>
+                    item.id === id ? { ...item, quantity: newQuantity } : item
+                )
+            );
+
+        } catch (e) {
+            console.error("Erreur UPDATE:", e);
+        }
+    };
+
     const removeFromCart = async (id) => {
         try {
             const res = await fetch(`http://localhost:8080/api/cart/${id}`, {
@@ -57,13 +83,32 @@ export function Cart() {
                     <div className="bg-stone-900 text-white p-2 mb-1 border border-white" key={item.id}>
 
                         <div className="flex justify-between roboto-bold">
-                            <div>{item.name}</div>
-                            <button className="bg-red-500 text-white p-1 w-[30px] rounded" onClick={() => removeFromCart(item.id)}>X</button>
-                        </div>
+                            <div className="w-1/5">{item.name}</div>                            
+                            <div className="w-1/5">Prix unitaire: ${item.price}</div>
+                            <div className="w-1/5">
+                                Quantité:
+                                <select
+                                    className="bg-black border px-2 ml-1"
+                                    value={item.quantity}
+                                    onChange={(e) =>
+                                        updateQuantity(item.id, Number(e.target.value))
+                                    }
+                                >
+                                    <option value={item.quantity}>
+                                        {item.quantity}
+                                    </option>
 
-                        <div>
-                            <div>Prix unitaire: ${item.price}</div>
-                            <div>Quantité: {item.quantity}</div>
+                                    {[...Array(10)].map((_, i) => (
+                                        <option key={i + 1} value={i + 1}>
+                                            {i + 1}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="w-1/5">Sous-total: ${item.price * item.quantity}</div>
+                            <div className="w-1/5 flex justify-end">
+                                <button className="bg-red-500 text-white p-1 w-[30px] rounded" onClick={() => removeFromCart(item.id)}>X</button>
+                            </div>
                         </div>
                          
                     </div>
