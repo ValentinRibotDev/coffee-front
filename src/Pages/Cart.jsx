@@ -24,7 +24,7 @@ export function Cart() {
     const updateQuantity = async (id, newQuantity) => {
         try {
             const res = await fetch(`http://localhost:8080/api/cart/${id}`, {
-                method: "PUT",
+                method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({ quantity: newQuantity }),
