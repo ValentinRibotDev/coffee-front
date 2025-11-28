@@ -1,4 +1,11 @@
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Pages/AuthContext";
+
+
 export function InfoProfil () {
+
+    const navigate = useNavigate();
+    const { setToken } = useAuth();
 
     const user = [
         {firstname: 'Valentin', lastname: 'Ribot', profilPicture: '', email:'valentinribot91@gmail.com', tel:'0613881968'}
@@ -6,10 +13,22 @@ export function InfoProfil () {
 
     const initials = `${user[0].firstname[0]}${user[0].lastname[0]}`
 
+     const deleteToken = () => {
+        setToken(null);      // reset token
+        navigate("/login");  // redirection immédiate
+    };
+
     return (
         <>
             <div className="flex flex-row lg:flex-col p-2 gap-y-2 ">
 
+                <button 
+                className="bg-red-500 rounded w-[100px] h-[40px] text-white roboto-regular uppercase"
+                onClick={deleteToken}
+                >
+                    Logout
+                </button>
+                
                 {/* PROFIL PICTURE */}
                 <div className="
                 flex justify-center items-center"

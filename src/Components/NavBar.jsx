@@ -3,6 +3,7 @@ import { HiOutlineUser, HiOutlineShoppingCart } from "react-icons/hi2";
 export function Navigation({color, className}) {
 
     const homeColor = color || "#000000";
+    const user = false || null; // À remplacer par le contexte d'authentification
 
     return (
         <>
@@ -86,7 +87,7 @@ export function Navigation({color, className}) {
                         </a>
 
                         {/* User */}
-                        <a href="/profil" className="bg-black w-[30px] h-[30px] rounded-full text-white text-xl flex items-center justify-center">
+                        <a href={user ? "/profil" : "/login"} className="bg-black w-[30px] h-[30px] rounded-full text-white text-xl flex items-center justify-center">
                             <HiOutlineUser />
                         </a>
 
