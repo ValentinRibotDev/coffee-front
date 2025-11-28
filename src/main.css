@@ -115,3 +115,7 @@
 .profilText {
     color:#f6e7d0
 }
+
+.cartGradient {
+    background: linear-gradient(to left, #252525 , #ffffff 30%);
+}
