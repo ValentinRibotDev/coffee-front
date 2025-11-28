@@ -1,6 +1,7 @@
 //React
 import { useOutletContext } from "react-router-dom";
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
+import { useAuth } from "./AuthContext";
 
 //Component
 import Flag from "../Components/Flag";
@@ -13,9 +14,46 @@ import { CardProduct } from "../Components/CardProduct";
 
 export default function Products() {
 
-    /**
-     * FETCH
-     */
+    const { token } = useAuth();
+    const addToCart = async (productId) => {
+
+        let currentToken = token;
+
+        let response = await fetch('http://localhost:8080/api/cart/add', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${currentToken}`,
+            },
+            credentials: "include",
+            body: JSON.stringify({ product_id: productId, quantite: 1 }),
+        });
+
+        if (response.status === 401) {
+            // JWT expiré -> refresh
+            const refreshRes = await fetch('http://localhost:8080/api/token/refresh', {
+                method: 'POST',
+                credentials: 'include',
+            });
+
+            const refreshData = await refreshRes.json();
+            currentToken = refreshData.token;
+
+            // retry addToCart
+            response = await fetch('http://localhost:8080/api/cart/add', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${currentToken}`,
+                },
+                credentials: "include",
+                body: JSON.stringify({ product_id: productId, quantite: 1 }),
+            });
+        }
+
+        return response.json();
+    };
+
     const { produits } = useOutletContext();
 
     const products = produits.map((produit, i) => ({
@@ -44,6 +82,10 @@ export default function Products() {
     const handleSearch = () => {
         setSearchQuery(inputValue)
     }
+
+    const handleAddToCart = (productId) => {
+        addToCart(productId, 1,token);
+    };
 
     //Check all value with data 
     const filteredProduits = products.filter((produit) => {
@@ -185,6 +227,7 @@ export default function Products() {
                                 description={produit.description.replace(/<[^>]+>/g, '') .replace(/&nbsp;/g, ' ')}
                                 origin={produit.origin}
                                 intensity={produit.intensity}
+                                AddToCart={() => handleAddToCart(produit.id)}
                             />
                         ))}
                         
