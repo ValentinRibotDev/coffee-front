@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -7,27 +7,27 @@ export const AuthProvider = ({ children }) => {
 
     const isLoggedIn = () => !!token;
 
-    // Au montage, essayer de récupérer un token via refresh cookie
-    useEffect(() => {
-        const fetchToken = async () => {
-            try {
-                const res = await fetch("http://localhost:8080/api/token/refresh", {
-                    method: "POST",
-                    credentials: "include", // envoie le cookie refresh token
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    setToken(data.token); // stocke le JWT pour fetchs futurs
-                }
-            } catch (err) {
-                console.error("Impossible de récupérer le token:", err);
-            }
-        };
-        fetchToken();
-    }, []);
+    // Fonction de déconnexion qui supprime le refresh token
+    const logout = async () => {
+        try {
+            // Appel à l'endpoint backend pour révoquer le refresh token
+            await fetch("http://localhost:8080/api/logout", {
+                method: "POST",
+                credentials: "include", // envoie le cookie refresh token
+                headers: {
+                    "Authorization": token ? `Bearer ${token}` : "",
+                },
+            });
+        } catch (err) {
+            console.error("Erreur lors de la déconnexion:", err);
+        } finally {
+            // Dans tous les cas, on efface le token local
+            setToken(null);
+        }
+    };
 
     return (
-        <AuthContext.Provider value={{ token, setToken, isLoggedIn }}>
+        <AuthContext.Provider value={{ token, setToken, isLoggedIn, logout }}>
             {children}
         </AuthContext.Provider>
     );
