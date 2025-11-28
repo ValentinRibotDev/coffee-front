@@ -3,7 +3,7 @@ import '../Css/home.css'
 
 // R3F
 import { Canvas } from "@react-three/fiber"
-import { useState, Suspense } from "react"
+import { useState, Suspense, useEffect } from "react"
 
 //Components
 import { Scene3D } from "./Scene3D.jsx"
@@ -14,28 +14,30 @@ import { Overlay } from "./Overlay"
  */
 export function Home() {
 
-    const [active, setActive] = useState(0)
+    const [active, setActive] = useState(0) 
     const max = 7
 
     return (
         <> 
             <Canvas
                 shadows
-                camera={ {
+                camera={{
                     fov: 45,
                     near: 0.1,
                     far: 200,
-                    position: [0,0.2,10],
-                } }
+                    position: [0, 0.2, 10],
+                }}
             >
                 <color attach="background" args={['#c5c5c5']} />
-                <Suspense>
+
+                {/* Suspense pour loader R3F interne (indépendant du loader 8s) */}
+                <Suspense fallback={null}>
                     <Scene3D active={active} />
                 </Suspense>
             </Canvas>
-            
+
             <Overlay active={active} setActive={setActive} max={max} />
-            
         </>
     )
 }
+    
