@@ -2,7 +2,7 @@ import { useState } from "react"
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import Flag from "../Components/Flag";
 
-export function CardProduct ({image, name, price, description, origin, intensity}) {
+export function CardProduct ({image, name, price, description, origin, intensity,AddToCart}) {
     console.log(image);
 const [isFavorite, setIsFavorite] = useState(false)
 
@@ -44,7 +44,7 @@ const [isFavorite, setIsFavorite] = useState(false)
                                    
                         </button>
 
-                        <button className="w-[150px] h-full flex justify-end items-center rounded roboto-bold buttonAddCart text-right pr-2">
+                        <button onClick={AddToCart} className="w-[150px] h-full flex justify-end items-center rounded roboto-bold buttonAddCart text-right pr-2">
                             Add to cart
                             <MdOutlineArrowForwardIos/>
                         </button>    
