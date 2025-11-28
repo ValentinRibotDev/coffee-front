@@ -5,14 +5,9 @@ import { useNavigate } from "react-router-dom";
 export function Navigation({color, className}) {
 
     const homeColor = color || "#000000";
-    const { isLoggedIn, logout } = useAuth();
+    const { token, logout } = useAuth();
     const navigate = useNavigate();
-
-    const handleLogout = async () => {
-        await logout();
-        navigate("/login");
-    };
-
+    
     return (
         <>
             {/* LOGO */}
@@ -95,19 +90,12 @@ export function Navigation({color, className}) {
                         </a>
 
                         {/* User */}
-                        <a href={isLoggedIn() ? "/profil" : "/login"} className="bg-black w-[30px] h-[30px] rounded-full text-white text-xl flex items-center justify-center">
+                        <div
+                        onClick={() => navigate(token ? "/profil" : "/login")}
+                        className="bg-black w-[30px] h-[30px] rounded-full text-white text-xl flex items-center justify-center cursor-pointer"
+                        >
                             <HiOutlineUser />
-                        </a>
-
-                        {/* Logout Button - visible seulement si connecté */}
-                        {isLoggedIn() && (
-                            <button
-                                onClick={handleLogout}
-                                className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-full text-white text-sm font-medium transition-colors duration-200"
-                            >
-                                Logout
-                            </button>
-                        )}
+                        </div>
 
                     </div>
 
