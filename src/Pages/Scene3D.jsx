@@ -53,7 +53,7 @@ export function Scene3D ({ active }) {
                 enableDamping={true}
                 enableZoom={false}
                 enablePan={false}
-                autoRotate={false}
+                autoRotate={true}
                 autoRotateSpeed={1.0}
                 makeDefault
             />

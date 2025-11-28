@@ -16,7 +16,6 @@ export function Overlay({ active, setActive, max }) {
     const {boissons} = useOutletContext();
     const navigate = useNavigate();
 
-
     const htmlDisplay = boissons.map((boisson, i) => ({
         key: i,
         name: boisson.name,
