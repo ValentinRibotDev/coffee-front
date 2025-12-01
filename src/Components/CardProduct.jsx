@@ -10,7 +10,7 @@ const [isFavorite, setIsFavorite] = useState(false)
         <>
             <div className="w-[320px] max-h-[500px] border">
 
-                <img src={`http://localhost:8080/uploads/image/${image}`}  alt="img" className="w-full h-[320px] p-2"/>
+                <img src={`http://localhost:8080/uploads/image/${image}`}  alt="img" className="w-full h-[320px] p-2 object-cover overflow-x-hidden"/>
 
                 <div className="w-full h-[180px] p-2 cardBackground text-black">
 

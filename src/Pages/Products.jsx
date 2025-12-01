@@ -65,7 +65,9 @@ export default function Products() {
     intensity: produit.intensity, 
     origin: produit.origin, 
     price: produit.price, 
+
 }));
+
     /**
      * USE STATE
      */
@@ -74,6 +76,7 @@ export default function Products() {
     const [inputValue, setInputValue] = useState("")
     const [searchQuery, setSearchQuery] = useState("")
     const categories = Array.from(new Set(products.map(p => p.categorie))); // permet de ne pas avoir de doublon dans le map de product.categorie
+    
     /**
      * FILTER
      */

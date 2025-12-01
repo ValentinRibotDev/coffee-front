@@ -6,9 +6,6 @@ import { useState, useEffect } from "react";
 //Icons
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
-
-
-
 export function Overlay({ active, setActive, max }) {
 
     //HandleActive
@@ -23,23 +20,47 @@ export function Overlay({ active, setActive, max }) {
         name: boisson.name,
         color: boisson.couleur,
         description: boisson.description,
-    })).filter(Boolean); // supprime les "undefined"
+    })).filter(Boolean);
 
     const [loading, setLoading] = useState(true)
-
+    const [progress, setProgress] = useState(0)
+    const [fadeOut, setFadeOut] = useState(false);
+    
     useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 3000)
-        return () => clearTimeout(timer)
+        const interval = setInterval(() => {
+            setProgress((p) => {
+                if (p >= 100) {
+                    clearInterval(interval)
+                    setLoading(false)  
+                    return 100
+                }
+                return p + 1
+            })
+        }, 40)
+
+        return () => {
+            clearInterval(interval)
+        }
+
     }, [])
+
 
     if (loading) {
         return (
             <div className="absolute w-full h-screen bg-black text-white flex flex-col justify-center items-center">
-                <div className="text-4xl roboto-bold mb-6 animate-pulse">
-                    Loading...
+                
+                <div className="text-2xl roboto-bold mb-2 animate-pulse">
+                    Chargement
                 </div>
 
-                <div className="w-14 h-14 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-[300px] h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                        className="h-[10px] bg-white transition-all duration-100"
+                        style={{ width: `${progress}%` }}
+                    ></div>
+                </div>
+
+                <p className="mt-3 text-xl roboto-bold">{progress}%</p>
             </div>
         )
     } else {

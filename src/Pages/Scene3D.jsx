@@ -2,12 +2,6 @@
 import { OrbitControls, Environment, Center, AccumulativeShadows, RandomizedLight, MeshReflectorMaterial, Lightformer} from "@react-three/drei"
 import { useState, startTransition } from "react"
 
-//Debug UI
-import { useControls } from "leva"
-
-//Perf
-import { Perf } from "r3f-perf"
-
 //Components
 import { CoffeeCup } from "../Components/CoffeeCup"
 
@@ -15,36 +9,21 @@ import { CoffeeCup } from "../Components/CoffeeCup"
 //Main
 export function Scene3D ({ active }) {
 
-    //Debug UI setup
-    const { perfVisible } = useControls('performance',{
-        perfVisible: false
-    })
-
     const [preset, setPreset] = useState('sunset')
-    const {} = useControls('environment',{
-        preset: {
-            value: 'warehouse',
-            options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
-            onChange: (value) => startTransition(() => setPreset(value))
-        }
-    })
 
     //Array
     const envLight = [
-        {name:'latte', colorHot:'#fffca1', colorCold:'#ab3300', hotIntensity:17.0, coldIntensity:9.5},  
-        {name:'cerise', colorHot:'#c50000', colorCold:'#096901', hotIntensity:30.0, coldIntensity:5.0},
+        {name:'latte', colorHot:'#fffca1', colorCold:'#d37400', hotIntensity:17.0, coldIntensity:9.5},  
+        {name:'cerise', colorHot:'#980000ff', colorCold:'#bb0000', hotIntensity:1.2, coldIntensity:5.0},
         {name:'matcha', colorHot:'#46ff00', colorCold:'#7c9302', hotIntensity:4.0, coldIntensity:7.0},
-        {name:'rose', colorHot:'#f200ff', colorCold:'#3a0194', hotIntensity:20.0, coldIntensity:10.0}, 
+        {name:'rose', colorHot:'#f200ff', colorCold:'#a100b0', hotIntensity:20.0, coldIntensity:10.0}, 
         {name:'classic', colorHot:'#ffffff', colorCold:'#adadad', hotIntensity:20.0, coldIntensity:5.0},
-        {name:'caramel', colorHot:'#ffc900', colorCold:'#06709d', hotIntensity:20.0, coldIntensity:15.0},
-        {name:'glace', colorHot:'#00e2ff', colorCold:'#000993', hotIntensity:20.0, coldIntensity:10.0},
+        {name:'caramel', colorHot:'#ffc900', colorCold:'#f0bc43', hotIntensity:20.0, coldIntensity:15.0},
+        {name:'glace', colorHot:'#00e2ff', colorCold:'#1d28b7', hotIntensity:20.0, coldIntensity:10.0},
     ]
 
     return (
         <>    
-            {/* Performance monitoring */}
-            { perfVisible && <Perf position="top-left" />}
-            
             {/* Controls */}
             <OrbitControls
                 target={[0, 1.8, 0]} 
