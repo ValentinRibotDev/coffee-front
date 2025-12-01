@@ -14,12 +14,35 @@ import { CardProduct } from "../Components/CardProduct";
 
 export default function Products() {
 
-    const { token } = useAuth();
+    const { token, refreshToken } = useAuth()
+
+    // Fonction pour décoder le JWT et extraire l'userId
+    const getUserIdFromToken = (token) => {
+        if (!token) {
+            console.error("Token non fourni");
+            return null;
+        }
+        try {
+            const payload = token.split('.')[1];
+            const decodedPayload = JSON.parse(atob(payload));
+            console.log("Contenu du JWT décodé:", decodedPayload);
+            return decodedPayload.userId || decodedPayload.id || decodedPayload.sub;
+        } catch (error) {
+            console.error("Erreur lors du décodage du token:", error);
+            return null;
+        }
+    };
+
     const addToCart = async (productId) => {
-
         let currentToken = token;
+        const userId = getUserIdFromToken(currentToken);
 
-        let response = await fetch('http://localhost:8080/api/cart/add', {
+        if (!userId) {
+            console.error("Impossible de récupérer l'ID utilisateur");
+            return;
+        }
+
+        let response = await fetch(`http://localhost:8080/api/cart/${userId}/add`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -30,17 +53,18 @@ export default function Products() {
         });
 
         if (response.status === 401) {
-            // JWT expiré -> refresh
-            const refreshRes = await fetch('http://localhost:8080/api/token/refresh', {
-                method: 'POST',
-                credentials: 'include',
-            });
+            // JWT expiré -> refresh via le contexte
+            currentToken = await refreshToken();
 
-            const refreshData = await refreshRes.json();
-            currentToken = refreshData.token;
+            if (!currentToken) {
+                console.error("Impossible de rafraîchir le token");
+                return;
+            }
+
+            const newUserId = getUserIdFromToken(currentToken);
 
             // retry addToCart
-            response = await fetch('http://localhost:8080/api/cart/add', {
+            response = await fetch(`http://localhost:8080/api/cart/${newUserId}/add`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -51,21 +75,28 @@ export default function Products() {
             });
         }
 
-        return response.json();
+        if (response.ok) {
+            console.log("Produit ajouté au panier");
+            return await response.json();
+        } else {
+            console.error("Erreur lors de l'ajout au panier");
+            return null;
+        }
     };
 
     const { produits } = useOutletContext();
 
     const products = produits.map((produit, i) => ({
-    id: produit.id,
-    image: produit.image,
-    name: produit.name, 
-    description: produit.description, 
-    categorie: produit.categorie,
-    intensity: produit.intensity, 
-    origin: produit.origin, 
-    price: produit.price, 
-}));
+        id: produit.id,
+        image: produit.image,
+        name: produit.name,
+        description: produit.description,
+        categorie: produit.categorie,
+        intensity: produit.intensity,
+        origin: produit.origin,
+        price: produit.price,
+    }));
+
     /**
      * USE STATE
      */
@@ -73,28 +104,28 @@ export default function Products() {
     const [selectValue, setSelectValue] = useState('')
     const [inputValue, setInputValue] = useState("")
     const [searchQuery, setSearchQuery] = useState("")
-    const categories = Array.from(new Set(products.map(p => p.categorie))); // permet de ne pas avoir de doublon dans le map de product.categorie
+    const categories = Array.from(new Set(products.map(p => p.categorie)));
+
     /**
      * FILTER
      */
 
-    //InputValue change onClick or press Enter
+        //InputValue change onClick or press Enter
     const handleSearch = () => {
-        setSearchQuery(inputValue)
-    }
+            setSearchQuery(inputValue)
+        }
 
     const handleAddToCart = (productId) => {
-        addToCart(productId, 1,token);
+        addToCart(productId);
     };
 
-    //Check all value with data 
+    //Check all value with data
     const filteredProduits = products.filter((produit) => {
-
         const price = parseFloat(produit.price) || 0;
 
         // Initialize -> load all
         if (searchQuery === "" && selectValue === "" && rangeValue >= 100) {
-        return true;
+            return true;
         }
 
         // Price
@@ -103,11 +134,11 @@ export default function Products() {
         // Input
         const textToSearch = (produit.name + " " + produit.description).toLowerCase();
         const isTextOk =
-        searchQuery === "" || textToSearch.includes(searchQuery.toLowerCase());
+            searchQuery === "" || textToSearch.includes(searchQuery.toLowerCase());
 
         // Select
         const isCategoryOk =
-        selectValue === "" || produit.categorie === selectValue;
+            selectValue === "" || produit.categorie === selectValue;
 
         return isPriceOk && isTextOk && isCategoryOk;
     });
@@ -120,34 +151,34 @@ export default function Products() {
                     <Navigation color={'#fff'} className={'invert'} />
                 </div>
 
-                <div className="flex flex-col items-center">    
+                <div className="flex flex-col items-center">
                     <div className="overflow-x-hidden flex justify-center select-none w-full">
                         <BannerProduct />
                     </div>
 
                     <div className="w-full h-56 sm:h-64 lg:h-80 max-w-[1440px] mb-4 bg-blue-300">
                         <Carousel />
-                    </div>                    
-  
+                    </div>
+
                     <div className="w-full max-w-[1440px] flex flex-col md:flex-row mb-3">
-                
+
                         <div className="w-[90%] ml-4 md:w-1/2 flex flex-col items-center sm:flex-row p-1 md:h-[50px] md:ml-5 rounded-lg  gap-6">
-                    
+
                             <select
                                 defaultValue=""
                                 className="w-full p-2 sm:w-1/2 rounded-lg border border-gray-300 bg-white text-gray-700"
                                 value={selectValue}
                                 onChange={(e) => setSelectValue(e.target.value)}
-                                >
-                            <option value="">Filtre par catégorie</option>
-                            {categories.map((categorie, i) => (
-                            <option key={i} value={categorie}>
-                                {categorie}
-                            </option>
-                            ))}
+                            >
+                                <option value="">Filtre par catégorie</option>
+                                {categories.map((categorie, i) => (
+                                    <option key={i} value={categorie}>
+                                        {categorie}
+                                    </option>
+                                ))}
                             </select>
 
-                    
+
                             <div className="flex flex-col w-[90%] sm:w-1/2">
                                 <label className="text-sm font-medium text-white">
                                     Prix maximum
@@ -169,7 +200,7 @@ export default function Products() {
                                         style={{
                                             left: `${rangeValue}%`,
                                         }}
-                                        >
+                                    >
                                         {rangeValue}
                                     </div>
 
@@ -181,31 +212,31 @@ export default function Products() {
 
                             <div className="relative w-full">
 
-                                <button 
+                                <button
                                     type="button"
                                     className="
-                                        absolute right-3 top-1/2 -translate-y-1/2 
+                                        absolute right-3 top-1/2 -translate-y-1/2
                                         flex justify-center items-center
                                         searchButton"
                                     onClick={handleSearch}
                                 >
-                                    <LiaSearchSolid className="h-5 w-5"/>    
+                                    <LiaSearchSolid className="h-5 w-5"/>
                                 </button>
-                                
+
                                 <input
                                     type="text"
                                     placeholder="Rechercher..."
                                     className="
-                                        w-full pl-10 p-2 
-                                        rounded-lg border border-gray-300 
-                                        bg-white 
-                                        text-gray-700 placeholder-gray-400 
+                                        w-full pl-10 p-2
+                                        rounded-lg border border-gray-300
+                                        bg-white
+                                        text-gray-700 placeholder-gray-400
                                         focus:outline-none"
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {
-                                        handleSearch();
+                                            handleSearch();
                                         }
                                     }}
                                 />
@@ -213,7 +244,7 @@ export default function Products() {
                         </div>
 
                     </div>
-                    
+
                     {/* CARD CONTAINER */}
                     <div className="w-full max-w-[1440px] flex flex-wrap justify-center gap-3">
 
@@ -224,20 +255,20 @@ export default function Products() {
                                 image={produit.image}
                                 name={produit.name}
                                 price={produit.price}
-                                description={produit.description.replace(/<[^>]+>/g, '') .replace(/&nbsp;/g, ' ')}
+                                description={produit.description.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ')}
                                 origin={produit.origin}
                                 intensity={produit.intensity}
                                 AddToCart={() => handleAddToCart(produit.id)}
                             />
                         ))}
-                        
+
                     </div>
                 </div>
 
                 <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
-                        <Footer className={'invert'}/>
+                    <Footer className={'invert'}/>
                 </div>
-                           
+
             </div>
         </>
     )
