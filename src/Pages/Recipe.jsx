@@ -75,6 +75,7 @@ useEffect(() => {
                 <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
                     <Footer className={'invert'}/>
                 </div>
+                
                 {modalOpen && currentRecettes && (
                 <ModaleRecipe
                     Name={recipeInfo[currentRecettesIndex]?.name}

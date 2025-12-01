@@ -4,22 +4,23 @@ import {useEffect, useState} from "react";
 export function Cart() {
     const [cart, setCart] = useState([]);
 
-    // const fetchCart = async () => {
-    //     try {
-    //         const res = await fetch(`http://localhost:8080/api/cart/${id}`, {
-    //             method: "GET",
-    //             credentials: "include",
-    //         });
+    const fetchCart = async () => {
+        try {
+            const res = await fetch(`http://localhost:8080/api/cart/${id}`, {
+                method: "GET",
+                credentials: "include",
+            });
 
-    //         if (res.ok) {
-    //             const data = await res.json();
-    //             setCart(data);
-    //         }
-    //     }
-    //     catch (err) {
-    //         console.error("Erreur fetch des cart:", err,);
-    //     }
-    // };
+            if (res.ok) {
+                const data = await res.json();
+                setCart(data);
+            }
+        }
+        catch (err) {
+            console.error("Erreur fetch des cart:", err,);
+        }
+    };
+    fetchCart();
 
     const updateQuantity = async (id, newQuantity) => {
         try {
@@ -66,13 +67,6 @@ export function Cart() {
             console.error("Erreur suppression:", error);
         }
     };
-
-    useEffect(() => {
-        setCart([
-            { id: 1, name: "Coffee", price: 5, quantity: 2 },
-            { id: 2, name: "Tea", price: 3, quantity: 1 },
-        ]);
-    }, []);
 
     return (
         <>
