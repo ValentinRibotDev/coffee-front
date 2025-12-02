@@ -1,7 +1,9 @@
 import { Navigation } from "../Components/NavBar"
 import {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Cart() {
+    const navigate = useNavigate();
     const [cart, setCart] = useState([]);
     const [products, setProducts] = useState({});
     const [loading, setLoading] = useState(true);
@@ -244,20 +246,56 @@ export function Cart() {
                             })}
                         </ul>
 
-                        <div className="mt-4 flex justify-between items-center">
-                            <p className="text-xl font-bold">
-                                Total: {cart.reduce((total, item) => {
-                                    const product = products[item.product_id];
-                                    return total + (product ? product.price * item.quantite : 0);
-                                }, 0).toFixed(2)}€
-                            </p>
+                        <div className="mt-4 flex flex-col space-y-4">
+                            <div className="flex justify-between items-center">
+                                <p className="text-xl font-bold">
+                                    Total: {cart.reduce((total, item) => {
+                                        const product = products[item.product_id];
+                                        return total + (product ? product.price * item.quantite : 0);
+                                    }, 0).toFixed(2)}€
+                                </p>
 
-                            <button
-                                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                                onClick={clearCart}
-                            >
-                                Vider le panier
-                            </button>
+                                <button
+                                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                                    onClick={clearCart}
+                                >
+                                    Vider le panier
+                                </button>
+                            </div>
+
+                            <div className="flex justify-center">
+                                <button
+                                    onClick={() => {
+                                        const totalAmount = cart.reduce((total, item) => {
+                                            const product = products[item.product_id];
+                                            return total + (product ? product.price * item.quantite : 0);
+                                        }, 0);
+
+                                        const cartWithDetails = cart.map(item => {
+                                            const product = products[item.product_id];
+                                            return {
+                                                productId: item.product_id,
+                                                productName: product?.name || 'Unknown',
+                                                price: product?.price || 0,
+                                                quantite: item.quantite,
+                                                subtotal: (product?.price || 0) * item.quantite
+                                            };
+                                        });
+
+                                        navigate('/payment', {
+                                            state: {
+                                                totalAmount,
+                                                cart: cartWithDetails
+                                            }
+                                        });
+                                    }}
+                                    className="rounded-md border-2 border-amber-50 w-full max-w-[380px] h-[50px] relative group overflow-hidden transition-transform duration-300 ease-out hover:scale-95 cursor-pointer"
+                                >
+                                    <div className="cardBackground rounded text-white uppercase w-full h-full flex flex-col justify-center items-center font-semibold">
+                                        Valider le panier
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                     </>
                 )}
