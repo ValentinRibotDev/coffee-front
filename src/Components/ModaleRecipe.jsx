@@ -14,9 +14,6 @@ export default function ModaleRecipe({ i, className = '', style = {}, drinkColor
         else setLocalOpen(false);
     };
 
-    /* -------------------------------
-        🎯 Construction du tableau d'étapes
-    -------------------------------- */
     const etapes = useMemo(() => {
         const arr = [];
         for (let j = 0; j <= 9; j++) {
@@ -127,8 +124,7 @@ export default function ModaleRecipe({ i, className = '', style = {}, drinkColor
                                                 SUIVANT
                                             </button>
                                         </div>
-
-                                        
+                 
                                     </div>
 
                                 </div>

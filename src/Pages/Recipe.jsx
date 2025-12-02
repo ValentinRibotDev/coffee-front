@@ -9,19 +9,21 @@ import React, { useState, useEffect} from "react";
 
 export function Recipe() {
     
-const location = useLocation();
-const { boissons, recettes } = useOutletContext();
-const { currentRecettesIndex } = location.state || {}; 
+    const location = useLocation();
+    const { boissons, recettes } = useOutletContext();
+    const { currentRecettesIndex, drinkColor: locationDrinkColor } = location.state || {}; 
 
-const currentRecettes = recettes?.[currentRecettesIndex]; 
-const modalId = `modal-${currentRecettesIndex}`;
-const [modalOpen, setModalOpen] = useState(false);
+    const drinkColorFallback = boissons?.[currentRecettesIndex]?.couleur || '#000';
+    const drinkColor = locationDrinkColor || drinkColorFallback;
+
+    const currentRecettes = recettes?.[currentRecettesIndex]; 
+    const modalId = `modal-${currentRecettesIndex}`;
+    const [modalOpen, setModalOpen] = useState(false);
 
     // Trouve l’index de la recette correspondant à l’id
-useEffect(() => {
-    if (currentRecettesIndex !== undefined) setModalOpen(true);
-}, [currentRecettesIndex]);
-
+    useEffect(() => {
+        if (currentRecettesIndex !== undefined) setModalOpen(true);
+    }, [currentRecettesIndex, locationDrinkColor]);
 
     const recipeInfo = boissons.map((boisson,i) => ({
         key: i,
@@ -30,8 +32,8 @@ useEffect(() => {
         prix: boisson.prix + "€",
         note: boisson.note + '/10',
         couleur: boisson.couleur
-        
     }));
+
     return (
         <>  
             <div className="flex flex-col bannerBackground">
@@ -80,6 +82,7 @@ useEffect(() => {
                 <ModaleRecipe
                     Name={recipeInfo[currentRecettesIndex]?.name}
                     i={currentRecettesIndex}
+                    drinkColor={drinkColor}
                     parentOpen={modalOpen}
                     onClose={() => setModalOpen(false)}
                 />

@@ -213,7 +213,7 @@ export function Overlay({ active, setActive, max }) {
                                 cursor-pointer
                                 duration-500 ease-in-out
                                 hover:bg-stone-300"
-                                onClick={() => navigate("/recipe", { state: { currentRecettesIndex: active } })}>
+                                onClick={() => navigate("/recipe", { state: { currentRecettesIndex: active, drinkColor: htmlDisplay[active]?.color } })}>
                                 See Recipe
                             </div>
 
