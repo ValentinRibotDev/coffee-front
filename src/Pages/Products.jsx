@@ -41,6 +41,7 @@ export default function Products() {
     const addToCart = async (productId) => {
         let currentToken = token;
         const userId = getUserIdFromToken(currentToken);
+        
 
         if (!userId) {
             console.error("Impossible de récupérer l'ID utilisateur");
@@ -84,15 +85,13 @@ export default function Products() {
             setPopupMessage("Produit ajouté !");
             setPopupColor("bg-green-500");
             setShowPopup(true);
-
-            setTimeout(() => setShowPopup(false), 2000);
+            setTimeout(() => setShowPopup(false), 3000);
             return await response.json();
         } else {
             setPopupMessage("Erreur lors de l'ajout au panier.");
             setPopupColor("bg-red-500");
             setShowPopup(true);
-
-            setTimeout(() => setShowPopup(false), 2000);
+            setTimeout(() => setShowPopup(false), 3000);
             return null;
         }
     };
@@ -122,7 +121,6 @@ export default function Products() {
     /**
      * FILTER
      */
-
         //InputValue change onClick or press Enter
     const handleSearch = () => {
             setSearchQuery(inputValue)
@@ -163,6 +161,8 @@ export default function Products() {
                 <div>
                     <Navigation color={'#fff'} className={'invert'} />
                 </div>
+
+                
 
                 <div className="flex flex-col items-center">
                     <div className="overflow-x-hidden flex justify-center select-none w-full">

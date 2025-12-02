@@ -143,3 +143,23 @@ input.no-spin::-webkit-inner-spin-button {
 input.no-spin {
   -moz-appearance: textfield;
 }
+
+/** PopUp */
+@keyframes fadeSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+    40% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
