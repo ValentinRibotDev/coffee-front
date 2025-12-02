@@ -27,7 +27,7 @@ export function RecipeBar ({ index, className, TextColor, Name, Time, Note, Pric
                         hidden 
                         md:flex items-center"
                         >
-                        Temps:&nbsp;{Time} min
+                        Temps:&nbsp;{Time}
                     </p>
 
                     <p className="
@@ -49,7 +49,8 @@ export function RecipeBar ({ index, className, TextColor, Name, Time, Note, Pric
                     <ModaleRecipe 
                     i={index}
                     Name={Name}
-                    className={`${className} w-[120px] h-3/5 rounded roboto-regular `} 
+                    className={`${className} w-[120px] h-3/5 rounded roboto-regular `}
+                    drinkColor={HoverColor} 
                     style={{"--drinkColor": HoverColor }}/>
                 </div>
                 
