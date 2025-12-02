@@ -119,3 +119,27 @@
 .cartGradient {
     background: linear-gradient(to left, #252525 , #ffffff 30%);
 }
+
+/* Cart */
+@keyframes fade {
+  0% { opacity: 0; transform: translateY(-3px); }
+  10% { opacity: 1; transform: translateY(2px); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-3px); }
+}
+
+.animate-fade {
+  animation: fade 1.5s ease forwards;
+}
+
+/* Retire les flèches sur Chrome, Safari, Edge */
+input.no-spin::-webkit-outer-spin-button,
+input.no-spin::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Retire les flèches sur Firefox */
+input.no-spin {
+  -moz-appearance: textfield;
+}
