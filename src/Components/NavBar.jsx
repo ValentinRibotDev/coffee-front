@@ -38,7 +38,7 @@ export function Navigation({color, className}) {
                             w-1/9 h-1/2 pt-1 
                             roboto-bold uppercase !no-underline text-sm
                             duration-400 ease-in-out 
-                            md:hover:tracking-[0.20em] md:hover:!text-white
+                            md:hover:tracking-[0.20em] 
                         "
                         style={{ color: homeColor }}
                     >
@@ -52,7 +52,7 @@ export function Navigation({color, className}) {
                             w-1/9 h-1/2 pt-1 
                             roboto-bold uppercase !no-underline text-sm
                             duration-400 ease-in-out 
-                            md:hover:tracking-[0.15em] md:hover:!text-white
+                            md:hover:tracking-[0.15em]
                         "
                         style={{ color: homeColor }}
                     >
@@ -66,7 +66,7 @@ export function Navigation({color, className}) {
                             w-1/9 h-1/2 pt-1 
                             roboto-bold uppercase !no-underline text-sm
                             duration-400 ease-in-out 
-                            md:hover:tracking-[0.20em] md:hover:!text-white
+                            md:hover:tracking-[0.20em]
                         "
                         style={{ color: homeColor }}
                     >

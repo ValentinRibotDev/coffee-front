@@ -1,6 +1,7 @@
 import { Navigation } from "../Components/NavBar"
 import {useEffect, useState} from "react";
 import { FaPen } from "react-icons/fa";
+import { PopUp } from "../Components/PopUp";
 
 export function Cart() {
     const [cart, setCart] = useState([]);
@@ -8,7 +9,13 @@ export function Cart() {
     const [loading, setLoading] = useState(true);
     const [userId, setUserId] = useState(null);
     const [loadingQty, setLoadingQty] = useState({});
+    const [loadingDelete, setLoadingDelete] = useState({});
+    const [loadingClear, setLoadingClear] = useState(false);
     const [feedback, setFeedback] = useState({});
+
+    const [popupMessage, setPopupMessage] = useState("");
+    const [popupColor, setPopupColor] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
 
     // Récupérer l'utilisateur connecté depuis /api/me
     const fetchCurrentUser = async () => {
@@ -131,9 +138,19 @@ export function Cart() {
         setLoadingQty(prev => ({ ...prev, [productId]: false }));
     };
 
+    const triggerPopup = (message, color) => {
+        setPopupMessage(message);
+        setPopupColor(color);
+        setShowPopup(true);
+
+        setTimeout(() => setShowPopup(false), 3000);
+    };
 
     const removeFromCart = async (productId) => {
         if (!userId) return;
+
+        // ▶️ Active spinner pour ce bouton
+        setLoadingDelete(prev => ({ ...prev, [productId]: true }));
 
         try {
             const res = await fetch(`http://localhost:8080/api/cart/${userId}/remove`, {
@@ -144,20 +161,26 @@ export function Cart() {
             });
 
             if (!res.ok) {
-                console.error("Erreur API DELETE");
+                triggerPopup("Erreur lors de la suppression", "bg-red-500");
                 return;
             }
 
-            // Si OK → mettre à jour le state local
-            setCart((prevCart) => prevCart.filter((item) => item.product_id !== productId));
+            setCart(prev => prev.filter(item => item.product_id !== productId));
+            triggerPopup("Produit supprimé", "bg-green-500");
 
         } catch (error) {
-            console.error("Erreur suppression:", error);
+            triggerPopup("Erreur serveur", "bg-red-500");
         }
+
+        // ▶️ Désactive le loader
+        setLoadingDelete(prev => ({ ...prev, [productId]: false }));
     };
+
 
     const clearCart = async () => {
         if (!userId) return;
+
+        setLoadingClear(true); // ▶️ Spinner ON
 
         try {
             const res = await fetch(`http://localhost:8080/api/cart/${userId}/clear`, {
@@ -166,15 +189,22 @@ export function Cart() {
             });
 
             if (!res.ok) {
-                console.error("Erreur API CLEAR");
+                triggerPopup("Impossible de vider le panier", "bg-red-500");
+                setLoadingClear(false);
                 return;
             }
 
             setCart([]);
+            triggerPopup("Panier vidé", "bg-green-500");
+
         } catch (error) {
-            console.error("Erreur vidage panier:", error);
+            triggerPopup("Erreur serveur", "bg-red-500");
         }
+
+        setLoadingClear(false); // ▶️ Spinner OFF
     };
+
+
 
     useEffect(() => {
         const initCart = async () => {
@@ -211,10 +241,16 @@ export function Cart() {
         );
     }
 
+    
+
     return (
         <>
             <Navigation/>
-           
+
+            {showPopup && (
+                <PopUp message={popupMessage} color={popupColor} />
+            )}
+
             {/*  HEADER */}
             <div className="container w-full p-2">
                 <div className="flex justify-between items-center w-full mb-2">
@@ -223,8 +259,13 @@ export function Cart() {
                         <button
                             className="w-1/4 md:w-1/10 flex justify-center items-center bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                             onClick={clearCart}
+                            disabled={loadingClear}
                         >
-                            Reset
+                            {loadingClear ? (
+                                <div className="w-5 h-5 border-2 border-stone-100 border-t-transparent rounded-full animate-spin"></div>
+                            ) : (
+                                "Reset"
+                            )}
                         </button>
                     )}
                 </div>
@@ -259,10 +300,15 @@ export function Cart() {
                                                     
                                                     <div className="w-1/5 flex justify-end items-start">
                                                         <button
-                                                            className="bg-red-500 text-white p-1 w-[60px] rounded hover:bg-red-600"
+                                                            className="bg-red-500 text-white p-1 w-[60px] rounded hover:bg-red-600 flex justify-center items-center"
                                                             onClick={() => removeFromCart(item.product_id)}
+                                                            disabled={loadingDelete[item.product_id]}
                                                         >
-                                                            X
+                                                            {loadingDelete[item.product_id] ? (
+                                                                <div className="w-5 h-5 border-2 border-stone-100 border-t-transparent rounded-full animate-spin"></div>
+                                                            ) : (
+                                                                "X"
+                                                            )}
                                                         </button>
                                                     </div>                                                    
                                                 </div>
@@ -415,7 +461,7 @@ export function Cart() {
                                             
                                             <hr/>
 
-                                            <p className="roboto-regular text-base">
+                                            <div className="roboto-regular text-base">
                                                 <strong>Adresse</strong>: 123 Rue de l'Exemple<br/>
 
                                                 <strong>Complément d'adresse</strong>: Appartement 45B
@@ -435,7 +481,7 @@ export function Cart() {
                                                     </p>
 
                                                 </div>                          
-                                            </p>
+                                            </div>
                                         </div>
 
                                         {/*  FACTURATION */}
@@ -451,7 +497,7 @@ export function Cart() {
                                             
                                             <hr/>
 
-                                            <p className="roboto-regular text-base">
+                                            <div className="roboto-regular text-base">
                                                 <strong>Adresse</strong>: 123 Rue de l'Exemple<br/>
 
                                                 <strong>Complément d'adresse</strong>: Appartement 45B
@@ -471,7 +517,7 @@ export function Cart() {
                                                     </p>
 
                                                 </div>                          
-                                            </p>
+                                            </div>
                                         </div>
 
                                     </div>  
@@ -488,6 +534,7 @@ export function Cart() {
                     </>
                 )}
             </div>
+
         </>
     )
 }
