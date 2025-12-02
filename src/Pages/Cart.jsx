@@ -1,8 +1,10 @@
 import { Navigation } from "../Components/NavBar"
 import {useEffect, useState} from "react";
 import { FaPen } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Cart() {
+    const navigate = useNavigate();
     const [cart, setCart] = useState([]);
     const [products, setProducts] = useState({});
     const [loading, setLoading] = useState(true);
@@ -478,7 +480,26 @@ export function Cart() {
 
                                 </div>
                                 <div className="">
-                                    <button className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                                    <button
+                                        className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                                        onClick={() => {
+                                            const cartData = cart.map(item => {
+                                                const product = products[item.product_id];
+                                                return {
+                                                    productName: product?.name || 'Produit',
+                                                    quantite: item.quantite,
+                                                    subtotal: product ? product.price * item.quantite : 0
+                                                };
+                                            });
+
+                                            navigate('/payment', {
+                                                state: {
+                                                    totalAmount: parseFloat(totalPrice),
+                                                    cart: cartData
+                                                }
+                                            });
+                                        }}
+                                    >
                                         Passer la commande
                                     </button>
                                 </div>
