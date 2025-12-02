@@ -3,8 +3,8 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 import Flag from "../Components/Flag";
 
 export function CardProduct ({image, name, price, description, origin, intensity,AddToCart}) {
-    console.log(image);
-const [isFavorite, setIsFavorite] = useState(false)
+    
+    const [isFavorite, setIsFavorite] = useState(false)
 
     return(
         <>

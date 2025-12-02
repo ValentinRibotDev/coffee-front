@@ -11,6 +11,7 @@ import { Footer } from "../Components/Footer";
 import { Carousel } from "../Components/Carousel";
 import { LiaSearchSolid } from "react-icons/lia";
 import { CardProduct } from "../Components/CardProduct";
+import { PopUp } from "../Components/PopUp";
 
 export default function Products() {
 
@@ -32,6 +33,10 @@ export default function Products() {
             return null;
         }
     };
+
+    const [popupMessage, setPopupMessage] = useState("");
+    const [popupColor, setPopupColor] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
 
     const addToCart = async (productId) => {
         let currentToken = token;
@@ -76,10 +81,18 @@ export default function Products() {
         }
 
         if (response.ok) {
-            console.log("Produit ajouté au panier");
+            setPopupMessage("Produit ajouté !");
+            setPopupColor("bg-green-500");
+            setShowPopup(true);
+
+            setTimeout(() => setShowPopup(false), 2000);
             return await response.json();
         } else {
-            console.error("Erreur lors de l'ajout au panier");
+            setPopupMessage("Erreur lors de l'ajout au panier.");
+            setPopupColor("bg-red-500");
+            setShowPopup(true);
+
+            setTimeout(() => setShowPopup(false), 2000);
             return null;
         }
     };
@@ -268,6 +281,12 @@ export default function Products() {
                 <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
                     <Footer className={'invert'}/>
                 </div>
+
+                {/* <PopUp message={"Bienvenue sur notre boutique !"} color={"bg-green-500"} /> */}
+
+                {showPopup && (
+                    <PopUp message={popupMessage} color={popupColor} />
+                )}
 
             </div>
         </>
