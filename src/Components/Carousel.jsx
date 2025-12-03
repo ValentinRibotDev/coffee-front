@@ -4,11 +4,9 @@ export function Carousel() {
 
     //IMG Array
     const images = [
-        { src: "/img1.jpg", caption: "Première image" },
-        { src: "/img2.jpg", caption: "Deuxième image" },
-        { src: "/img3.jpg", caption: "Troisième image" },
-        { src: "/img3.jpg", caption: "Quatrième image" },
-        { src: "/img3.jpg", caption: "Cinquième image" },
+        { src: "/Promo/Noel.jpg" },
+        { src: "/Promo/Cup.jpg" },
+        { src: "/Promo/matcha.jpg"},
     ];
 
     const [current, setCurrent] = useState(0);
@@ -17,7 +15,7 @@ export function Carousel() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrent((prev) => (prev + 1) % images.length);
-        }, 5000);
+        }, 8000);
 
         return () => clearInterval(interval);
     }, [images.length]);
@@ -33,13 +31,8 @@ export function Carousel() {
 
                         <img
                             src={item.src}
-                            alt={item.caption}
                             className="w-full h-full object-cover"
                         />
-
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-lg text-sm">
-                            {item.caption}
-                        </div>
 
                     </div>
                 ))}
