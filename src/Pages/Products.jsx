@@ -38,13 +38,24 @@ export default function Products() {
     const [popupColor, setPopupColor] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
+    const showErrorPopup = (message) => {
+        setPopupMessage(message);
+        setPopupColor("bg-red-500");
+        setShowPopup(true);
+
+        setTimeout(() => setShowPopup(false), 3000);
+    };
+
     const addToCart = async (productId, qty = 1) => {
         let currentToken = token;
         const userId = getUserIdFromToken(currentToken);
         
 
         if (!userId) {
-            console.error("Impossible de récupérer l'ID utilisateur");
+            setPopupMessage("Veuillez vous connecter !");
+            setPopupColor("bg-red-500");
+            setShowPopup(true);
+            setTimeout(() => setShowPopup(false), 3000);
             return;
         }
 
@@ -123,7 +134,7 @@ export default function Products() {
     /**
      * FILTER
      */
-        //InputValue change onClick or press Enter
+    //InputValue change onClick or press Enter
     const handleSearch = () => {
             setSearchQuery(inputValue)
         }
@@ -276,7 +287,8 @@ export default function Products() {
                                 AddToCart={(qty) => handleAddToCart(produit.id, qty)}
                                 isOpen={openQtyId === produit.id}             
                                 openInput={() => setOpenQtyId(produit.id)}   
-                                closeInput={() => setOpenQtyId(null)}         
+                                closeInput={() => setOpenQtyId(null)}
+                                showError={showErrorPopup}    
                             />
 
                         ))}

@@ -6,9 +6,9 @@ export function PopUp({ message, color }) {
                 flex justify-center items-center
                 left-1/2 top-12
                 xl:left-[8%] xl:bottom-9 xl:top-auto
-                min-w-[200px] max-w-sm
+                min-w-[240px] 
                 transform -translate-x-1/2 
-                p-3 rounded-xl shadow-lg roboto-regular uppercase text-white font-bold
+                p-2 rounded-xl shadow-lg roboto-regular uppercase text-white font-bold
                 ${color}
 
                 /* ANIMATIONS */

@@ -3,19 +3,19 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 import Flag from "../Components/Flag";
 import { FaCheck } from "react-icons/fa6";
 
-export function CardProduct({ image, name, price, description, origin, intensity, AddToCart, isOpen, openInput, closeInput }) {
+export function CardProduct({ image, name, price, description, origin, intensity, AddToCart, isOpen, openInput, closeInput, showError }) {
     
     const [isFavorite, setIsFavorite] = useState(false)
     const [qty, setQty] = useState(null)
 
     const handleValidate = () => {
         if (!qty || qty <= 0) {
-            alert("Valeur incorrecte");
+            showError("Valeur incorrecte");
             return;
         }
         AddToCart(qty);
-        closeInput();   // ferme l'input
-        setQty(null);   // reset
+        closeInput();
+        setQty(null);
     };
 
     return(
