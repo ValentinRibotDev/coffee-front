@@ -5,7 +5,7 @@ export function PopUp({ message, color }) {
                 fixed
                 flex justify-center items-center
                 left-1/2 top-12
-                md:left-[8%] md:bottom-9 md:top-auto
+                xl:left-[8%] xl:bottom-9 xl:top-auto
                 min-w-[200px] max-w-sm
                 transform -translate-x-1/2 
                 p-3 rounded-xl shadow-lg roboto-regular uppercase text-white font-bold

@@ -38,7 +38,7 @@ export default function Products() {
     const [popupColor, setPopupColor] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
-    const addToCart = async (productId) => {
+    const addToCart = async (productId, qty = 1) => {
         let currentToken = token;
         const userId = getUserIdFromToken(currentToken);
         
@@ -55,7 +55,7 @@ export default function Products() {
                 "Authorization": `Bearer ${currentToken}`,
             },
             credentials: "include",
-            body: JSON.stringify({ product_id: productId, quantite: 1 }),
+            body: JSON.stringify({ product_id: productId, quantite: qty }),
         });
 
         if (response.status === 401) {
@@ -77,7 +77,7 @@ export default function Products() {
                     "Authorization": `Bearer ${currentToken}`,
                 },
                 credentials: "include",
-                body: JSON.stringify({ product_id: productId, quantite: 1 }),
+                body: JSON.stringify({ product_id: productId, quantite: qty }),
             });
         }
 
@@ -112,6 +112,8 @@ export default function Products() {
     /**
      * USE STATE
      */
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [openQtyId, setOpenQtyId] = useState(null);
     const [rangeValue, setRangeValue] = useState(100)
     const [selectValue, setSelectValue] = useState('')
     const [inputValue, setInputValue] = useState("")
@@ -126,8 +128,8 @@ export default function Products() {
             setSearchQuery(inputValue)
         }
 
-    const handleAddToCart = (productId) => {
-        addToCart(productId);
+    const handleAddToCart = (productId, qty) => {
+        addToCart(productId, qty);
     };
 
     //Check all value with data
@@ -263,7 +265,7 @@ export default function Products() {
 
                         {/* CARD */}
                         {filteredProduits.map((produit, index) => (
-                            <CardProduct
+                           <CardProduct
                                 key={index}
                                 image={produit.image}
                                 name={produit.name}
@@ -271,8 +273,12 @@ export default function Products() {
                                 description={produit.description.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ')}
                                 origin={produit.origin}
                                 intensity={produit.intensity}
-                                AddToCart={() => handleAddToCart(produit.id)}
+                                AddToCart={(qty) => handleAddToCart(produit.id, qty)}
+                                isOpen={openQtyId === produit.id}             
+                                openInput={() => setOpenQtyId(produit.id)}   
+                                closeInput={() => setOpenQtyId(null)}         
                             />
+
                         ))}
 
                     </div>
@@ -281,8 +287,6 @@ export default function Products() {
                 <div className="hidden items-end col-span-12 h-14 p-1 pointer-events-auto md:flex md:justify-around">
                     <Footer className={'invert'}/>
                 </div>
-
-                {/* <PopUp message={"Bienvenue sur notre boutique !"} color={"bg-green-500"} /> */}
 
                 {showPopup && (
                     <PopUp message={popupMessage} color={popupColor} />
