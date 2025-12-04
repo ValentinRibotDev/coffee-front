@@ -123,7 +123,6 @@ export default function Products() {
     /**
      * USE STATE
      */
-    const [openQtyId, setOpenQtyId] = useState(null);
     const [rangeValue, setRangeValue] = useState(100)
     const [selectValue, setSelectValue] = useState('')
     const [inputValue, setInputValue] = useState("")
@@ -271,7 +270,7 @@ export default function Products() {
                     </div>
 
                     {/* CARD CONTAINER */}
-                    <div className="w-full max-w-[1440px] flex flex-wrap justify-center gap-3">
+                    <div className="w-full max-w-[1440px] flex flex-col justify-center ">
 
                         {/* CARD */}
                         {filteredProduits.map((produit, index) => (
@@ -284,10 +283,7 @@ export default function Products() {
                                 origin={produit.origin}
                                 intensity={produit.intensity}
                                 AddToCart={(qty) => handleAddToCart(produit.id, qty)}
-                                isOpen={openQtyId === produit.id}             
-                                openInput={() => setOpenQtyId(produit.id)}   
-                                closeInput={() => setOpenQtyId(null)}
-                                showError={showErrorPopup}    
+                                showError={showErrorPopup}
                             />
 
                         ))}
