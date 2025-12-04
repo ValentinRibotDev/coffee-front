@@ -3,7 +3,7 @@ import ModaleRecipe from "./ModaleRecipe.jsx"
 // Icons
 import { IoTimeOutline } from "react-icons/io5";
 import { RiMoneyEuroCircleLine } from "react-icons/ri";
-import { FaRegStar } from "react-icons/fa6";
+import { TbNote } from "react-icons/tb";
 import { useState } from "react";
 
 export function RecipeBar ({ index, Name, Time, Note, Price, Image, HoverColor }) {
@@ -40,7 +40,7 @@ export function RecipeBar ({ index, Name, Time, Note, Price, Image, HoverColor }
                             />
                         )}
                     </button>
-                    
+
                     <div className="
                         w-3/5 h-[30px]
                         flex justify-center items-center 
@@ -58,7 +58,7 @@ export function RecipeBar ({ index, Name, Time, Note, Price, Image, HoverColor }
                         <div className="w-full h-full flex justify-around items-center">
                             
                             <p className="m-0 roboto-regular flex justify-center items-center">
-                                <FaRegStar size={'25px'}/>
+                                <TbNote size={'25px'}/>
                                 &nbsp;{Note}
                             </p>
 

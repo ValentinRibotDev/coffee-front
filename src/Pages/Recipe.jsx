@@ -30,7 +30,7 @@ export function Recipe() {
         name: boisson.name,
         temps: boisson.temps + " min",
         prix: boisson.prix + "€",
-        note: boisson.note,
+        note: boisson.note + "/10",
         image: boisson.imageUrl || boisson.image,
         couleur: boisson.couleur
     }));
