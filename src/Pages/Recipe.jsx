@@ -31,7 +31,7 @@ export function Recipe() {
         temps: boisson.temps + " min",
         prix: boisson.prix + "€",
         note: boisson.note,
-        image: boisson.image,
+        image: boisson.imageUrl || boisson.image,
         couleur: boisson.couleur
     }));
 
