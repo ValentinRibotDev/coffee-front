@@ -119,6 +119,7 @@ export default function Products() {
         origin: produit.origin,
         price: produit.price,
     }));
+    console.log(products)
 
     /**
      * USE STATE

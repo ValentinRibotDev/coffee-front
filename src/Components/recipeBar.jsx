@@ -13,7 +13,7 @@ export function RecipeBar ({ index, Name, Time, Note, Price, Image, HoverColor }
 
                 <div 
                     className="relative border-t border-l border-r border-white rounded-t w-full h-[300px] overflow-hidden flex justify-center items-end"
-                    style={{ backgroundImage: `url(/boissons/${Image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                    style={{ backgroundImage: `url(${Image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                 >
 
                     <div className="
