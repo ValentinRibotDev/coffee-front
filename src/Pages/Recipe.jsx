@@ -37,7 +37,7 @@ export function Recipe() {
 
     return (
         <>  
-            <div className="flex flex-col bannerBackground">
+            <div className="flex flex-col bannerBackground overflow-x-hidden">
 
                 {/* row 1 = navbar */}
                 <div>
@@ -45,7 +45,7 @@ export function Recipe() {
                 </div>
 
                 {/* row 2 = contenu (bannière + recettes) */}
-                <div className="flex flex-col">
+                <div className="flex flex-col items-center">
 
                     {/* Bannière */}
                     <div className="overflow-hidden flex justify-center select-none">
@@ -53,7 +53,7 @@ export function Recipe() {
                     </div>
 
                     {/* Recettes */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-3 place-items-center bannerBackground p-3">
+                    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-y-5 place-items-center bannerBackground p-3">
                        
                         {recipeInfo.map((boisson, i) => {
                             return (

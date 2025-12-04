@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import { createPortal } from "react-dom";
 import { useOutletContext } from "react-router-dom";
 
 export default function ModaleRecipe({ i, className = '', style = {}, drinkColor, Name, onClose, parentOpen }) {
@@ -42,33 +43,33 @@ export default function ModaleRecipe({ i, className = '', style = {}, drinkColor
                 </button>
             )}
 
-            {isOpen && (
+            {isOpen && createPortal(
                 <div id={modalId} className="overflow-y-auto overflow-x-hidden fixed z-50 w-full h-full inset-0 h-[calc(100%-1rem)] flex justify-center items-center bg-black/50">
                     <div className="relative p-4 w-full max-w-2xl max-h-full">
-                        <div 
+                        <div
                             className="relative bg-stone-200 rounded-lg shadow-sm border-4"
                             style={{ borderColor: drinkColor }}
                         >
 
                             {/* HEADER */}
                             <div className="flex items-center justify-between pl-4 pr-4 pt-4">
-                                
+
                                 <p
                                     className="text-2xl roboto-bold uppercase text-shadow-sm m-0 md:text-5xl"
                                     style={{ color: drinkColor }}
                                 >
-                                {Name}
+                                    {Name}
                                 </p>
 
-                                <button 
-                                    onClick={handleClose} 
-                                    type="button" 
+                                <button
+                                    onClick={handleClose}
+                                    type="button"
                                     className="
                                         text-stone-900 hover:text-red-500
-                                        w-8 h-8 ms-auto inline-flex justify-center items-center  
-                                        hover:border hover:border-red-500 hover:scale-140 
+                                        w-8 h-8 ms-auto inline-flex justify-center items-center
+                                        hover:border hover:border-red-500 hover:scale-140
                                         transition-transform
-                                    " 
+                                    "
                                     data-modal-hide={modalId}
                                 >
 
@@ -99,7 +100,7 @@ export default function ModaleRecipe({ i, className = '', style = {}, drinkColor
                                             .replace(/&nbsp;/g, ' ')
                                         }
                                         </p>
-                                        
+
                                     </div>
 
                                     {/* ETAPES + CARROUSEL */}
@@ -131,14 +132,15 @@ export default function ModaleRecipe({ i, className = '', style = {}, drinkColor
                                                 SUIVANT
                                             </button>
                                         </div>
-                 
+
                                     </div>
 
                                 </div>
                             )}
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
         </>
     );
