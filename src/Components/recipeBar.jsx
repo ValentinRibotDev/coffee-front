@@ -4,8 +4,11 @@ import ModaleRecipe from "./ModaleRecipe.jsx"
 import { IoTimeOutline } from "react-icons/io5";
 import { RiMoneyEuroCircleLine } from "react-icons/ri";
 import { FaRegStar } from "react-icons/fa6";
+import { useState } from "react";
 
 export function RecipeBar ({ index, Name, Time, Note, Price, Image, HoverColor }) {
+
+    const [isFavorite, setIsFavorite] = useState(false);
 
     return(
         <>
@@ -15,7 +18,29 @@ export function RecipeBar ({ index, Name, Time, Note, Price, Image, HoverColor }
                     className="relative border-t border-l border-r border-white rounded-t w-full h-[300px] overflow-hidden flex justify-center items-end"
                     style={{ backgroundImage: `url(${Image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                 >
-
+                    <button
+                        className="
+                            h-[50px]
+                            absolute 
+                            top-2 right-2  
+                            flex justify-center items-center"
+                        onClick={() => setIsFavorite(!isFavorite)}
+                    >
+                        {!isFavorite ? (
+                            <img
+                                src="/Products/favIconEmpty.png"
+                                alt="favEmpty"
+                                className="h-full w-auto object-contain buttonFav invert"
+                            />
+                        ) : (
+                            <img
+                                src="/Products/favIconFull.png"
+                                alt="favFull"
+                                className="h-full w-auto object-contain buttonFav"
+                            />
+                        )}
+                    </button>
+                    
                     <div className="
                         w-3/5 h-[30px]
                         flex justify-center items-center 

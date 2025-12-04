@@ -4,14 +4,13 @@ import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
 
 //Component
-import Flag from "../Components/Flag";
 import { Navigation} from "../Components/NavBar"
 import { BannerProduct } from "../Components/BannerProduct"
 import { Footer } from "../Components/Footer";
 import { Carousel } from "../Components/Carousel";
-import { LiaSearchSolid } from "react-icons/lia";
 import { CardProduct } from "../Components/CardProduct";
 import { PopUp } from "../Components/PopUp";
+import { FilterProduct } from "../Components/FilterProduct";
 
 export default function Products() {
 
@@ -124,44 +123,32 @@ export default function Products() {
     /**
      * USE STATE
      */
-    const [rangeValue, setRangeValue] = useState(100)
-    const [selectValue, setSelectValue] = useState('')
-    const [inputValue, setInputValue] = useState("")
-    const [searchQuery, setSearchQuery] = useState("")
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(100);
+    const [inputValue, setInputValue] = useState("");
     const categories = Array.from(new Set(products.map(p => p.categorie)));
 
     /**
      * FILTER
      */
-    //InputValue change onClick or press Enter
-    const handleSearch = () => {
-            setSearchQuery(inputValue)
-        }
-
     const handleAddToCart = (productId, qty) => {
         addToCart(productId, qty);
     };
 
-    //Check all value with data
+    // Filtrage en temps réel
     const filteredProduits = products.filter((produit) => {
         const price = parseFloat(produit.price) || 0;
 
-        // Initialize -> load all
-        if (searchQuery === "" && selectValue === "" && rangeValue >= 100) {
-            return true;
-        }
+        // Filtre par prix
+        const isPriceOk = price >= minPrice && price <= maxPrice;
 
-        // Price
-        const isPriceOk = price >= 0 && price <= rangeValue;
-
-        // Input
+        // Filtre par recherche (temps réel)
         const textToSearch = (produit.name + " " + produit.description).toLowerCase();
-        const isTextOk =
-            searchQuery === "" || textToSearch.includes(searchQuery.toLowerCase());
+        const isTextOk = inputValue === "" || textToSearch.includes(inputValue.toLowerCase());
 
-        // Select
-        const isCategoryOk =
-            selectValue === "" || produit.categorie === selectValue;
+        // Filtre par catégorie (multi-sélection)
+        const isCategoryOk = selectedCategories.length === 0 || selectedCategories.includes(produit.categorie);
 
         return isPriceOk && isTextOk && isCategoryOk;
     });
@@ -185,109 +172,40 @@ export default function Products() {
                         <Carousel />
                     </div>
 
-                    <div className="w-full max-w-[1440px] flex flex-col md:flex-row mb-3">
+                    
 
-                        <div className="w-[90%] ml-4 md:w-1/2 flex flex-col items-center sm:flex-row p-1 md:h-[50px] md:ml-5 rounded-lg  gap-6">
+                    {/* LAYOUT FILTRES + PRODUITS */}
+                    <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center md:items-start gap-4">
 
-                            <select
-                                defaultValue=""
-                                className="w-full p-2 sm:w-1/2 rounded-lg border border-gray-300 bg-white text-gray-700"
-                                value={selectValue}
-                                onChange={(e) => setSelectValue(e.target.value)}
-                            >
-                                <option value="">Filtre par catégorie</option>
-                                {categories.map((categorie, i) => (
-                                    <option key={i} value={categorie}>
-                                        {categorie}
-                                    </option>
-                                ))}
-                            </select>
+                        {/* FILTRES À GAUCHE */}
+                        <FilterProduct
+                            categories={categories}
+                            selectedCategories={selectedCategories}
+                            setSelectedCategories={setSelectedCategories}
+                            minPrice={minPrice}
+                            setMinPrice={setMinPrice}
+                            maxPrice={maxPrice}
+                            setMaxPrice={setMaxPrice}
+                            inputValue={inputValue}
+                            setInputValue={setInputValue}
+                        />
 
-
-                            <div className="flex flex-col w-[90%] sm:w-1/2">
-                                <label className="text-sm font-medium text-white">
-                                    Prix maximum
-                                </label>
-                                <div className="relative w-full">
-
-                                    <input
-                                        type="range"
-                                        min={0}
-                                        max={100}
-                                        step={0.01}
-                                        value={rangeValue}
-                                        onChange={(e) => setRangeValue(e.target.value)}
-                                        className="w-full accent-white cursor-pointer"
-                                    />
-
-                                    <div
-                                        className="absolute -top-10 transform -translate-x-1/2 bg-white text-black text-xs font-semibold px-2 py-1 rounded"
-                                        style={{
-                                            left: `${rangeValue}%`,
-                                        }}
-                                    >
-                                        {rangeValue}
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="md:w-1/2 p-4 h-[50px] rounded-lg flex items-center">
-
-                            <div className="relative w-full">
-
-                                <button
-                                    type="button"
-                                    className="
-                                        absolute right-3 top-1/2 -translate-y-1/2
-                                        flex justify-center items-center
-                                        searchButton"
-                                    onClick={handleSearch}
-                                >
-                                    <LiaSearchSolid className="h-5 w-5"/>
-                                </button>
-
-                                <input
-                                    type="text"
-                                    placeholder="Rechercher..."
-                                    className="
-                                        w-full pl-10 p-2
-                                        rounded-lg border border-gray-300
-                                        bg-white
-                                        text-gray-700 placeholder-gray-400
-                                        focus:outline-none"
-                                    value={inputValue}
-                                    onChange={(e) => setInputValue(e.target.value)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            handleSearch();
-                                        }
-                                    }}
+                        {/* PRODUITS À DROITE */}
+                        <div className="flex-1 flex flex-col md:flex-row md:flex-wrap lg:flex-col gap-4 justify-center">
+                            {filteredProduits.map((produit, index) => (
+                                <CardProduct
+                                    key={index}
+                                    image={produit.image}
+                                    name={produit.name}
+                                    price={produit.price}
+                                    description={produit.description.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ')}
+                                    origin={produit.origin}
+                                    intensity={produit.intensity}
+                                    AddToCart={(qty) => handleAddToCart(produit.id, qty)}
+                                    showError={showErrorPopup}
                                 />
-                            </div>
+                            ))}
                         </div>
-
-                    </div>
-
-                    {/* CARD CONTAINER */}
-                    <div className="w-full max-w-[1440px] flex flex-col justify-center ">
-
-                        {/* CARD */}
-                        {filteredProduits.map((produit, index) => (
-                           <CardProduct
-                                key={index}
-                                image={produit.image}
-                                name={produit.name}
-                                price={produit.price}
-                                description={produit.description.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ')}
-                                origin={produit.origin}
-                                intensity={produit.intensity}
-                                AddToCart={(qty) => handleAddToCart(produit.id, qty)}
-                                showError={showErrorPopup}
-                            />
-
-                        ))}
 
                     </div>
                 </div>
