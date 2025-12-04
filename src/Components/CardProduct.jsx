@@ -186,7 +186,7 @@ export function CardProduct({ image, name, price, description, origin, intensity
                     {/* Description */}
                     <div className="mb-2">
                         <p className="roboto-regular text-xl m-0 mb-1">Description :</p>
-                        <p className="roboto-regular text-sm m-0" title={description}>
+                        <p className="roboto-regular text-base m-0" title={description}>
                             {truncateText(description, descriptionLengthLimit)}
                         </p>
                     </div>
@@ -235,7 +235,7 @@ export function CardProduct({ image, name, price, description, origin, intensity
                     {/* Bouton Valider */}
                     <button
                         onClick={handleValidate}
-                        className="flex justify-center items-center rounded mt-2 gap-2 px-4 h-[40px] bg-green-500 roboto-bold text-white hover:bg-green-600 transition-all rounded-lg uppercase"
+                        className="flex justify-center items-center rounded mt-2 gap-2 px-4 h-[40px] cardBackground roboto-bold text-stone-600 hover:scale-102 active:scale-97 transition-all !uppercase"
                     >
                         <FaCheck size={16} />
                         Ajouter au panier
