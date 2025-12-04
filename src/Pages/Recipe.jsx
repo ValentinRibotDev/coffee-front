@@ -1,6 +1,6 @@
 //Components
 import { Navigation } from "../Components/NavBar"
-import { RecipeBar } from "../Components/RecipeBar"
+import { RecipeBar } from "../Components/recipeBar"
 import { BannerRecipe } from "../Components/BannerRecipe"
 import { Footer } from "../Components/Footer";
 import { useOutletContext, useLocation } from "react-router-dom";
@@ -28,9 +28,10 @@ export function Recipe() {
     const recipeInfo = boissons.map((boisson,i) => ({
         key: i,
         name: boisson.name,
-        temps: boisson.temps + "min",
+        temps: boisson.temps + " min",
         prix: boisson.prix + "€",
-        note: boisson.note + '/10',
+        note: boisson.note,
+        image: boisson.image,
         couleur: boisson.couleur
     }));
 
@@ -52,19 +53,18 @@ export function Recipe() {
                     </div>
 
                     {/* Recettes */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 bannerBackground p-3 auto-rows-[70px]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-3 place-items-center bannerBackground p-3">
                        
                         {recipeInfo.map((boisson, i) => {
                             return (
                                 <RecipeBar 
                                     key={i}
                                     index={i}
-                                    className="recipeButton"
-                                    TextColor="text-white" 
                                     Name={boisson.name} 
                                     Time={boisson.temps} 
                                     Price={boisson.prix} 
                                     Note={boisson.note}
+                                    Image={boisson.image}
                                     HoverColor={boisson.couleur}
                                 />
                             );

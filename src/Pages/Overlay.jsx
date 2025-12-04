@@ -24,7 +24,6 @@ export function Overlay({ active, setActive, max }) {
 
     const [loading, setLoading] = useState(true)
     const [progress, setProgress] = useState(0)
-    const [fadeOut, setFadeOut] = useState(false);
     
     useEffect(() => {
         const interval = setInterval(() => {
