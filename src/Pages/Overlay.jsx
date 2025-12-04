@@ -1,7 +1,7 @@
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { Navigation } from "../Components/NavBar"
 import { Footer } from "../Components/Footer";
-import { useState, useEffect } from "react";
+import { useProgress } from "@react-three/drei";
 
 //Icons
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
@@ -22,29 +22,10 @@ export function Overlay({ active, setActive, max }) {
         description: boisson.description,
     })).filter(Boolean);
 
-    const [loading, setLoading] = useState(true)
-    const [progress, setProgress] = useState(0)
-    
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setProgress((p) => {
-                if (p >= 100) {
-                    clearInterval(interval)
-                    setLoading(false)  
-                    return 100
-                }
-                return p + 1
-            })
-        }, 40)
+    // Utilisation du vrai chargement des assets 3D
+    const { progress } = useProgress()
 
-        return () => {
-            clearInterval(interval)
-        }
-
-    }, [])
-
-
-    if (loading) {
+    if (progress < 100) {
         return (
             <div className="absolute w-full h-screen bg-black text-white flex flex-col justify-center items-center">
                 
@@ -59,7 +40,7 @@ export function Overlay({ active, setActive, max }) {
                     ></div>
                 </div>
 
-                <p className="mt-3 text-xl roboto-bold">{progress}%</p>
+                <p className="mt-3 text-xl roboto-bold">{Math.round(progress)}%</p>
             </div>
         )
     } else {

@@ -1,15 +1,11 @@
 //R3F+Drei
 import { OrbitControls, Environment, Center, AccumulativeShadows, RandomizedLight, MeshReflectorMaterial, Lightformer} from "@react-three/drei"
-import { useState, startTransition } from "react"
 
 //Components
 import { CoffeeCup } from "../Components/CoffeeCup"
 
-
 //Main
 export function Scene3D ({ active }) {
-
-    const [preset, setPreset] = useState('sunset')
 
     //Array
     const envLight = [
@@ -38,7 +34,7 @@ export function Scene3D ({ active }) {
             />
 
             {/* Ligthning */}
-            <Environment preset={preset}>
+            <Environment preset="sunset">
 
                 {/* Hot Light */}
                 <Lightformer

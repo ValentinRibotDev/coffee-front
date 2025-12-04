@@ -72,4 +72,13 @@ export function CoffeeCup({active=0, ...props}) {
     )
 }
 
+// Preload du modèle 3D
 useGLTF.preload('/Models/coffee_cup.glb')
+
+// Preload de toutes les textures pour un chargement initial plus rapide
+const textureVariants = ['Latte', 'Cerise', 'Matcha', 'Rose', 'Classic', 'Caramel', 'Glace']
+textureVariants.forEach(variant => {
+    useTexture.preload(`/Textures/${variant}/CupBody${variant}Color.jpg`)
+    useTexture.preload(`/Textures/${variant}/CupBody${variant}Metalness.jpg`)
+    useTexture.preload(`/Textures/${variant}/CupBody${variant}Roughness.jpg`)
+})

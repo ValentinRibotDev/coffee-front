@@ -123,7 +123,6 @@ export default function Products() {
     /**
      * USE STATE
      */
-    const [selectedProduct, setSelectedProduct] = useState(null);
     const [openQtyId, setOpenQtyId] = useState(null);
     const [rangeValue, setRangeValue] = useState(100)
     const [selectValue, setSelectValue] = useState('')
