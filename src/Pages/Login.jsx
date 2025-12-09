@@ -38,7 +38,7 @@ export default function Login() {
         // do NOT store token in localStorage if you prefer cookie-only flow,
         // but keep it in memory via auth context for the current session
         setToken(refreshData.token);
-        navigate("/");
+        navigate("/profil");
       } else {
         console.error("Refresh failed", refreshData);
         alert("Impossible d'obtenir le token d'accès.");
@@ -122,7 +122,7 @@ export default function Login() {
           </Link>
         </p>
         <p className="mt-2 text-sm">
-          <a href="http://localhost:8080/reset-password" className="text-blue-600 hover:underline">
+          <a href="http://localhost:8080/reset-password" className="text-blue-600 hover:underline w-full flex justify-center items-center">
                 Mot de passe oublié ?
           </a>
         </p>
